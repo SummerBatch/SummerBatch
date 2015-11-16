@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM01047" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0" >
+	<RecordFormat cobolRecordName="TEST" distinguishFieldValue="0">
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="ID" Occurs="1" Picture="3(9)" Signed="false" Size="9" Type="3" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="NAME" Occurs="1" Picture="X(12)" Signed="false" Size="12" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="VALUE" Occurs="1" Picture="9(6)" Signed="true" Size="6" Type="9" Value=""/>
+	</RecordFormat>
+</FileFormat>

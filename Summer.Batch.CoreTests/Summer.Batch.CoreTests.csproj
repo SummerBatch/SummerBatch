@@ -1,0 +1,782 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B5C2E32-E38A-4747-80EC-345FB4C3B00F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Summer.Batch.CoreTests</RootNamespace>
+    <AssemblyName>Summer.Batch.CoreTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="NDbUnit.Core, Version=1.6.8.36615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDbUnit.Core.1.6.8.0\lib\Net35\NDbUnit.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NDbUnit.SqlClient, Version=1.6.8.36615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDbUnit.SqlClient.1.6.8.0\lib\Net35\NDbUnit.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Batch\Flat\AbstractFlatLaunchTests.cs" />
+    <Compile Include="Batch\Flat\Job2FlatLaunchRollbackTests.cs" />
+    <Compile Include="Batch\Flat\Job5ChainedFlatLaunchTests.cs" />
+    <Compile Include="Batch\Flat\Job4ChainedFlatLaunchTests.cs" />
+    <Compile Include="Batch\Flat\Job3ChainedFlatLaunchTests.cs" />
+    <Compile Include="Batch\Flat\Job2FlatLaunchTests.cs" />
+    <Compile Include="Batch\Flat\MyFlatFileProcessor2.cs" />
+    <Compile Include="Batch\Flat\MyFaultyFlatFileProcessor3.cs" />
+    <Compile Include="Batch\Flat\Person2.cs" />
+    <Compile Include="Batch\Flat\PersonMapper2.cs" />
+    <Compile Include="Batch\Listeners\AbstractListenersLaunchTests.cs" />
+    <Compile Include="Batch\Listeners\CustomCodeListener.cs" />
+    <Compile Include="Batch\Listeners\Job9CustomCodeLaunchTests.cs" />
+    <Compile Include="Batch\Listeners\Job8SeparateListenerLaunchTests.cs" />
+    <Compile Include="Batch\Listeners\Job7ProcessorListenerLaunchTests.cs" />
+    <Compile Include="Batch\Listeners\OkTasklet.cs" />
+    <Compile Include="Batch\Listeners\KoTasklet.cs" />
+    <Compile Include="Batch\Listeners\Person.cs" />
+    <Compile Include="Batch\Listeners\PersonMapper.cs" />
+    <Compile Include="Batch\Listeners\UppercaseListener.cs" />
+    <Compile Include="Batch\Listeners\UppercaseProcessorListener.cs" />
+    <Compile Include="Batch\Listeners\UppercaseProcessor.cs" />
+    <Compile Include="Batch\Partitioner\AbstractPartitionerLaunchTests.cs" />
+    <Compile Include="Batch\Partitioner\Job10PartitionerLaunchTests.cs" />
+    <Compile Include="Batch\Partitioner\Person.cs" />
+    <Compile Include="Batch\Partitioner\PersonMapper.cs" />
+    <Compile Include="Batch\Partitioner\UppercaseProcessor.cs" />
+    <Compile Include="Batch\Split\AbstractSplitLaunchTests.cs" />
+    <Compile Include="Batch\Split\Job6SplitSortStep.cs" />
+    <Compile Include="Batch\Split\PersonMapper.cs" />
+    <Compile Include="Batch\Split\UppercaseProcessor.cs" />
+    <Compile Include="Batch\Split\Person.cs" />
+    <Compile Include="Batch\Tasklets\FileUtilsTaskletTest.cs" />
+    <Compile Include="Batch\Tasklets\Job11EmptyFileTaskletTests.cs" />
+    <Compile Include="Batch\Tasklets\SqlScriptTaskletTests.cs" />
+    <Compile Include="Batch\Tasklets\Job1TaskletTests.cs" />
+    <Compile Include="Batch\Tasklets\ReportTaskletTest.cs" />
+    <Compile Include="Common\Collections\OrderedDictionaryTest.cs" />
+    <Compile Include="Common\Collections\PriorityQueueTest.cs" />
+    <Compile Include="Common\IO\AntPathResolverTest.cs" />
+    <Compile Include="Common\IO\FileSystemResourceTest.cs" />
+    <Compile Include="Common\IO\ResourceLoaderTest.cs" />
+    <Compile Include="Core\BatchStatusTests.cs" />
+    <Compile Include="Core\Converter\DefaultJobParametersConverterTests.cs" />
+    <Compile Include="Core\DefaultJobKeyGeneratorTests.cs" />
+    <Compile Include="Core\ExitStatusTests.cs" />
+    <Compile Include="Core\JobParametersTests.cs" />
+    <Compile Include="Core\Job\Flow\FlowExecutionStatusTests.cs" />
+    <Compile Include="Batch\Flat\PersonMapper.cs" />
+    <Compile Include="Batch\Flat\Person.cs" />
+    <Compile Include="Batch\Flat\MyFlatFileProcessor.cs" />
+    <Compile Include="Core\Launch\Support\SimpleJobLauncherTests.cs" />
+    <Compile Include="Core\Launch\Support\UnityTests.cs" />
+    <Compile Include="Core\Listener\OrderedCompositeTests.cs" />
+    <Compile Include="Core\Repository\Dao\DaoTestHelper.cs" />
+    <Compile Include="Core\Repository\Dao\DbExecutionContextDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\DbJobExecutionDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\DbJobInstanceDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\DbStepExecutionDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\MapExecutionContextDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\MapJobExecutionDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\MapJobInstanceDaoTest.cs" />
+    <Compile Include="Core\Repository\Dao\MapStepExecutionDaoTest.cs" />
+    <Compile Include="Data\DataRecordWrapperTest.cs" />
+    <Compile Include="DateParserTests.cs" />
+    <Compile Include="Delegating\CommandItem.cs" />
+    <Compile Include="Delegating\CommandItemMapper.cs" />
+    <Compile Include="Delegating\DelegatingGroupReaderTests.cs" />
+    <Compile Include="Delegating\ReportExecutionListener.cs" />
+    <Compile Include="Delegating\ReportWriteReportAggregator.cs" />
+    <Compile Include="Delegating\UserTotal.cs" />
+    <Compile Include="Delegating\VolatileWriter.cs" />
+    <Compile Include="Ebcdic\EbcdicTests.cs" />
+    <Compile Include="Ebcdic\Encode\EbcdicDecoderTests.cs" />
+    <Compile Include="Ebcdic\Encode\EbcdicEncoderTests.cs" />
+    <Compile Include="Ebcdic\Test\Address.cs" />
+    <Compile Include="Ebcdic\Test\AddressMapper.cs" />
+    <Compile Include="Ebcdic\Test\CompositeItem.cs" />
+    <Compile Include="Ebcdic\Test\CompositeItemEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\Test\Customer.cs" />
+    <Compile Include="Ebcdic\Test\CustomerAddress.cs" />
+    <Compile Include="Ebcdic\Test\CustomerAddressEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\Test\CustomerEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\Test\Employee.cs" />
+    <Compile Include="Ebcdic\Test\EmployeeMapper.cs" />
+    <Compile Include="Ebcdic\Test\Item.cs" />
+    <Compile Include="Ebcdic\Test\Person.cs" />
+    <Compile Include="Ebcdic\Test\PersonAggregator.cs" />
+    <Compile Include="Ebcdic\Test\PersonMapper.cs" />
+    <Compile Include="Ebcdic\Test\PhoneItem.cs" />
+    <Compile Include="Ebcdic\Test\PhoneItemEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\Test\Simple.cs" />
+    <Compile Include="Ebcdic\Test\SimpleEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\Test\SingleItem.cs" />
+    <Compile Include="Ebcdic\Test\SingleItemEbcdicMapper.cs" />
+    <Compile Include="EmailSupport\EmailTaskletTests.cs" />
+    <Compile Include="FtpSupport\FtpGetTaskletTests.cs" />
+    <Compile Include="FtpSupport\FtpPutTaskletTests.cs" />
+    <Compile Include="Data\ParsedQueryTest.cs" />
+    <Compile Include="Infrastructure\Item\File\EbcdicFileTest.cs" />
+    <Compile Include="Infrastructure\Item\File\FlatFileTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\DefaultFieldSetTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\DelimitedLineAggregatorTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\DelimitedLineTokenizerTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\FixedLengthTokenizerTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\FormatterLineAggregatorTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\PassThroughFieldExtractorTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\PassThroughLineAggregatorTest.cs" />
+    <Compile Include="Infrastructure\Item\File\Transform\PropertyFieldExtractorTest.cs" />
+    <Compile Include="Infrastructure\Support\PropertiesConverterTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Proxy\ProxyFactoryTest.cs" />
+    <Compile Include="Sort\LexerTest.cs" />
+    <Compile Include="Sort\SorterTest.cs" />
+    <Compile Include="StepScope\StepScopeLifetimeManagerTest.cs" />
+    <Compile Include="StepScope\StepScopeTest.cs" />
+    <Compile Include="Template\TemplateLineAggregatorTest.cs" />
+    <Compile Include="TestDBDataSet.cs">
+      <DependentUpon>TestDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TestDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TestHelper\TestHelper.cs" />
+    <Compile Include="Unity\SingletonExtensionTest.cs" />
+    <Compile Include="Util\BigDecimalUtilsTests.cs" />
+    <Compile Include="Util\BigIntegerTests.cs" />
+    <Compile Include="Util\CopyUtilsTests.cs" />
+    <Compile Include="Util\DateUtilsTest.cs" />
+    <Compile Include="Util\DoubleUtilsTests.cs" />
+    <Compile Include="Util\IntegerUtilsTests.cs" />
+    <Compile Include="Util\LongUtilsTest.cs" />
+    <Compile Include="Util\MapUtilsTest.cs" />
+    <Compile Include="Util\ObjectUtilsExtraTests.cs" />
+    <Compile Include="Util\ObjectUtilsTests.cs" />
+    <Compile Include="Util\ReverseUtilsTests.cs" />
+    <Compile Include="Util\SerializationUtilsTests.cs" />
+    <Compile Include="Util\StringConvertTest.cs" />
+    <Compile Include="Util\StringUtilsTest.cs" />
+    <Compile Include="Util\Test\Address.cs" />
+    <Compile Include="Util\Test\CompleteAddress.cs" />
+    <Compile Include="Util\Test\Customer.cs" />
+    <Compile Include="Util\Test\Employee.cs" />
+    <Compile Include="Util\Test\PhoneItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Summer.Batch.Common\Summer.Batch.Common.csproj">
+      <Project>{9b3f8e1b-a079-4a2c-8fac-51206d9edf7c}</Project>
+      <Name>Summer.Batch.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Extra\Summer.Batch.Extra.csproj">
+      <Project>{9CBC8240-AB82-4F4C-BC48-92AF3BE38ABE}</Project>
+      <Name>Summer.Batch.Extra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Core\Summer.Batch.Core.csproj">
+      <Project>{FAE54104-2AEC-40D7-ABCB-92A52A3164B4}</Project>
+      <Name>Summer.Batch.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Infrastructure\Summer.Batch.Infrastructure.csproj">
+      <Project>{0c992e15-f8d2-442a-bb7d-a3787a46a1d6}</Project>
+      <Name>Summer.Batch.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Data\Summer.Batch.Data.csproj">
+      <Project>{de5ca83b-d95b-47c7-859f-6eec50787f25}</Project>
+      <Name>Summer.Batch.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BA_REPORTS_log.ldf">
+      <DependentUpon>BA_REPORTS.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NewTestDB_log.ldf">
+      <DependentUpon>NewTestDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDB_log.ldf">
+      <DependentUpon>TestDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Ebcdic\Resources\copybooks\Address.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\customer.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\dependingOn.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\Employee.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\Employee2.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\fieldsGroup.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\fieldsGroupDependingOn.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\item.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\MultipleRecords.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\Person.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\rdwTest.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\simple.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\copybooks\Test.fileformat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\inputs\rdwTest.ebc.bak">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ebcdic\Resources\inputs\rdwTest.txt.bak">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.config" />
+    <Content Include="BA_REPORTS.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ba_reports_all_in_one.sql" />
+    <Content Include="Ebcdic\Resources\inputs\Address.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\customer.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\dependingOn.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\Employee.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\Employee2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\fieldsGroup.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\fieldsGroupDependingOn.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\item.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\MultipleRecords.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\Person.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\rdwTest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\inputs\simple.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ebcdic\Resources\outputs\simple.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JobSqlScript.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job10.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job11.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JobGroupReaderReport.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JobGroupReader.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job9.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job8.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job7.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job2Flow.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job3FlowStart.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job3FlowEnd.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job3Flow.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job4FlowStart.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job4FlowEnd.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job4Flow.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job6.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job5FlowStart.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job5FlowEnd.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job5Flow.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job5.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job4.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job3.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job2.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NewTestDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job11EmptyFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job11NotEmptyFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job10In1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job10In2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job9In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job8In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job7In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\template.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Email\sampleMailBody.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\report0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\report2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\subdir\report1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\subdir\report3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\subdir\subsubdir\report7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FileUtils\subdir\subsubdir\report8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FlatFile\output\Test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\commands.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Summer.Batch.CoreTests.licenseheader" />
+    <None Include="TestDBDataSet.xsc">
+      <DependentUpon>TestDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TestDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestDBDataSet.xss">
+      <DependentUpon>TestDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\Batch\Job2In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job3In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job3InStep2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job4In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job4InStep2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job5In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job5InStep2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Batch\Job6In.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\ExecutionContextTestData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\StepExecutionTestData2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\StepExecutionTestData1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData5.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData6.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData4.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData3.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData2.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobExecutionTestData1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobInstanceTestData3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobInstanceTestData2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DbDao\JobInstanceTestData1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FlatFile\Test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FlatFile\TestTransactional.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort11.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort13.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort16.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort17.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort11.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort13.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort16.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort17.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort1a.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort1b.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Input\sort9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\SqlScript\myscript.Designer.sql" />
+    <Content Include="TestData\SqlScript\myscript.sql">
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Template\Template.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\Report\EmployeesReport.rdlc">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

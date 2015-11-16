@@ -1,0 +1,11 @@
+Summer Batch
+
+Release 1.0.0 - November 2015.
+==============================
+
+This is the first official release of Summer Batch.
+
+To understand what is covered by this release, we suggest you to browse :
+- The reference guide : http://www.summerbatch.com/refguide/referenceguide.xhtml;
+- The API documentation :http://www.summerbatch.com/api/index.html;
+- The GitHub repository : https://www.github.com/SummerBatch

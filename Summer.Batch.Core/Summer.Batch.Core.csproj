@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FAE54104-2AEC-40D7-ABCB-92A52A3164B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Summer.Batch</RootNamespace>
+    <AssemblyName>Summer.Batch.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Summer.Batch.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\BatchStatus.cs" />
+    <Compile Include="Core\Configuration\DuplicateJobException.cs" />
+    <Compile Include="Core\Configuration\IJobFactory.cs" />
+    <Compile Include="Core\Configuration\IJobLocator.cs" />
+    <Compile Include="Core\Configuration\IJobRegistry.cs" />
+    <Compile Include="Core\Configuration\IListableJobLocator.cs" />
+    <Compile Include="Core\Configuration\IStepRegistry.cs" />
+    <Compile Include="Core\Configuration\Support\JobFactoryRegistrationListener.cs" />
+    <Compile Include="Core\Configuration\Support\MapStepRegistry.cs" />
+    <Compile Include="Core\Configuration\Support\MapJobRegistry.cs" />
+    <Compile Include="Core\Configuration\Support\ReferenceJobFactory.cs" />
+    <Compile Include="Core\Explore\IJobExplorer.cs" />
+    <Compile Include="Core\Explore\Support\AbstractJobExplorerFactory.cs" />
+    <Compile Include="Core\Explore\Support\DbJobExplorerFactory.cs" />
+    <Compile Include="Core\Explore\Support\MapJobExplorerFactory.cs" />
+    <Compile Include="Core\Explore\Support\SimpleJobExplorer.cs" />
+    <Compile Include="Core\Job\Builder\FlowBuilder.cs" />
+    <Compile Include="Core\Job\Builder\FlowJobBuilder.cs" />
+    <Compile Include="Core\Job\Builder\JobBuilder.cs" />
+    <Compile Include="Core\Job\Builder\FlowBuilderException.cs" />
+    <Compile Include="Core\Job\Builder\JobBuilderHelper.cs" />
+    <Compile Include="Core\Job\Builder\JobFlowBuilder.cs" />
+    <Compile Include="Core\Job\Builder\SimpleJobBuilder.cs" />
+    <Compile Include="Core\Job\Builder\JobBuilderException.cs" />
+    <Compile Include="Core\Job\Flow\FlowExecution.cs" />
+    <Compile Include="Core\Job\Flow\FlowExecutionException.cs" />
+    <Compile Include="Core\Job\Flow\FlowExecutionStatus.cs" />
+    <Compile Include="Core\Job\Flow\FlowStep.cs" />
+    <Compile Include="Core\Job\Flow\IFlow.cs" />
+    <Compile Include="Core\Job\Flow\IFlowExecutor.cs" />
+    <Compile Include="Core\Job\Flow\IFlowHolder.cs" />
+    <Compile Include="Core\Job\Flow\IJobExecutionDecider.cs" />
+    <Compile Include="Core\Job\Flow\IState.cs" />
+    <Compile Include="Core\Job\Flow\JobFlowExecutor.cs" />
+    <Compile Include="Core\Job\Flow\Support\DefaultStateTransitionComparer.cs" />
+    <Compile Include="Core\Job\Flow\FlowJob.cs" />
+    <Compile Include="Core\Job\Flow\Support\SimpleFlow.cs" />
+    <Compile Include="Core\Job\Flow\Support\StateTransition.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\AbstractState.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\EndState.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\FlowState.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\IFlowExecutionAggregator.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\MaxValueFlowExecutionAggregator.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\SplitState.cs" />
+    <Compile Include="Core\Job\Flow\Support\State\StepState.cs" />
+    <Compile Include="Core\JobStarter.cs" />
+    <Compile Include="Core\Partition\Support\DefaultStepExecutionAggregator.cs" />
+    <Compile Include="Core\Scope\StepScopeProxyObject.cs" />
+    <Compile Include="Core\Scope\StepScopeSynchronization.cs" />
+    <Compile Include="Core\Step\Builder\AbstractStepBuilder.cs" />
+    <Compile Include="Core\Step\Builder\AbstractTaskletStepBuilder.cs" />
+    <Compile Include="Core\Step\Builder\PartitionStepBuilder.cs" />
+    <Compile Include="Core\Step\Builder\SimpleStepBuilder.cs" />
+    <Compile Include="Core\Step\Builder\TaskletStepBuilder.cs" />
+    <Compile Include="Core\Unity\Injection\JobContextDependencyResolverPolicy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Unity\Injection\JobContextValue.cs" />
+    <Compile Include="Core\Unity\Injection\LateBindingConfigurationParser.cs" />
+    <Compile Include="Core\Unity\Injection\LateBindingInjectionValue.cs" />
+    <Compile Include="Core\Unity\Injection\LiteralValueDependencyResolverPolicy.cs" />
+    <Compile Include="Core\Unity\Injection\SettingsDependencyResolverPolicy.cs" />
+    <Compile Include="Core\Unity\Injection\StringConcatenationResolverPolicy.cs" />
+    <Compile Include="Core\Unity\Injection\ResourceDependencyResolverPolicy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Unity\Injection\ResourceInjectionValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Unity\Injection\StepContextDependencyResolverPolicy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Unity\Injection\StepContextValue.cs" />
+    <Compile Include="Core\Unity\Registration.cs" />
+    <Compile Include="Core\Unity\RegistrationException.cs" />
+    <Compile Include="Core\Unity\Singleton\SingletonStrategy.cs" />
+    <Compile Include="Core\Unity\Singleton\SingletonExtension.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeDependency.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeResolverPolicy.cs" />
+    <Compile Include="Core\Unity\UnityLoader.cs" />
+    <Compile Include="Core\Launch\BatchRuntime.cs" />
+    <Compile Include="Core\Unity\JobRegistrationHandler.cs" />
+    <Compile Include="Core\Unity\PostprocessingUnityExtension.cs" />
+    <Compile Include="Core\Launch\Support\SimpleJobOperator.cs" />
+    <Compile Include="Core\Listener\CompositeJobExecutionListener.cs" />
+    <Compile Include="Core\Converter\DefaultJobParametersConverter.cs" />
+    <Compile Include="Core\Converter\IJobParametersConverter.cs" />
+    <Compile Include="Core\DefaultJobKeyGenerator.cs" />
+    <Compile Include="Core\Entity.cs" />
+    <Compile Include="Core\ExitStatus.cs" />
+    <Compile Include="Core\IJob.cs" />
+    <Compile Include="Core\JobExecution.cs" />
+    <Compile Include="Core\JobExecutionException.cs" />
+    <Compile Include="Core\IJobExecutionListener.cs" />
+    <Compile Include="Core\JobInstance.cs" />
+    <Compile Include="Core\JobInterruptedException.cs" />
+    <Compile Include="Core\IJobKeyGenerator.cs" />
+    <Compile Include="Core\JobParameter.cs" />
+    <Compile Include="Core\JobParameters.cs" />
+    <Compile Include="Core\JobParametersBuilder.cs" />
+    <Compile Include="Core\IJobParametersIncrementer.cs" />
+    <Compile Include="Core\JobParametersInvalidException.cs" />
+    <Compile Include="Core\IJobParametersValidator.cs" />
+    <Compile Include="Core\Job\AbstractJob.cs" />
+    <Compile Include="Core\Job\CompositeJobParametersValidator.cs" />
+    <Compile Include="Core\Job\DefaultJobParametersValidator.cs" />
+    <Compile Include="Core\Job\IStepHandler.cs" />
+    <Compile Include="Core\Job\SimpleJob.cs" />
+    <Compile Include="Core\Job\SimpleStepHandler.cs" />
+    <Compile Include="Core\Launch\IJobLauncher.cs" />
+    <Compile Include="Core\Launch\IJobOperator.cs" />
+    <Compile Include="Core\Launch\JobExecutionNotFailedException.cs" />
+    <Compile Include="Core\Launch\JobExecutionNotRunningException.cs" />
+    <Compile Include="Core\Launch\JobExecutionNotStoppedException.cs" />
+    <Compile Include="Core\Launch\JobInstanceAlreadyExistsException.cs" />
+    <Compile Include="Core\Launch\JobParametersNotFoundException.cs" />
+    <Compile Include="Core\Launch\NoSuchJobException.cs" />
+    <Compile Include="Core\Launch\NoSuchJobExecutionException.cs" />
+    <Compile Include="Core\Launch\NoSuchJobInstanceException.cs" />
+    <Compile Include="Core\Launch\Support\ExitCodeMapperConstants.cs" />
+    <Compile Include="Core\Launch\Support\IExitCodeMapper.cs" />
+    <Compile Include="Core\Launch\Support\ISystemExiter.cs" />
+    <Compile Include="Core\Launch\Support\RunIdIncrementer.cs" />
+    <Compile Include="Core\Launch\Support\SimpleJobLauncher.cs" />
+    <Compile Include="Core\Launch\Support\SimpleVmExitCodeMapper.cs" />
+    <Compile Include="Core\Launch\Support\VmSystemExiter.cs" />
+    <Compile Include="Core\Listener\CompositeStepExecutionListener.cs" />
+    <Compile Include="Core\Listener\IListenerMetaData.cs" />
+    <Compile Include="Core\Listener\OrderedComposite.cs" />
+    <Compile Include="Core\Listener\StepExecutionListenerSupport.cs" />
+    <Compile Include="Core\Partition\IPartitionHandler.cs" />
+    <Compile Include="Core\Partition\IStepExecutionSplitter.cs" />
+    <Compile Include="Core\Partition\Support\AbstractPartitionHandler.cs" />
+    <Compile Include="Core\Partition\Support\IPartitioner.cs" />
+    <Compile Include="Core\Partition\Support\IPartitionNameProvider.cs" />
+    <Compile Include="Core\Partition\Support\IStepExecutionAggregator.cs" />
+    <Compile Include="Core\Partition\Support\MultiResourcePartitioner.cs" />
+    <Compile Include="Core\Partition\Support\PartitionStep.cs" />
+    <Compile Include="Core\Partition\Support\SimpleStepExecutionSplitter.cs" />
+    <Compile Include="Core\Partition\Support\TaskExecutorPartitionHandler.cs" />
+    <Compile Include="Core\Repository\Support\AbstractJobRepositoryFactory.cs" />
+    <Compile Include="Core\Repository\Dao\AbstractDbBatchMetadataDao.cs" />
+    <Compile Include="Core\Repository\Dao\DbExecutionContextDao.cs" />
+    <Compile Include="Core\Repository\Dao\DbJobExecutionDao.cs" />
+    <Compile Include="Core\Repository\Dao\DbJobInstanceDao.cs" />
+    <Compile Include="Core\Repository\Dao\DbStepExecutionDao.cs" />
+    <Compile Include="Core\Repository\Dao\MapExecutionContextDao.cs" />
+    <Compile Include="Core\Repository\Dao\MapJobExecutionDao.cs" />
+    <Compile Include="Core\Repository\Dao\MapJobInstanceDao.cs" />
+    <Compile Include="Core\Repository\Dao\MapStepExecutionDao.cs" />
+    <Compile Include="Core\Repository\Support\DbJobRepositoryFactory.cs" />
+    <Compile Include="Core\Repository\Support\MapJobRepositoryFactory.cs" />
+    <Compile Include="Core\Repository\Support\SimpleJobRepository.cs" />
+    <Compile Include="Core\Scope\Context\JobSynchronizationManager.cs" />
+    <Compile Include="Core\Scope\Context\StepContext.cs" />
+    <Compile Include="Core\Scope\Context\JobContext.cs" />
+    <Compile Include="Core\Scope\Context\StepContextRepeatCallback.cs" />
+    <Compile Include="Core\Scope\Context\StepSynchronizationManager.cs" />
+    <Compile Include="Core\Scope\Context\SynchronizationManagerSupport.cs" />
+    <Compile Include="Core\StartLimitExceededException.cs" />
+    <Compile Include="Core\IStep.cs" />
+    <Compile Include="Core\StepConstants.cs" />
+    <Compile Include="Core\StepContribution.cs" />
+    <Compile Include="Core\StepExecution.cs" />
+    <Compile Include="Core\IStepExecutionListener.cs" />
+    <Compile Include="Core\IStepListener.cs" />
+    <Compile Include="Core\StepListenerConstant.cs" />
+    <Compile Include="Core\Step\AbstractStep.cs" />
+    <Compile Include="Core\Step\FatalStepExecutionException.cs" />
+    <Compile Include="Core\Step\IStepHolder.cs" />
+    <Compile Include="Core\Step\IStepInterruptionPolicy.cs" />
+    <Compile Include="Core\Step\IStepLocator.cs" />
+    <Compile Include="Core\Step\Item\Chunk.cs" />
+    <Compile Include="Core\Step\Item\ChunkOrientedTasklet.cs" />
+    <Compile Include="Core\Step\Item\IChunkProcessor.cs" />
+    <Compile Include="Core\Step\Item\IChunkProvider.cs" />
+    <Compile Include="Core\Step\Item\SimpleChunkProcessor.cs" />
+    <Compile Include="Core\Step\Item\SimpleChunkProvider.cs" />
+    <Compile Include="Core\Step\Job\DefaultJobParametersExtractor.cs" />
+    <Compile Include="Core\Step\Job\IJobParametersExtractor.cs" />
+    <Compile Include="Core\Step\Job\JobStep.cs" />
+    <Compile Include="Core\Step\NoSuchStepException.cs" />
+    <Compile Include="Core\Step\Tasklet\IStoppableTasklet.cs" />
+    <Compile Include="Core\Step\Tasklet\ISystemProcessExitCodeMapper.cs" />
+    <Compile Include="Core\Step\Tasklet\ITasklet.cs" />
+    <Compile Include="Core\Step\Tasklet\SimpleSystemProcessExitCodeMapper.cs" />
+    <Compile Include="Core\Step\Tasklet\SystemCommandException.cs" />
+    <Compile Include="Core\Step\Tasklet\SystemCommandTasklet.cs" />
+    <Compile Include="Core\Step\Tasklet\TaskletStep.cs" />
+    <Compile Include="Core\Step\ThreadStepInterruptionPolicy.cs" />
+    <Compile Include="Core\UnexpectedJobExecutionException.cs" />
+    <Compile Include="Core\Unity\StepLoader.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeExtension.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeLifetimeManager.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeResolverOverride.cs" />
+    <Compile Include="Core\Unity\StepScope\StepScopeStrategy.cs" />
+    <Compile Include="Core\Unity\UnityExtensions.cs" />
+    <Compile Include="Core\Unity\Xml\XmlBatchlet.cs" />
+    <Compile Include="Core\Unity\Xml\XmlChunk.cs" />
+    <Compile Include="Core\Unity\Xml\XmlFail.cs" />
+    <Compile Include="Core\Unity\Xml\XmlEnd.cs" />
+    <Compile Include="Core\Unity\Xml\XmlFlow.cs" />
+    <Compile Include="Core\Unity\Xml\XmlItemProcessor.cs" />
+    <Compile Include="Core\Unity\Xml\XmlItemReader.cs" />
+    <Compile Include="Core\Unity\Xml\XmlItemWriter.cs" />
+    <Compile Include="Core\Unity\Xml\XmlJob.cs" />
+    <Compile Include="Core\Unity\Xml\XmlJobElement.cs" />
+    <Compile Include="Core\Unity\Xml\XmlJobParser.cs" />
+    <Compile Include="Core\Unity\Xml\XmlListener.cs" />
+    <Compile Include="Core\Unity\Xml\XmlListeners.cs" />
+    <Compile Include="Core\Unity\Xml\XmlNext.cs" />
+    <Compile Include="Core\Unity\Xml\XmlPartition.cs" />
+    <Compile Include="Core\Unity\Xml\XmlPartitionMapper.cs" />
+    <Compile Include="Core\Unity\Xml\XmlSplit.cs" />
+    <Compile Include="Core\Unity\Xml\XmlStep.cs" />
+    <Compile Include="Core\Unity\Xml\IXmlStepContainer.cs" />
+    <Compile Include="Core\Unity\Xml\XmlTransitionElement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Repository\Dao\IExecutionContextDao.cs" />
+    <Compile Include="Core\Repository\Dao\IJobExecutionDao.cs" />
+    <Compile Include="Core\Repository\Dao\IJobInstanceDao.cs" />
+    <Compile Include="Core\Repository\Dao\IStepExecutionDao.cs" />
+    <Compile Include="Core\Repository\IExecutionContextSerializer.cs" />
+    <Compile Include="Core\Repository\JobInstanceAlreadyCompleteException.cs" />
+    <Compile Include="Core\Repository\JobExecutionAlreadyRunningException.cs" />
+    <Compile Include="Core\Repository\IJobRepository.cs" />
+    <Compile Include="Core\Repository\JobRestartException.cs" />
+    <Compile Include="Core\Scope\Context\ChunkContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Summer.Batch.Core.licenseheader" />
+    <None Include="Xsd\SummerBatchXML_1_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Summer.Batch.Common\Summer.Batch.Common.csproj">
+      <Project>{9b3f8e1b-a079-4a2c-8fac-51206d9edf7c}</Project>
+      <Name>Summer.Batch.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Data\Summer.Batch.Data.csproj">
+      <Project>{de5ca83b-d95b-47c7-859f-6eec50787f25}</Project>
+      <Name>Summer.Batch.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Infrastructure\Summer.Batch.Infrastructure.csproj">
+      <Project>{0c992e15-f8d2-442a-bb7d-a3787a46a1d6}</Project>
+      <Name>Summer.Batch.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlScripts\DB2-creation.sql" />
+    <Content Include="SqlScripts\DB2-drop.sql" />
+    <Content Include="SqlScripts\Oracle-creation.sql" />
+    <Content Include="SqlScripts\Oracle-drop.sql" />
+    <Content Include="SqlScripts\SqlServer-creation.sql" />
+    <Content Include="SqlScripts\SqlServer-drop.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

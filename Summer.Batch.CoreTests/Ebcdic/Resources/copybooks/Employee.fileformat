@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM01047" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0">
+	<RecordFormat cobolRecordName="MCSBA_ENQUIRY_HDR_REC" distinguishFieldValue="0">
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="emp_Id" Occurs="1" Picture="9(5)" Signed="false" Size="5" Type="9" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="emp_Name" Occurs="1" Picture="X(70)" Signed="false" Size="70" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="emp_Dob" Occurs="1" Picture="X(10)" Signed="false" Size="10" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="emp_Salary" Occurs="1" Picture="9(7)" Signed="false" Size="7" Type="9" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="email_Id" Occurs="1" Picture="X(50)" Signed="false" Size="50" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="company_Id" Occurs="1" Picture="S9(5)" Signed="false" Size="5" Type="9" Value=""/>
+	</RecordFormat>
+</FileFormat>

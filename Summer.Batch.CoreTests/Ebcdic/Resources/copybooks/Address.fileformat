@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM01047" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0" >
+	<RecordFormat cobolRecordName="ADDRESS" distinguishFieldValue="0">
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="EMP_ID" Occurs="1" Picture="9(5)" Signed="false" Size="5" Type="9" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="BUILDING_NO" Occurs="1" Picture="9(6)" Signed="false" Size="6" Type="9" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="STREET_NAME" Occurs="1" Picture="X(10)" Signed="true" Size="10" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CITY" Occurs="1" Picture="X(10)" Signed="false" Size="10" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="STATE" Occurs="1" Picture="X(3)" Signed="true" Size="3" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CODE" Occurs="1" Picture="X(10)" Signed="false" Size="10" Type="X" Value=""/>
+	</RecordFormat>
+</FileFormat>

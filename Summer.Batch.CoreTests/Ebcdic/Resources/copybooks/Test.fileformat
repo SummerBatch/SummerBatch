@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM01047" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0" >
+	<RecordFormat cobolRecordName="TEST" distinguishFieldValue="0">
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="TEXT" Occurs="1" Picture="X(12)" Signed="false" Size="12" Type="X" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="TRANSPARENT" Occurs="1" Picture="T(6)" Signed="false" Size="6" Type="T" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="BINARY" Occurs="1" Picture="B(6)" Signed="false" Size="6" Type="B" Value=""/>
+		<FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="PACKED" Occurs="1" Picture="3(6)" Signed="true" Size="6" Type="3" Value=""/>
+		<FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="true" Name="PACKED_UNSIGNED" Occurs="1" Picture="3(6)" Signed="false" Size="6" Type="3" Value=""/>
+		<FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="false" Name="ZONED" Occurs="1" Picture="9(8)" Signed="true" Size="8" Type="9" Value=""/>
+		<FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="true" Name="ZONED_UNSIGNED" Occurs="1" Picture="9(8)" Signed="false" Size="8" Type="9" Value=""/>
+	</RecordFormat>
+</FileFormat>

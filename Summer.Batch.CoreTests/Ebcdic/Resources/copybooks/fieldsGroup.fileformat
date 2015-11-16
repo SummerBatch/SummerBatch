@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="ASCII" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="2" headerSize="0" lineHeaderSize="0" variableLength="false">
+  <RecordFormat cobolRecordName="CUSTOMER_RECORD" distinguishFieldValue="" precCondition="">
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CUST_NAME" Occurs="1" Picture="X(20)" Signed="false" Size="20" Type="X" Value=""/>
+    <FieldsGroup DependingOn="" Name="ADDRESS-ITEM" Occurs="2">
+      <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="STREET" Occurs="1" Picture="X(20)" Signed="false" Size="20" Type="X" Value=""/>
+      <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CITY" Occurs="1" Picture="X(15)" Signed="false" Size="15" Type="X" Value=""/>
+      <FieldsGroup DependingOn="" Name="PHONE-ITEM" Occurs="3">
+        <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="PHONE_NUMBER" Occurs="1" Picture="X(10)" Signed="false" Size="10" Type="X" Value=""/>
+        <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="FAX_NUMBER" Occurs="1" Picture="X(10)" Signed="false" Size="10" Type="X" Value=""/>
+      </FieldsGroup>
+    </FieldsGroup>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="EMAIL" Occurs="1" Picture="X(20)" Signed="false" Size="20" Type="X" Value=""/>
+  </RecordFormat>
+</FileFormat>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="ASCII" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0">
+  <RecordFormat cobolRecordName="SIMPLE" distinguishFieldValue="1" precCondition="">
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="LONG_VALUE" Occurs="1" Picture="S9(6)" Signed="true" Size="6" Type="9" Value=""/>
+    <FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="true" Name="FLOAT_VALUE" Occurs="1" Picture="S9(4)V99" Signed="true" Size="6" Type="9" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="DATE" Occurs="1" Picture="X(8)" Signed="false" Size="8" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="BOOLEAN_VALUE" Occurs="1" Picture="X" Signed="false" Size="1" Type="X" Value=""/>
+  </RecordFormat>
+</FileFormat>

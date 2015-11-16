@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B3F8E1B-A079-4A2C-8FAC-51206D9EDF7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Summer.Batch.Common</RootNamespace>
+    <AssemblyName>Summer.Batch.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Summer.Batch.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\AbstractPriorityQueue.cs" />
+    <Compile Include="Collections\IQueue.cs" />
+    <Compile Include="Collections\PriorityBlockingQueue.cs" />
+    <Compile Include="Collections\OrderedDictionary.cs" />
+    <Compile Include="Collections\PriorityQueue.cs" />
+    <Compile Include="Extensions\StreamExtension.cs" />
+    <Compile Include="Factory\IInitializationPostOperations.cs" />
+    <Compile Include="IO\AntPathResolver.cs" />
+    <Compile Include="IO\ResourceLoader.cs" />
+    <Compile Include="Property\PropertyAccessor.cs" />
+    <Compile Include="Property\InvalidPropertyException.cs" />
+    <Compile Include="Collections\OrderedSet.cs" />
+    <Compile Include="IO\AbstractResource.cs" />
+    <Compile Include="IO\FileSystemResource.cs" />
+    <Compile Include="IO\IResource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\IProxyObject.cs" />
+    <Compile Include="Proxy\ProxyException.cs" />
+    <Compile Include="Proxy\ProxyFactory.cs" />
+    <Compile Include="Proxy\ProxyObject.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="TaskExecution\AsyncTaskExecutorConstants.cs" />
+    <Compile Include="TaskExecution\TaskTimeoutException.cs" />
+    <Compile Include="TaskExecution\IAsyncTaskExecutor.cs" />
+    <Compile Include="TaskExecution\ITaskExecutor.cs" />
+    <Compile Include="TaskExecution\SimpleAsyncTaskExecutor.cs" />
+    <Compile Include="TaskExecution\SyncTaskExecutor.cs" />
+    <Compile Include="TaskExecution\TaskRejectedException.cs" />
+    <Compile Include="Transaction\ConnectionUtil.cs" />
+    <Compile Include="Transaction\TransactionScopeManager.cs" />
+    <Compile Include="Transaction\Support\ITransactionSynchronization.cs" />
+    <Compile Include="Util\Assert.cs" />
+    <Compile Include="Util\AtomicTypes\AtomicInteger.cs" />
+    <Compile Include="Util\AtomicTypes\IAtomic.cs" />
+    <Compile Include="Util\AttributeAccessorSupport.cs" />
+    <Compile Include="Util\ConcurrencyThrottleSupport.cs" />
+    <Compile Include="Util\CopyUtils.cs" />
+    <Compile Include="Util\DefaultPropertiesPersister.cs" />
+    <Compile Include="Util\DictionaryUtils.cs" />
+    <Compile Include="Util\IAttributeAccessor.cs" />
+    <Compile Include="Util\IFactory.cs" />
+    <Compile Include="Util\IPropertiesPersister.cs" />
+    <Compile Include="Util\ObjectUtils.cs" />
+    <Compile Include="Util\Order.cs" />
+    <Compile Include="Util\OrderComparer.cs" />
+    <Compile Include="Util\OrderHelper.cs" />
+    <Compile Include="Util\RegexUtils.cs" />
+    <Compile Include="Util\SerializationUtils.cs" />
+    <Compile Include="Util\StringConverter.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\ThreadUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Summer.Batch.Common.licenseheader" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

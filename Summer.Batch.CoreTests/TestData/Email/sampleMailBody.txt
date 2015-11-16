@@ -1,0 +1,8 @@
+This is a sample mail message body, crafted to be used in a 
+summer batch unit test class.
+
+If you can read this, the EmailTasklet is supposed to be well functioning 
+
+Best regards,
+
+=== EmailTasklet mail sender ===

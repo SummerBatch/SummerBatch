@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+   Copyright 2015 Blu Age Corporation - Plano, Texas
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<TestDBDataSet xmlns="http://tempuri.org/TestDBDataSet.xsd">
+  <BATCH_JOB_INSTANCE>
+    <JOB_INSTANCE_ID>1</JOB_INSTANCE_ID>
+    <VERSION>0</VERSION>
+    <JOB_NAME>TestJob</JOB_NAME>
+    <JOB_KEY>d41d8cd98f00b204e9800998ecf8427e</JOB_KEY>
+  </BATCH_JOB_INSTANCE>
+  <BATCH_JOB_EXECUTION>
+    <JOB_EXECUTION_ID>1</JOB_EXECUTION_ID>
+    <VERSION>0</VERSION>
+    <JOB_INSTANCE_ID>1</JOB_INSTANCE_ID>
+    <CREATE_TIME>2015-05-21T15:14:00+02:00</CREATE_TIME>
+    <EXIT_CODE>UNKNOWN</EXIT_CODE>
+    <EXIT_MESSAGE></EXIT_MESSAGE>
+  </BATCH_JOB_EXECUTION>
+  <BATCH_STEP_EXECUTION>
+    <STEP_EXECUTION_ID>1</STEP_EXECUTION_ID>
+    <VERSION>0</VERSION>
+    <STEP_NAME>TestStep</STEP_NAME>
+    <JOB_EXECUTION_ID>1</JOB_EXECUTION_ID>
+    <START_TIME>2015-05-21T15:22:00+02:00</START_TIME>
+    <STATUS>STARTING</STATUS>
+    <COMMIT_COUNT>0</COMMIT_COUNT>
+    <READ_COUNT>0</READ_COUNT>
+    <FILTER_COUNT>0</FILTER_COUNT>
+    <WRITE_COUNT>0</WRITE_COUNT>
+    <READ_SKIP_COUNT>0</READ_SKIP_COUNT>
+    <WRITE_SKIP_COUNT>0</WRITE_SKIP_COUNT>
+    <PROCESS_SKIP_COUNT>0</PROCESS_SKIP_COUNT>
+    <ROLLBACK_COUNT>0</ROLLBACK_COUNT>
+    <EXIT_CODE>UNKNOWN</EXIT_CODE>
+    <EXIT_MESSAGE></EXIT_MESSAGE>
+  </BATCH_STEP_EXECUTION>
+</TestDBDataSet>

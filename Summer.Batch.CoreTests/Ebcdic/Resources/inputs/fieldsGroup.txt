@@ -1,0 +1,3 @@
+Customer1           street1-1           city1-1        111       99111     112       99112     113       99113     street1-2           city1-2        121       99121     122       99122     123       99123     customer-1@email.com
+Customer2           street2-1           city2-1        211       99211     212       99212                         street2-2           city2-2        221       99221                                             customer-2@email.com
+Customer3           street3-1           city3-1        311       99311                                                                                                                                            customer-3@email.com

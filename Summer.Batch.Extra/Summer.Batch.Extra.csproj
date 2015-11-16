@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9CBC8240-AB82-4F4C-BC48-92AF3BE38ABE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Summer.Batch.Extra</RootNamespace>
+    <AssemblyName>Summer.Batch.Extra</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Summer.Batch.Extra.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ReportViewer.WinForms.10.0.40219.1\lib\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractExecutionListener.cs" />
+    <Compile Include="BatchConstants.cs" />
+    <Compile Include="ContextManager.cs" />
+    <Compile Include="Delegating\DelegatingBufferingItemReader.cs" />
+    <Compile Include="Delegating\DelegatingConditionalItemWriter.cs" />
+    <Compile Include="Delegating\DelegatingGroupReader.cs" />
+    <Compile Include="Delegating\DelegatingListItemWriter.cs" />
+    <Compile Include="DummyItemReader.cs" />
+    <Compile Include="DummyItemWriter.cs" />
+    <Compile Include="EmptyCheckSupport\EmptyFileCheckTasklet.cs" />
+    <Compile Include="IItemCondition.cs" />
+    <Compile Include="ContextManagerUnityLoader.cs" />
+    <Compile Include="IO\FileUtilsTasklet.cs" />
+    <Compile Include="IO\GdgResourceLoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Job\JobContextPreparer.cs" />
+    <Compile Include="Process\AbstractProcessAdapter.cs" />
+    <Compile Include="Copybook\CopybookElement.cs" />
+    <Compile Include="Copybook\CopybookLoader.cs" />
+    <Compile Include="Copybook\FieldFormat.cs" />
+    <Compile Include="Copybook\FieldsGroup.cs" />
+    <Compile Include="Copybook\IFieldsList.cs" />
+    <Compile Include="Copybook\FileFormat.cs" />
+    <Compile Include="DateParser.cs" />
+    <Compile Include="Ebcdic\AbstractEbcdicMapper.cs" />
+    <Compile Include="Ebcdic\AbstractEbcdicReaderMapper.cs" />
+    <Compile Include="Ebcdic\CompositeEbcdicReaderMapper.cs" />
+    <Compile Include="Ebcdic\EbcdicFileReader.cs" />
+    <Compile Include="Ebcdic\EbcdicFileWriter.cs" />
+    <Compile Include="Ebcdic\EbcdicParseException.cs" />
+    <Compile Include="Ebcdic\EbcdicReader.cs" />
+    <Compile Include="Ebcdic\EbcdicWriter.cs" />
+    <Compile Include="Ebcdic\EbcdicWriterMapper.cs" />
+    <Compile Include="Ebcdic\Encode\EbcdicConstants.cs" />
+    <Compile Include="Ebcdic\Encode\EbcdicDecoder.cs" />
+    <Compile Include="Ebcdic\Encode\EbcdicEncoder.cs" />
+    <Compile Include="Ebcdic\Exception\CopybookParsingException.cs" />
+    <Compile Include="Ebcdic\Exception\EbcdicException.cs" />
+    <Compile Include="Ebcdic\Exception\EndOfFileException.cs" />
+    <Compile Include="Ebcdic\Exception\FieldParsingException.cs" />
+    <Compile Include="Ebcdic\Exception\UnexpectedFieldTypeException.cs" />
+    <Compile Include="Ebcdic\Exception\ValueTypeMismatchException.cs" />
+    <Compile Include="Ebcdic\ICopybookIo.cs" />
+    <Compile Include="Ebcdic\IEbcdicBusinessObject.cs" />
+    <Compile Include="Ebcdic\IEbcdicReaderMapper.cs" />
+    <Compile Include="EmailSupport\EmailTasklet.cs" />
+    <Compile Include="FtpSupport\FtpGetTasklet.cs" />
+    <Compile Include="FtpSupport\FtpPutStep.cs" />
+    <Compile Include="IBooleanEncoder.cs" />
+    <Compile Include="IContextManager.cs" />
+    <Compile Include="IDateParser.cs" />
+    <Compile Include="Process\IProcessAdapter.cs" />
+    <Compile Include="Process\IProcessReader.cs" />
+    <Compile Include="Process\IProcessWriter.cs" />
+    <Compile Include="Process\ProcessReaderAdapter.cs" />
+    <Compile Include="Process\ProcessWriterAdapter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Copybook\RecordFormat.cs" />
+    <Compile Include="Copybook\RecordFormatMap.cs" />
+    <Compile Include="Report\ReportStep.cs" />
+    <Compile Include="Service\AbstractService.cs" />
+    <Compile Include="Service\Stop\FailedJobException.cs" />
+    <Compile Include="Service\Stop\ServiceStop.cs" />
+    <Compile Include="Service\Stop\SkippedItemException.cs" />
+    <Compile Include="Sort\Comparer\ComparerChain.cs" />
+    <Compile Include="Sort\Filter\ConjunctionFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Filter\DisjunctionFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Filter\IFilter.cs" />
+    <Compile Include="Sort\Filter\NegationFilter.cs" />
+    <Compile Include="Sort\Format\IFormatter.cs" />
+    <Compile Include="Sort\IRecordAccessorFactory.cs" />
+    <Compile Include="Sort\IRecordReader.cs" />
+    <Compile Include="Sort\IRecordWriter.cs" />
+    <Compile Include="Sort\Legacy\Accessor\AbstractAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Accessor\ConstantAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Accessor\IAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Accessor\PackedAccessor.cs" />
+    <Compile Include="Sort\Legacy\Accessor\StringAccessor.cs" />
+    <Compile Include="Sort\Legacy\Accessor\ZonedAccessor.cs" />
+    <Compile Include="Sort\Legacy\BlockAccessorFactory.cs" />
+    <Compile Include="Sort\Legacy\BlockRecordReader.cs" />
+    <Compile Include="Sort\Legacy\BlockRecordWriter.cs" />
+    <Compile Include="Sort\Legacy\BytesExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\BytesSum.cs" />
+    <Compile Include="Sort\Legacy\Comparer\AbstractBytesComparer.cs" />
+    <Compile Include="Sort\Legacy\Comparer\DefaultComparer.cs" />
+    <Compile Include="Sort\Legacy\Comparer\StringComparer.cs" />
+    <Compile Include="Sort\Legacy\Filter\AbstractLegacyFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Accessor\BinaryAccessor.cs" />
+    <Compile Include="Sort\Legacy\Filter\ComparisonOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Filter\DecimalFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Filter\StringFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Filter\SubstringFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\Legacy\Format\ConstantFormatter.cs" />
+    <Compile Include="Sort\Legacy\Format\CopyFormatter.cs" />
+    <Compile Include="Sort\Legacy\Format\ISubFormatter.cs" />
+    <Compile Include="Sort\Legacy\Format\LegacyFormatter.cs" />
+    <Compile Include="Sort\Legacy\Format\NumericEditFormatter.cs" />
+    <Compile Include="Sort\Legacy\Parser\ComparerParser.cs" />
+    <Compile Include="Sort\Legacy\Parser\FilterParser.cs" />
+    <Compile Include="Sort\Legacy\Parser\FormatterParser.cs" />
+    <Compile Include="Sort\Legacy\Parser\Lexer.cs" />
+    <Compile Include="Sort\Legacy\Parser\AbstractParser.cs" />
+    <Compile Include="Sort\Legacy\Parser\ParsingException.cs" />
+    <Compile Include="Sort\Legacy\Parser\SumParser.cs" />
+    <Compile Include="Sort\Legacy\SeparatorAccessorFactory.cs" />
+    <Compile Include="Sort\Legacy\SeparatorRecordReader.cs" />
+    <Compile Include="Sort\Legacy\SeparatorRecordWriter.cs" />
+    <Compile Include="Sort\Sum\SkipSum.cs" />
+    <Compile Include="Sort\RecordReaderBuffer.cs" />
+    <Compile Include="Sort\Sorter.cs" />
+    <Compile Include="Sort\SortTasklet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sort\SumWriter.cs" />
+    <Compile Include="Sort\Sum\ISum.cs" />
+    <Compile Include="SqlScriptSupport\SqlScriptRunnerTasklet.cs" />
+    <Compile Include="Template\AbstractTemplateLineAggregator.cs" />
+    <Compile Include="Template\ITemplateLineAggregator.cs" />
+    <Compile Include="Utils\BigDecimalUtils.cs" />
+    <Compile Include="Utils\BigIntegerUtils.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
+    <Compile Include="Utils\DoubleUtils.cs" />
+    <Compile Include="Utils\IntegerUtils.cs" />
+    <Compile Include="Utils\LongUtils.cs" />
+    <Compile Include="Utils\MapUtils.cs" />
+    <Compile Include="Utils\ObjectUtils.cs" />
+    <Compile Include="Utils\ReverseUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="WriterResourceManager.cs" />
+    <Compile Include="ZeroOneBooleanEncoder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Summer.Batch.Common\Summer.Batch.Common.csproj">
+      <Project>{9b3f8e1b-a079-4a2c-8fac-51206d9edf7c}</Project>
+      <Name>Summer.Batch.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Core\Summer.Batch.Core.csproj">
+      <Project>{fae54104-2aec-40d7-abcb-92a52a3164b4}</Project>
+      <Name>Summer.Batch.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Data\Summer.Batch.Data.csproj">
+      <Project>{DE5CA83B-D95B-47C7-859F-6EEC50787F25}</Project>
+      <Name>Summer.Batch.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Infrastructure\Summer.Batch.Infrastructure.csproj">
+      <Project>{0c992e15-f8d2-442a-bb7d-a3787a46a1d6}</Project>
+      <Name>Summer.Batch.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Summer.Batch.Extra.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM01047" dataFileImplementation="IBM i or z System" distinguishFieldSize="0" newLineSize="0" headerSize="0" lineHeaderSize="0" variableLength="true">
+  <RecordFormat cobolRecordName="CUSTOMER_RECORD" distinguishFieldValue="" precCondition="">
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CUST_NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="CUST_EMAIL_CNT" Occurs="1" Picture="99" Signed="false" Size="2" Type="9" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="CUST_EMAIL_CNT" ImpliedDecimal="true" Name="CUST_EMAIL" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CUST_PHONE_NBR" Occurs="1" Picture="X(20)" Signed="false" Size="20" Type="X" Value=""/>
+  </RecordFormat>
+</FileFormat>

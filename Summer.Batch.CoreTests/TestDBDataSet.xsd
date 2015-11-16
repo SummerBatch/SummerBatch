@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestDBDataSet" targetNamespace="http://tempuri.org/TestDBDataSet.xsd" xmlns:mstns="http://tempuri.org/TestDBDataSet.xsd" xmlns="http://tempuri.org/TestDBDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VisualStudioProjects\Batch\Summer.Batch\Summer.Batch.CoreTests\TestDB.mdf;Integrated Security=True;Connect Timeout=30" IsAppSettingsProperty="false" Modifier="Assembly" Name="TestDB.mdf" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TestDBDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="TestDBDataSet" msprop:Generator_UserDSName="TestDBDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BATCH_JOB_EXECUTION" msprop:Generator_TableClassName="BATCH_JOB_EXECUTIONDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_EXECUTION" msprop:Generator_TablePropName="BATCH_JOB_EXECUTION" msprop:Generator_RowDeletingName="BATCH_JOB_EXECUTIONRowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_EXECUTIONRowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_EXECUTIONRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_EXECUTIONRowDeleted" msprop:Generator_UserTableName="BATCH_JOB_EXECUTION" msprop:Generator_RowChangedName="BATCH_JOB_EXECUTIONRowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_EXECUTIONRowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_EXECUTIONRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JOB_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="JOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="JOB_EXECUTION_IDColumn" msprop:Generator_UserColumnName="JOB_EXECUTION_ID" type="xs:long" />
+              <xs:element name="VERSION" msprop:Generator_ColumnVarNameInTable="columnVERSION" msprop:Generator_ColumnPropNameInRow="VERSION" msprop:Generator_ColumnPropNameInTable="VERSIONColumn" msprop:Generator_UserColumnName="VERSION" type="xs:long" minOccurs="0" />
+              <xs:element name="JOB_INSTANCE_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_INSTANCE_ID" msprop:Generator_ColumnPropNameInRow="JOB_INSTANCE_ID" msprop:Generator_ColumnPropNameInTable="JOB_INSTANCE_IDColumn" msprop:Generator_UserColumnName="JOB_INSTANCE_ID" type="xs:long" />
+              <xs:element name="CREATE_TIME" msprop:Generator_ColumnVarNameInTable="columnCREATE_TIME" msprop:Generator_ColumnPropNameInRow="CREATE_TIME" msprop:Generator_ColumnPropNameInTable="CREATE_TIMEColumn" msprop:Generator_UserColumnName="CREATE_TIME" type="xs:dateTime" />
+              <xs:element name="START_TIME" msprop:Generator_ColumnVarNameInTable="columnSTART_TIME" msprop:Generator_ColumnPropNameInRow="START_TIME" msprop:Generator_ColumnPropNameInTable="START_TIMEColumn" msprop:Generator_UserColumnName="START_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="END_TIME" msprop:Generator_ColumnVarNameInTable="columnEND_TIME" msprop:Generator_ColumnPropNameInRow="END_TIME" msprop:Generator_ColumnPropNameInTable="END_TIMEColumn" msprop:Generator_UserColumnName="END_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STATUS" msprop:Generator_ColumnVarNameInTable="columnSTATUS" msprop:Generator_ColumnPropNameInRow="STATUS" msprop:Generator_ColumnPropNameInTable="STATUSColumn" msprop:Generator_UserColumnName="STATUS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EXIT_CODE" msprop:Generator_ColumnVarNameInTable="columnEXIT_CODE" msprop:Generator_ColumnPropNameInRow="EXIT_CODE" msprop:Generator_ColumnPropNameInTable="EXIT_CODEColumn" msprop:Generator_UserColumnName="EXIT_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EXIT_MESSAGE" msprop:Generator_ColumnVarNameInTable="columnEXIT_MESSAGE" msprop:Generator_ColumnPropNameInRow="EXIT_MESSAGE" msprop:Generator_ColumnPropNameInTable="EXIT_MESSAGEColumn" msprop:Generator_UserColumnName="EXIT_MESSAGE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LAST_UPDATED" msprop:Generator_ColumnVarNameInTable="columnLAST_UPDATED" msprop:Generator_ColumnPropNameInRow="LAST_UPDATED" msprop:Generator_ColumnPropNameInTable="LAST_UPDATEDColumn" msprop:Generator_UserColumnName="LAST_UPDATED" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="JOB_CONFIGURATION_LOCATION" msprop:Generator_ColumnVarNameInTable="columnJOB_CONFIGURATION_LOCATION" msprop:Generator_ColumnPropNameInRow="JOB_CONFIGURATION_LOCATION" msprop:Generator_ColumnPropNameInTable="JOB_CONFIGURATION_LOCATIONColumn" msprop:Generator_UserColumnName="JOB_CONFIGURATION_LOCATION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_STEP_EXECUTION_SEQ" msprop:Generator_TableClassName="BATCH_STEP_EXECUTION_SEQDataTable" msprop:Generator_TableVarName="tableBATCH_STEP_EXECUTION_SEQ" msprop:Generator_TablePropName="BATCH_STEP_EXECUTION_SEQ" msprop:Generator_RowDeletingName="BATCH_STEP_EXECUTION_SEQRowDeleting" msprop:Generator_RowChangingName="BATCH_STEP_EXECUTION_SEQRowChanging" msprop:Generator_RowEvHandlerName="BATCH_STEP_EXECUTION_SEQRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_STEP_EXECUTION_SEQRowDeleted" msprop:Generator_UserTableName="BATCH_STEP_EXECUTION_SEQ" msprop:Generator_RowChangedName="BATCH_STEP_EXECUTION_SEQRowChanged" msprop:Generator_RowEvArgName="BATCH_STEP_EXECUTION_SEQRowChangeEvent" msprop:Generator_RowClassName="BATCH_STEP_EXECUTION_SEQRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_JOB_EXECUTION_CONTEXT" msprop:Generator_TableClassName="BATCH_JOB_EXECUTION_CONTEXTDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_EXECUTION_CONTEXT" msprop:Generator_TablePropName="BATCH_JOB_EXECUTION_CONTEXT" msprop:Generator_RowDeletingName="BATCH_JOB_EXECUTION_CONTEXTRowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_EXECUTION_CONTEXTRowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_EXECUTION_CONTEXTRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_EXECUTION_CONTEXTRowDeleted" msprop:Generator_UserTableName="BATCH_JOB_EXECUTION_CONTEXT" msprop:Generator_RowChangedName="BATCH_JOB_EXECUTION_CONTEXTRowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_EXECUTION_CONTEXTRowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_EXECUTION_CONTEXTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JOB_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="JOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="JOB_EXECUTION_IDColumn" msprop:Generator_UserColumnName="JOB_EXECUTION_ID" type="xs:long" />
+              <xs:element name="SERIALIZED_CONTEXT" msprop:Generator_ColumnVarNameInTable="columnSERIALIZED_CONTEXT" msprop:Generator_ColumnPropNameInRow="SERIALIZED_CONTEXT" msprop:Generator_ColumnPropNameInTable="SERIALIZED_CONTEXTColumn" msprop:Generator_UserColumnName="SERIALIZED_CONTEXT" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_JOB_EXECUTION_PARAMS" msprop:Generator_TableClassName="BATCH_JOB_EXECUTION_PARAMSDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_EXECUTION_PARAMS" msprop:Generator_TablePropName="BATCH_JOB_EXECUTION_PARAMS" msprop:Generator_RowDeletingName="BATCH_JOB_EXECUTION_PARAMSRowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_EXECUTION_PARAMSRowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_EXECUTION_PARAMSRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_EXECUTION_PARAMSRowDeleted" msprop:Generator_UserTableName="BATCH_JOB_EXECUTION_PARAMS" msprop:Generator_RowChangedName="BATCH_JOB_EXECUTION_PARAMSRowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_EXECUTION_PARAMSRowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_EXECUTION_PARAMSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JOB_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="JOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="JOB_EXECUTION_IDColumn" msprop:Generator_UserColumnName="JOB_EXECUTION_ID" type="xs:long" />
+              <xs:element name="TYPE_CD" msprop:Generator_ColumnVarNameInTable="columnTYPE_CD" msprop:Generator_ColumnPropNameInRow="TYPE_CD" msprop:Generator_ColumnPropNameInTable="TYPE_CDColumn" msprop:Generator_UserColumnName="TYPE_CD">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KEY_NAME" msprop:Generator_ColumnVarNameInTable="columnKEY_NAME" msprop:Generator_ColumnPropNameInRow="KEY_NAME" msprop:Generator_ColumnPropNameInTable="KEY_NAMEColumn" msprop:Generator_UserColumnName="KEY_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRING_VAL" msprop:Generator_ColumnVarNameInTable="columnSTRING_VAL" msprop:Generator_ColumnPropNameInRow="STRING_VAL" msprop:Generator_ColumnPropNameInTable="STRING_VALColumn" msprop:Generator_UserColumnName="STRING_VAL" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATE_VAL" msprop:Generator_ColumnVarNameInTable="columnDATE_VAL" msprop:Generator_ColumnPropNameInRow="DATE_VAL" msprop:Generator_ColumnPropNameInTable="DATE_VALColumn" msprop:Generator_UserColumnName="DATE_VAL" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LONG_VAL" msprop:Generator_ColumnVarNameInTable="columnLONG_VAL" msprop:Generator_ColumnPropNameInRow="LONG_VAL" msprop:Generator_ColumnPropNameInTable="LONG_VALColumn" msprop:Generator_UserColumnName="LONG_VAL" type="xs:long" minOccurs="0" />
+              <xs:element name="DOUBLE_VAL" msprop:Generator_ColumnVarNameInTable="columnDOUBLE_VAL" msprop:Generator_ColumnPropNameInRow="DOUBLE_VAL" msprop:Generator_ColumnPropNameInTable="DOUBLE_VALColumn" msprop:Generator_UserColumnName="DOUBLE_VAL" type="xs:double" minOccurs="0" />
+              <xs:element name="IDENTIFYING" msprop:Generator_ColumnVarNameInTable="columnIDENTIFYING" msprop:Generator_ColumnPropNameInRow="IDENTIFYING" msprop:Generator_ColumnPropNameInTable="IDENTIFYINGColumn" msprop:Generator_UserColumnName="IDENTIFYING">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_JOB_EXECUTION_SEQ" msprop:Generator_TableClassName="BATCH_JOB_EXECUTION_SEQDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_EXECUTION_SEQ" msprop:Generator_TablePropName="BATCH_JOB_EXECUTION_SEQ" msprop:Generator_RowDeletingName="BATCH_JOB_EXECUTION_SEQRowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_EXECUTION_SEQRowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_EXECUTION_SEQRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_EXECUTION_SEQRowDeleted" msprop:Generator_UserTableName="BATCH_JOB_EXECUTION_SEQ" msprop:Generator_RowChangedName="BATCH_JOB_EXECUTION_SEQRowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_EXECUTION_SEQRowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_EXECUTION_SEQRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_JOB_INSTANCE" msprop:Generator_TableClassName="BATCH_JOB_INSTANCEDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_INSTANCE" msprop:Generator_TablePropName="BATCH_JOB_INSTANCE" msprop:Generator_RowDeletingName="BATCH_JOB_INSTANCERowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_INSTANCERowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_INSTANCERowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_INSTANCERowDeleted" msprop:Generator_UserTableName="BATCH_JOB_INSTANCE" msprop:Generator_RowChangedName="BATCH_JOB_INSTANCERowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_INSTANCERowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_INSTANCERow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JOB_INSTANCE_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_INSTANCE_ID" msprop:Generator_ColumnPropNameInRow="JOB_INSTANCE_ID" msprop:Generator_ColumnPropNameInTable="JOB_INSTANCE_IDColumn" msprop:Generator_UserColumnName="JOB_INSTANCE_ID" type="xs:long" />
+              <xs:element name="VERSION" msprop:Generator_ColumnVarNameInTable="columnVERSION" msprop:Generator_ColumnPropNameInRow="VERSION" msprop:Generator_ColumnPropNameInTable="VERSIONColumn" msprop:Generator_UserColumnName="VERSION" type="xs:long" minOccurs="0" />
+              <xs:element name="JOB_NAME" msprop:Generator_ColumnVarNameInTable="columnJOB_NAME" msprop:Generator_ColumnPropNameInRow="JOB_NAME" msprop:Generator_ColumnPropNameInTable="JOB_NAMEColumn" msprop:Generator_UserColumnName="JOB_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="JOB_KEY" msprop:Generator_ColumnVarNameInTable="columnJOB_KEY" msprop:Generator_ColumnPropNameInRow="JOB_KEY" msprop:Generator_ColumnPropNameInTable="JOB_KEYColumn" msprop:Generator_UserColumnName="JOB_KEY">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="32" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_JOB_SEQ" msprop:Generator_TableClassName="BATCH_JOB_SEQDataTable" msprop:Generator_TableVarName="tableBATCH_JOB_SEQ" msprop:Generator_TablePropName="BATCH_JOB_SEQ" msprop:Generator_RowDeletingName="BATCH_JOB_SEQRowDeleting" msprop:Generator_RowChangingName="BATCH_JOB_SEQRowChanging" msprop:Generator_RowEvHandlerName="BATCH_JOB_SEQRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_JOB_SEQRowDeleted" msprop:Generator_UserTableName="BATCH_JOB_SEQ" msprop:Generator_RowChangedName="BATCH_JOB_SEQRowChanged" msprop:Generator_RowEvArgName="BATCH_JOB_SEQRowChangeEvent" msprop:Generator_RowClassName="BATCH_JOB_SEQRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_STEP_EXECUTION" msprop:Generator_TableClassName="BATCH_STEP_EXECUTIONDataTable" msprop:Generator_TableVarName="tableBATCH_STEP_EXECUTION" msprop:Generator_TablePropName="BATCH_STEP_EXECUTION" msprop:Generator_RowDeletingName="BATCH_STEP_EXECUTIONRowDeleting" msprop:Generator_RowChangingName="BATCH_STEP_EXECUTIONRowChanging" msprop:Generator_RowEvHandlerName="BATCH_STEP_EXECUTIONRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_STEP_EXECUTIONRowDeleted" msprop:Generator_UserTableName="BATCH_STEP_EXECUTION" msprop:Generator_RowChangedName="BATCH_STEP_EXECUTIONRowChanged" msprop:Generator_RowEvArgName="BATCH_STEP_EXECUTIONRowChangeEvent" msprop:Generator_RowClassName="BATCH_STEP_EXECUTIONRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STEP_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnSTEP_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="STEP_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="STEP_EXECUTION_IDColumn" msprop:Generator_UserColumnName="STEP_EXECUTION_ID" type="xs:long" />
+              <xs:element name="VERSION" msprop:Generator_ColumnVarNameInTable="columnVERSION" msprop:Generator_ColumnPropNameInRow="VERSION" msprop:Generator_ColumnPropNameInTable="VERSIONColumn" msprop:Generator_UserColumnName="VERSION" type="xs:long" />
+              <xs:element name="STEP_NAME" msprop:Generator_ColumnVarNameInTable="columnSTEP_NAME" msprop:Generator_ColumnPropNameInRow="STEP_NAME" msprop:Generator_ColumnPropNameInTable="STEP_NAMEColumn" msprop:Generator_UserColumnName="STEP_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="JOB_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnJOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="JOB_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="JOB_EXECUTION_IDColumn" msprop:Generator_UserColumnName="JOB_EXECUTION_ID" type="xs:long" />
+              <xs:element name="START_TIME" msprop:Generator_ColumnVarNameInTable="columnSTART_TIME" msprop:Generator_ColumnPropNameInRow="START_TIME" msprop:Generator_ColumnPropNameInTable="START_TIMEColumn" msprop:Generator_UserColumnName="START_TIME" type="xs:dateTime" />
+              <xs:element name="END_TIME" msprop:Generator_ColumnVarNameInTable="columnEND_TIME" msprop:Generator_ColumnPropNameInRow="END_TIME" msprop:Generator_ColumnPropNameInTable="END_TIMEColumn" msprop:Generator_UserColumnName="END_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STATUS" msprop:Generator_ColumnVarNameInTable="columnSTATUS" msprop:Generator_ColumnPropNameInRow="STATUS" msprop:Generator_ColumnPropNameInTable="STATUSColumn" msprop:Generator_UserColumnName="STATUS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="COMMIT_COUNT" msprop:Generator_ColumnVarNameInTable="columnCOMMIT_COUNT" msprop:Generator_ColumnPropNameInRow="COMMIT_COUNT" msprop:Generator_ColumnPropNameInTable="COMMIT_COUNTColumn" msprop:Generator_UserColumnName="COMMIT_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="READ_COUNT" msprop:Generator_ColumnVarNameInTable="columnREAD_COUNT" msprop:Generator_ColumnPropNameInRow="READ_COUNT" msprop:Generator_ColumnPropNameInTable="READ_COUNTColumn" msprop:Generator_UserColumnName="READ_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="FILTER_COUNT" msprop:Generator_ColumnVarNameInTable="columnFILTER_COUNT" msprop:Generator_ColumnPropNameInRow="FILTER_COUNT" msprop:Generator_ColumnPropNameInTable="FILTER_COUNTColumn" msprop:Generator_UserColumnName="FILTER_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="WRITE_COUNT" msprop:Generator_ColumnVarNameInTable="columnWRITE_COUNT" msprop:Generator_ColumnPropNameInRow="WRITE_COUNT" msprop:Generator_ColumnPropNameInTable="WRITE_COUNTColumn" msprop:Generator_UserColumnName="WRITE_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="READ_SKIP_COUNT" msprop:Generator_ColumnVarNameInTable="columnREAD_SKIP_COUNT" msprop:Generator_ColumnPropNameInRow="READ_SKIP_COUNT" msprop:Generator_ColumnPropNameInTable="READ_SKIP_COUNTColumn" msprop:Generator_UserColumnName="READ_SKIP_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="WRITE_SKIP_COUNT" msprop:Generator_ColumnVarNameInTable="columnWRITE_SKIP_COUNT" msprop:Generator_ColumnPropNameInRow="WRITE_SKIP_COUNT" msprop:Generator_ColumnPropNameInTable="WRITE_SKIP_COUNTColumn" msprop:Generator_UserColumnName="WRITE_SKIP_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="PROCESS_SKIP_COUNT" msprop:Generator_ColumnVarNameInTable="columnPROCESS_SKIP_COUNT" msprop:Generator_ColumnPropNameInRow="PROCESS_SKIP_COUNT" msprop:Generator_ColumnPropNameInTable="PROCESS_SKIP_COUNTColumn" msprop:Generator_UserColumnName="PROCESS_SKIP_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="ROLLBACK_COUNT" msprop:Generator_ColumnVarNameInTable="columnROLLBACK_COUNT" msprop:Generator_ColumnPropNameInRow="ROLLBACK_COUNT" msprop:Generator_ColumnPropNameInTable="ROLLBACK_COUNTColumn" msprop:Generator_UserColumnName="ROLLBACK_COUNT" type="xs:long" minOccurs="0" />
+              <xs:element name="EXIT_CODE" msprop:Generator_ColumnVarNameInTable="columnEXIT_CODE" msprop:Generator_ColumnPropNameInRow="EXIT_CODE" msprop:Generator_ColumnPropNameInTable="EXIT_CODEColumn" msprop:Generator_UserColumnName="EXIT_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EXIT_MESSAGE" msprop:Generator_ColumnVarNameInTable="columnEXIT_MESSAGE" msprop:Generator_ColumnPropNameInRow="EXIT_MESSAGE" msprop:Generator_ColumnPropNameInTable="EXIT_MESSAGEColumn" msprop:Generator_UserColumnName="EXIT_MESSAGE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LAST_UPDATED" msprop:Generator_ColumnVarNameInTable="columnLAST_UPDATED" msprop:Generator_ColumnPropNameInRow="LAST_UPDATED" msprop:Generator_ColumnPropNameInTable="LAST_UPDATEDColumn" msprop:Generator_UserColumnName="LAST_UPDATED" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BATCH_STEP_EXECUTION_CONTEXT" msprop:Generator_TableClassName="BATCH_STEP_EXECUTION_CONTEXTDataTable" msprop:Generator_TableVarName="tableBATCH_STEP_EXECUTION_CONTEXT" msprop:Generator_TablePropName="BATCH_STEP_EXECUTION_CONTEXT" msprop:Generator_RowDeletingName="BATCH_STEP_EXECUTION_CONTEXTRowDeleting" msprop:Generator_RowChangingName="BATCH_STEP_EXECUTION_CONTEXTRowChanging" msprop:Generator_RowEvHandlerName="BATCH_STEP_EXECUTION_CONTEXTRowChangeEventHandler" msprop:Generator_RowDeletedName="BATCH_STEP_EXECUTION_CONTEXTRowDeleted" msprop:Generator_UserTableName="BATCH_STEP_EXECUTION_CONTEXT" msprop:Generator_RowChangedName="BATCH_STEP_EXECUTION_CONTEXTRowChanged" msprop:Generator_RowEvArgName="BATCH_STEP_EXECUTION_CONTEXTRowChangeEvent" msprop:Generator_RowClassName="BATCH_STEP_EXECUTION_CONTEXTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STEP_EXECUTION_ID" msprop:Generator_ColumnVarNameInTable="columnSTEP_EXECUTION_ID" msprop:Generator_ColumnPropNameInRow="STEP_EXECUTION_ID" msprop:Generator_ColumnPropNameInTable="STEP_EXECUTION_IDColumn" msprop:Generator_UserColumnName="STEP_EXECUTION_ID" type="xs:long" />
+              <xs:element name="SERIALIZED_CONTEXT" msprop:Generator_ColumnVarNameInTable="columnSERIALIZED_CONTEXT" msprop:Generator_ColumnPropNameInRow="SERIALIZED_CONTEXT" msprop:Generator_ColumnPropNameInTable="SERIALIZED_CONTEXTColumn" msprop:Generator_UserColumnName="SERIALIZED_CONTEXT" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BATCH_JOB_EXECUTION" />
+      <xs:field xpath="mstns:JOB_EXECUTION_ID" />
+    </xs:unique>
+    <xs:unique name="BATCH_JOB_EXECUTION_CONTEXT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BATCH_JOB_EXECUTION_CONTEXT" />
+      <xs:field xpath="mstns:JOB_EXECUTION_ID" />
+    </xs:unique>
+    <xs:unique name="BATCH_JOB_INSTANCE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BATCH_JOB_INSTANCE" />
+      <xs:field xpath="mstns:JOB_INSTANCE_ID" />
+    </xs:unique>
+    <xs:unique name="BATCH_STEP_EXECUTION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BATCH_STEP_EXECUTION" />
+      <xs:field xpath="mstns:STEP_EXECUTION_ID" />
+    </xs:unique>
+    <xs:unique name="BATCH_STEP_EXECUTION_CONTEXT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BATCH_STEP_EXECUTION_CONTEXT" />
+      <xs:field xpath="mstns:STEP_EXECUTION_ID" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="JOB_INST_EXEC_FK" msdata:parent="BATCH_JOB_INSTANCE" msdata:child="BATCH_JOB_EXECUTION" msdata:parentkey="JOB_INSTANCE_ID" msdata:childkey="JOB_INSTANCE_ID" msprop:Generator_UserChildTable="BATCH_JOB_EXECUTION" msprop:Generator_ChildPropName="GetBATCH_JOB_EXECUTIONRows" msprop:Generator_UserRelationName="JOB_INST_EXEC_FK" msprop:Generator_RelationVarName="relationJOB_INST_EXEC_FK" msprop:Generator_UserParentTable="BATCH_JOB_INSTANCE" msprop:Generator_ParentPropName="BATCH_JOB_INSTANCERow" />
+      <msdata:Relationship name="JOB_EXEC_CTX_FK" msdata:parent="BATCH_JOB_EXECUTION" msdata:child="BATCH_JOB_EXECUTION_CONTEXT" msdata:parentkey="JOB_EXECUTION_ID" msdata:childkey="JOB_EXECUTION_ID" msprop:Generator_UserChildTable="BATCH_JOB_EXECUTION_CONTEXT" msprop:Generator_ChildPropName="GetBATCH_JOB_EXECUTION_CONTEXTRows" msprop:Generator_UserRelationName="JOB_EXEC_CTX_FK" msprop:Generator_ParentPropName="BATCH_JOB_EXECUTIONRow" msprop:Generator_RelationVarName="relationJOB_EXEC_CTX_FK" msprop:Generator_UserParentTable="BATCH_JOB_EXECUTION" />
+      <msdata:Relationship name="JOB_EXEC_PARAMS_FK" msdata:parent="BATCH_JOB_EXECUTION" msdata:child="BATCH_JOB_EXECUTION_PARAMS" msdata:parentkey="JOB_EXECUTION_ID" msdata:childkey="JOB_EXECUTION_ID" msprop:Generator_UserChildTable="BATCH_JOB_EXECUTION_PARAMS" msprop:Generator_ChildPropName="GetBATCH_JOB_EXECUTION_PARAMSRows" msprop:Generator_UserRelationName="JOB_EXEC_PARAMS_FK" msprop:Generator_ParentPropName="BATCH_JOB_EXECUTIONRow" msprop:Generator_RelationVarName="relationJOB_EXEC_PARAMS_FK" msprop:Generator_UserParentTable="BATCH_JOB_EXECUTION" />
+      <msdata:Relationship name="JOB_EXEC_STEP_FK" msdata:parent="BATCH_JOB_EXECUTION" msdata:child="BATCH_STEP_EXECUTION" msdata:parentkey="JOB_EXECUTION_ID" msdata:childkey="JOB_EXECUTION_ID" msprop:Generator_UserChildTable="BATCH_STEP_EXECUTION" msprop:Generator_ChildPropName="GetBATCH_STEP_EXECUTIONRows" msprop:Generator_UserRelationName="JOB_EXEC_STEP_FK" msprop:Generator_ParentPropName="BATCH_JOB_EXECUTIONRow" msprop:Generator_RelationVarName="relationJOB_EXEC_STEP_FK" msprop:Generator_UserParentTable="BATCH_JOB_EXECUTION" />
+      <msdata:Relationship name="STEP_EXEC_CTX_FK" msdata:parent="BATCH_STEP_EXECUTION" msdata:child="BATCH_STEP_EXECUTION_CONTEXT" msdata:parentkey="STEP_EXECUTION_ID" msdata:childkey="STEP_EXECUTION_ID" msprop:Generator_UserChildTable="BATCH_STEP_EXECUTION_CONTEXT" msprop:Generator_ChildPropName="GetBATCH_STEP_EXECUTION_CONTEXTRows" msprop:Generator_UserRelationName="STEP_EXEC_CTX_FK" msprop:Generator_ParentPropName="BATCH_STEP_EXECUTIONRow" msprop:Generator_RelationVarName="relationSTEP_EXEC_CTX_FK" msprop:Generator_UserParentTable="BATCH_STEP_EXECUTION" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

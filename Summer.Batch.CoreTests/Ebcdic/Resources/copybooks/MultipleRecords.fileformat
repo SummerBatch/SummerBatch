@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="IBM037" dataFileImplementation="IBM i or z System" distinguishFieldSize="76" newLineSize="0" headerSize="0" >
+  <RecordFormat cobolRecordName="BA_EBCDIC_COMPOSITE1" distinguishFieldValue=".{73}(100|200)">
+   
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CODE" Occurs="1" Picture="S9(5)" Signed="true" Size="5" Type="3" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DESCRIPTION" Occurs="1" Picture="X(40)" Signed="false" Size="40" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="TYPE" Occurs="1" Picture="X(3)" Signed="false" Size="3" Type="X" Value="" />
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DATE" Occurs="1" Picture="S9(8)" Signed="true" Size="4" Type="B" Value=""/>
+        
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CODE1" Occurs="1" Picture="S9(5)" Signed="true" Size="5" Type="3" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DESCRIPTION1" Occurs="1" Picture="X(40)" Signed="false" Size="40" Type="X" Value=""/>
+
+  </RecordFormat>
+  <RecordFormat cobolRecordName="BA_EBCDIC_COMPOSITE2" distinguishFieldValue=".{73}(300)">
+   
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CODE" Occurs="1" Picture="S9(5)" Signed="true" Size="5" Type="3" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DESCRIPTION" Occurs="1" Picture="X(40)" Signed="false" Size="40" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="TYPE" Occurs="1" Picture="X(3)" Signed="false" Size="3" Type="X" Value="" />
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DATE" Occurs="1" Picture="S9(8)" Signed="true" Size="4" Type="B" Value=""/>
+    
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME1" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="CODE1" Occurs="1" Picture="S9(5)" Signed="true" Size="5" Type="3" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="DESCRIPTION1" Occurs="1" Picture="X(40)" Signed="false" Size="40" Type="X" Value=""/>
+
+  </RecordFormat>
+
+
+</FileFormat>

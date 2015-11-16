@@ -1,0 +1,3 @@
+Customer1           00cust1@example.com   
+Customer2           0233 rue Hoche        City1          57 rue Danton       City2          cust2@example.com   
+Customer3           0122 rue Broca        City3          cust3@example.com   

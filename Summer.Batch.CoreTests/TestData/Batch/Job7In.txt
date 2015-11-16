@@ -1,0 +1,25 @@
+Eastwood,Clint
+Washington,Denzel
+Spacey,Kevin
+Irons,Jeremy
+Yeoh,Michelle
+Hackman,Gene
+Bergman,Ingrid
+Redgrave,Vanessa
+Nicholson,Jack
+Perkins,Anthony
+Theron,Charlize
+Monroe,Marilyn
+Attenborough,Richard
+Day-Lewis,Daniel
+Zhang,Ziyi
+Connery,Sean
+Foster,Jodie
+Von Sydow,Max
+Olivier,Laurence
+Laughton,Charles
+Grant,Cary
+Quinn,Anthony
+Kelly,Grace
+Ustinov,Peter
+Jurgens,Curd

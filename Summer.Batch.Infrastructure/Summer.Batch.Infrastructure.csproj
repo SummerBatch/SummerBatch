@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C992E15-F8D2-442A-BB7D-A3787A46A1D6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Summer.Batch.Infrastructure</RootNamespace>
+    <AssemblyName>Summer.Batch.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Summer.Batch.Infrastructure.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Item\Database\DatabaseBatchItemWriter.cs" />
+    <Compile Include="Item\Database\DataReaderItemReader.cs" />
+    <Compile Include="Item\Database\EmptyUpdateException.cs" />
+    <Compile Include="Item\ExecutionContext.cs" />
+    <Compile Include="Item\File\FlatFileItemReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\File\FlatFileItemWriter.cs" />
+    <Compile Include="Item\File\FlatFileParseException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\File\IFooterWriter.cs" />
+    <Compile Include="Item\File\IHeaderWriter.cs" />
+    <Compile Include="Item\File\ILineMapper.cs" />
+    <Compile Include="Item\File\IResourceAwareItemReaderItemStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\File\IResourceAwareItemWriterItemStream.cs" />
+    <Compile Include="Item\File\Mapping\DefaultLineMapper.cs" />
+    <Compile Include="Item\File\Mapping\IFieldSetMapper.cs" />
+    <Compile Include="Item\File\MultiResourceItemReader.cs" />
+    <Compile Include="Item\File\NonTransientFlatFileException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\File\Transform\PassThroughLineAggregator.cs" />
+    <Compile Include="Item\File\Transform\PropertyFieldExtractor.cs" />
+    <Compile Include="Item\File\Transform\ExtractorLineAggregator.cs" />
+    <Compile Include="Item\File\Transform\AbstractLineTokenizer.cs" />
+    <Compile Include="Item\File\Transform\DefaultFieldSetFactory.cs" />
+    <Compile Include="Item\File\Transform\DefaultFieldSet.cs" />
+    <Compile Include="Item\File\Transform\DelimitedLineAggregator.cs" />
+    <Compile Include="Item\File\Transform\DelimitedLineTokenizer.cs" />
+    <Compile Include="Item\File\Transform\FixedLengthTokenizer.cs" />
+    <Compile Include="Item\File\Transform\FormatterLineAggregator.cs" />
+    <Compile Include="Item\File\Transform\IFieldExtractor.cs" />
+    <Compile Include="Item\File\Transform\IFieldSet.cs" />
+    <Compile Include="Item\File\Transform\IFieldSetFactory.cs" />
+    <Compile Include="Item\File\Transform\ILineAggregator.cs" />
+    <Compile Include="Item\File\Transform\ILineTokenizer.cs" />
+    <Compile Include="Item\File\Transform\PassThroughFieldExtractor.cs" />
+    <Compile Include="Item\File\Transform\Range.cs" />
+    <Compile Include="Item\IItemProcessor.cs" />
+    <Compile Include="Item\IItemReader.cs" />
+    <Compile Include="Item\IItemStreamReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\IItemStreamWriter.cs" />
+    <Compile Include="Item\ItemReaderException.cs" />
+    <Compile Include="Item\IItemStream.cs" />
+    <Compile Include="Item\ItemStreamException.cs" />
+    <Compile Include="Item\IItemWriter.cs" />
+    <Compile Include="Item\ItemWriterException.cs" />
+    <Compile Include="Item\NonTransientResourceException.cs" />
+    <Compile Include="Item\ParseException.cs" />
+    <Compile Include="Item\ReaderNotOpenException.cs" />
+    <Compile Include="Item\Support\AbstractItemCountingItemStreamItemReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\Support\AbstractItemStreamItemReader.cs" />
+    <Compile Include="Item\Support\AbstractItemStreamItemWriter.cs" />
+    <Compile Include="Item\Support\CompositeItemStream.cs" />
+    <Compile Include="Item\Support\CompositeItemWriter.cs" />
+    <Compile Include="Item\Support\ListItemReader.cs" />
+    <Compile Include="Item\Support\ListItemWriter.cs" />
+    <Compile Include="Item\UnexpectedInputException.cs" />
+    <Compile Include="Item\Util\ExecutionContextUserSupport.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\Util\FileUtils.cs" />
+    <Compile Include="Item\Util\ItemStreamSupport.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\WriteFailedException.cs" />
+    <Compile Include="Item\WriterNotOpenException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repeat\Context\RepeatContextSupport.cs" />
+    <Compile Include="Repeat\Context\SynchronizedAttributeAccessor.cs" />
+    <Compile Include="Repeat\Exception\DefaultExceptionHandler.cs" />
+    <Compile Include="Repeat\Exception\IExceptionHandler.cs" />
+    <Compile Include="Repeat\ICompletionPolicy.cs" />
+    <Compile Include="Repeat\RepeatCallback.cs" />
+    <Compile Include="Repeat\IRepeatContext.cs" />
+    <Compile Include="Repeat\IRepeatListener.cs" />
+    <Compile Include="Repeat\IRepeatOperations.cs" />
+    <Compile Include="Repeat\Policy\CompletionPolicySupport.cs" />
+    <Compile Include="Repeat\Policy\DefaultResultCompletionPolicy.cs" />
+    <Compile Include="Repeat\Policy\SimpleCompletionPolicy.cs" />
+    <Compile Include="Repeat\RepeatException.cs" />
+    <Compile Include="Repeat\RepeatStatus.cs" />
+    <Compile Include="Repeat\Support\IRepeatInternalState.cs" />
+    <Compile Include="Repeat\Support\IResultHolder.cs" />
+    <Compile Include="Repeat\Support\IResultQueue.cs" />
+    <Compile Include="Repeat\Support\RepeatInternalStateSupport.cs" />
+    <Compile Include="Repeat\Support\RepeatSynchronizationManager.cs" />
+    <Compile Include="Repeat\Support\RepeatTemplate.cs" />
+    <Compile Include="Repeat\Support\ResultHolderResultQueue.cs" />
+    <Compile Include="Repeat\Support\TaskExecutorRepeatTemplate.cs" />
+    <Compile Include="Support\IMethodInvoker.cs" />
+    <Compile Include="Support\PatternMatcher.cs" />
+    <Compile Include="Support\PropertiesConverter.cs" />
+    <Compile Include="Support\Transaction\TransactionAwareFileStream.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Summer.Batch.Infrastructure.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Summer.Batch.Common\Summer.Batch.Common.csproj">
+      <Project>{9b3f8e1b-a079-4a2c-8fac-51206d9edf7c}</Project>
+      <Name>Summer.Batch.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Summer.Batch.Data\Summer.Batch.Data.csproj">
+      <Project>{de5ca83b-d95b-47c7-859f-6eec50787f25}</Project>
+      <Name>Summer.Batch.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

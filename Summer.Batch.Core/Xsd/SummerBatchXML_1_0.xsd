@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.summerbatch.com/xmlns" xmlns:sbj="http://www.summerbatch.com/xmlns">
+	<xs:annotation>
+		<xs:documentation> XSD for Summer batch jobs.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="Job">
+		<xs:sequence>
+			<xs:element name="listeners" type="sbj:Listeners" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="flow" type="sbj:Flow" />
+				<xs:element name="split" type="sbj:Split" />
+				<xs:element name="step" type="sbj:Step" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:ID" />
+		<xs:attribute name="restartable" use="optional" type="xs:string" />
+	</xs:complexType>
+	<xs:element name="job" type="sbj:Job" />
+	<xs:complexType name="Listener">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Split">
+		<xs:sequence>
+			<xs:element name="flow" type="sbj:Flow" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:ID" />
+		<xs:attribute name="next" use="optional" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Flow">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="flow" type="sbj:Flow" />
+				<xs:element name="split" type="sbj:Split" />
+				<xs:element name="step" type="sbj:Step" />
+			</xs:choice>
+			<xs:group ref="sbj:TransitionElements" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:ID" />
+		<xs:attribute name="next" use="optional" type="xs:string" />
+	</xs:complexType>
+	<xs:group name="TransitionElements">
+		<xs:choice>
+			<xs:element name="end" type="sbj:End" />
+			<xs:element name="fail" type="sbj:Fail" />
+			<xs:element name="next" type="sbj:Next" />
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="Fail">
+		<xs:attribute name="on" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="End">
+		<xs:attribute name="on" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Next">
+		<xs:attribute name="on" use="required" type="xs:string" />
+		<xs:attribute name="to" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Step">
+		<xs:sequence>
+			<xs:element name="listeners" type="sbj:Listeners" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:element name="batchlet" type="sbj:Batchlet" />
+				<xs:element name="chunk" type="sbj:Chunk" />
+			</xs:choice>
+			<xs:element name="partition" type="sbj:Partition" minOccurs="0" maxOccurs="1" />
+			<xs:group ref="sbj:TransitionElements" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:ID" />
+		<xs:attribute name="next" use="optional" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Batchlet">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Chunk">
+		<xs:sequence>
+			<xs:element name="reader" type="sbj:ItemReader" />
+			<xs:element name="processor" type="sbj:ItemProcessor" minOccurs="0" maxOccurs="1" />
+			<xs:element name="writer" type="sbj:ItemWriter" />
+		</xs:sequence>
+		<xs:attribute name="item-count" use="optional" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="ItemReader">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="ItemProcessor">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="ItemWriter">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="Listeners">
+		<xs:sequence>
+			<xs:element name="listener" type="sbj:Listener" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Partition">
+		<xs:sequence>
+			<xs:element name="mapper" type="sbj:PartitionMapper" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartitionMapper">
+		<xs:attribute name="ref" use="required" type="xs:string" />
+		<xs:attribute name="grid-size" use="optional" type="xs:int" />
+	</xs:complexType>
+</xs:schema>

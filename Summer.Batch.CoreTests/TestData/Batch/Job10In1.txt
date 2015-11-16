@@ -1,0 +1,12 @@
+Eastwood,Clint
+Washington,Denzel
+Spacey,Kevin
+Irons,Jeremy
+Yeoh,Michelle
+Hackman,Gene
+Bergman,Ingrid
+Redgrave,Vanessa
+Nicholson,Jack
+Perkins,Anthony
+Theron,Charlize
+Monroe,Marilyn

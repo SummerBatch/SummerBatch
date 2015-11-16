@@ -1,0 +1,1 @@
+Customer1                     0000Customer2                     0127 rue Broca        Paris          0154565794015456579302cust2@example.com             cust2@aol.com                 Customer3                     0233 rue du Chat Noir Bordeaux       0554567954         -158 rue Hoche       Somewhere      0257954974         -01cust3@example.com             

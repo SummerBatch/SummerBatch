@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FileFormat ConversionTable="ASCII" dataFileImplementation="IBM i or z System" distinguishFieldSize="1" newLineSize="0" headerSize="0">
+  <RecordFormat cobolRecordName="SINGLE_ITEM" distinguishFieldValue="1" precCondition="">
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="TYPE" Occurs="1" Picture="X" Signed="false" Size="1" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="true" Name="PRICE" Occurs="1" Picture="9(6)V99" Signed="false" Size="8" Type="9" Value=""/>
+  </RecordFormat>
+  <RecordFormat cobolRecordName="COMPOSITE_ITEM" distinguishFieldValue="2" precCondition="">
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="TYPE" Occurs="1" Picture="X" Signed="false" Size="1" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+    <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="false" Name="NB_ITEMS" Occurs="1" Picture="99" Signed="false" Size="2" Type="9" Value=""/>
+    <FieldsGroup DependingOn="NB_ITEMS" Name="ITEMS" Occurs="1">
+      <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="EMPTY" Occurs="1" Picture="X" Signed="false" Size="1" Type="X" Value=""/>
+      <FieldFormat Decimal="0" DependingOn="" ImpliedDecimal="true" Name="NAME" Occurs="1" Picture="X(30)" Signed="false" Size="30" Type="X" Value=""/>
+      <FieldFormat Decimal="2" DependingOn="" ImpliedDecimal="true" Name="PRICE" Occurs="1" Picture="9(6)V99" Signed="false" Size="8" Type="9" Value=""/>
+    </FieldsGroup>
+  </RecordFormat>
+</FileFormat>
