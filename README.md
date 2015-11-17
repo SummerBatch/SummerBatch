@@ -24,7 +24,7 @@ The simplest way to get your hands over Summer Batch binaries is to use the [NuG
 # Getting started
 
 To get started with your first Summer Batch project, please follow the 
-[getting started guide](http://www.bluage.com/summerbatch/refguide/gettingstarted.xhtml "Getting Started").
+[getting started guide](http://www.bluage.com/docs/summerbatch/refguide/gettingstarted.xhtml "Getting Started").
   
 This will lead you, in a few minutes, to get your first Summer Batch project up and working.
 
@@ -35,8 +35,8 @@ sample Summer Batch projects.
 To dig deeper into Summer Batch, we recommend to browse the following sites :
 
 *	[Summer Batch main site](http://www.summerbatch.com "Summer Batch main site")
-*	[Reference Guide](http://www.summerbatch.com/refguide/referenceguide.xhtml "Reference Guide")
-*	[Summer Batch API Doc](http://www.summerbatch.com/api/index.html "API Doc")
+*	[Reference Guide](http://www.bluage.com/docs/summerbatch/refguide/ "Reference Guide")
+*	[Summer Batch API Doc](http://www.bluage.com/docs/summerbatch/api/index.html "API Doc")
 
 # Contribute ?
 You can use the github Issues appliance to ask for improvements or to file bugs you might encounter.
