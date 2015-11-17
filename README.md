@@ -35,7 +35,7 @@ sample Summer Batch projects.
 To dig deeper into Summer Batch, we recommend to browse the following sites :
 
 *	[Summer Batch main site](http://www.summerbatch.com "Summer Batch main site")
-*	[Reference Guide](http://www.bluage.com/docs/summerbatch/refguide/ "Reference Guide")
+*	[Reference Guide](http://www.bluage.com/docs/summerbatch/refguide/referenceguide.xhtml "Reference Guide")
 *	[Summer Batch API Doc](http://www.bluage.com/docs/summerbatch/api/index.html "API Doc")
 
 # Contribute ?
