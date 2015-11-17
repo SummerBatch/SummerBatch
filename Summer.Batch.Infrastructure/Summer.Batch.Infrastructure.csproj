@@ -173,7 +173,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Summer.Batch.Infrastructure.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Summer.Batch.Common\Summer.Batch.Common.csproj">

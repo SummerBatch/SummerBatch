@@ -326,12 +326,6 @@
     <None Include="Ebcdic\Resources\copybooks\Test.fileformat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Ebcdic\Resources\inputs\rdwTest.ebc.bak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ebcdic\Resources\inputs\rdwTest.txt.bak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -542,7 +536,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Summer.Batch.CoreTests.licenseheader" />
     <None Include="TestDBDataSet.xsc">
       <DependentUpon>TestDBDataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

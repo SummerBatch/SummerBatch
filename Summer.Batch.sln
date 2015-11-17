@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Summer.Batch.Core", "Summer.Batch.Core\Summer.Batch.Core.csproj", "{FAE54104-2AEC-40D7-ABCB-92A52A3164B4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -25,45 +25,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Summer.Batch.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Summer.Batch.Common", "Summer.Batch.Common\Summer.Batch.Common.csproj", "{9B3F8E1B-A079-4A2C-8FAC-51206D9EDF7C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{038FE00B-598E-46F9-8AD7-76A11B67544E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\nuget.config = .nuget\nuget.config
-		.nuget\nuget.exe = .nuget\nuget.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BAE5B1C6-8A83-4062-A4A4-53FBE87D29D6}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE.txt = LICENSE.txt
 		NOTICE.txt = NOTICE.txt
+		README.md = README.md
 		RELEASE-NOTES.txt = RELEASE-NOTES.txt
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://srv-150410:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Summer.Batch.Core\\Summer.Batch.Core.csproj
-		SccProjectName1 = Summer.Batch.Core
-		SccLocalPath1 = Summer.Batch.Core
-		SccProjectUniqueName2 = Summer.Batch.CoreTests\\Summer.Batch.CoreTests.csproj
-		SccProjectName2 = Summer.Batch.CoreTests
-		SccLocalPath2 = Summer.Batch.CoreTests
-		SccProjectUniqueName3 = Summer.Batch.Data\\Summer.Batch.Data.csproj
-		SccProjectName3 = Summer.Batch.Data
-		SccLocalPath3 = Summer.Batch.Data
-		SccProjectUniqueName4 = Summer.Batch.Infrastructure\\Summer.Batch.Infrastructure.csproj
-		SccProjectName4 = Summer.Batch.Infrastructure
-		SccLocalPath4 = Summer.Batch.Infrastructure
-		SccProjectUniqueName5 = Summer.Batch.Common\\Summer.Batch.Common.csproj
-		SccProjectName5 = Summer.Batch.Common
-		SccLocalPath5 = Summer.Batch.Common
-		SccProjectUniqueName6 = Summer.Batch.Extra\\Summer.Batch.Extra.csproj
-		SccProjectName6 = Summer.Batch.Extra
-		SccLocalPath6 = Summer.Batch.Extra
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64

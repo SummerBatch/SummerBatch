@@ -303,7 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Summer.Batch.Core.licenseheader" />
     <None Include="Xsd\SummerBatchXML_1_0.xsd">
       <SubType>Designer</SubType>
     </None>

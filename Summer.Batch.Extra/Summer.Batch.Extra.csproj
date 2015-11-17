@@ -252,7 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Summer.Batch.Extra.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
