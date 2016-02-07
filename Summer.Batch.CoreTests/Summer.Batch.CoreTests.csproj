@@ -129,6 +129,7 @@
     <Compile Include="Batch\Split\PersonMapper.cs" />
     <Compile Include="Batch\Split\UppercaseProcessor.cs" />
     <Compile Include="Batch\Split\Person.cs" />
+    <Compile Include="Batch\Tasklets\FileUtilsTaskletFileCompareTests.cs" />
     <Compile Include="Batch\Tasklets\FileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\Job11EmptyFileTaskletTests.cs" />
     <Compile Include="Batch\Tasklets\SqlScriptTaskletTests.cs" />
@@ -277,6 +278,13 @@
     <Content Include="BA_REPORTS_log.ldf">
       <DependentUpon>BA_REPORTS.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job1FileCompare.xml" />
+    <Content Include="Job1FileCompareDefault.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Job1FileCompareIEBCOMPRLike.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NewTestDB_log.ldf">
       <DependentUpon>NewTestDB.mdf</DependentUpon>
