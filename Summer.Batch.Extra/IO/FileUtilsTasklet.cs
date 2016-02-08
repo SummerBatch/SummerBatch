@@ -392,7 +392,7 @@ namespace Summer.Batch.Extra.IO
         /// <exception cref="Exception"></exception>
         private void Compare()
         {
-            SequenceEqualityComparer seqComparer = null;
+            StringEqualityComparer strComparer = null;
             bool _filesEqual = true;
 
             if (this.FileCompareMode == FileType.Text)
@@ -406,9 +406,6 @@ namespace Summer.Batch.Extra.IO
                 // * The same values at each position in both sequences. 
                 //
                 // Note: SequenceEqual compares two collections for exact equality. 
-                //       Its performance is much worse than alternative implementations.
-                //       We are assuming that source files are NOT large and perfomance penalty in Batch is not a critical factor...
-
                 if (SequenceEqualityComparerType == EqualityComparerType.Default)
                 {
                     //=> are files equal?
@@ -417,14 +414,14 @@ namespace Summer.Batch.Extra.IO
                 else if (SequenceEqualityComparerType == EqualityComparerType.IEBCOMPRLike)
                 {
                     //=> our IEBCOMPRLike comparer records sequence index of first 9 lines that are different between 2 files...
-                    seqComparer = new SequenceEqualityComparer();
+                    strComparer = new StringEqualityComparer();
 
                     //=> Check seqComparer.SequenceEquality as seqComparer has a hack to test for upto 10 unequal records...
                     //   if # of unequal records is < 10 SequenceEqual will return true(which is not true, so we need to test SequenceEquality)
-                    f0Lines.SequenceEqual(f1Lines, seqComparer);
+                    f0Lines.SequenceEqual(f1Lines, strComparer);
 
                     //=> are files equals?
-                    _filesEqual = seqComparer.SequenceEquality;
+                    _filesEqual = strComparer.SequenceEquality;
 
                     if (!_filesEqual && Logger.IsInfoEnabled)
                     {
@@ -440,7 +437,7 @@ namespace Summer.Batch.Extra.IO
                         //=> lines from first file...
                         sb.AppendFormat("{0}", Sources[0].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in seqComparer.seqNotEqIndexList)
+                        foreach (int index in strComparer.seqNotEqIndexList)
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
                             sb.AppendFormat("{0,8:D8}: {1}", lNum, f0Lines.ElementAt(index).ToString());
@@ -450,7 +447,7 @@ namespace Summer.Batch.Extra.IO
                         //=> lines from second file...
                         sb.AppendFormat("{0}", Sources[1].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in seqComparer.seqNotEqIndexList)
+                        foreach (int index in strComparer.seqNotEqIndexList)
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
                             sb.AppendFormat("{0,8:D8}: {1}", lNum, f1Lines.ElementAt(index).ToString());
@@ -597,7 +594,7 @@ namespace Summer.Batch.Extra.IO
 
     //=> string comparer for Enumerable.SequenceEqual...
     //   we created this comparer to trap index location of the first index not equal between the 2 files...
-    internal class SequenceEqualityComparer : IEqualityComparer<string>
+    internal class StringEqualityComparer : IEqualityComparer<string>
     {
         private int _countNotEqLines = 0;
         private int seqCount = 0;
