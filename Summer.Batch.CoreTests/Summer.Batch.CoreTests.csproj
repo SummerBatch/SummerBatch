@@ -279,7 +279,9 @@
       <DependentUpon>BA_REPORTS.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Job1FileCompare.xml" />
+    <Content Include="Job1FileCompare.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Job1FileCompareDefault.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

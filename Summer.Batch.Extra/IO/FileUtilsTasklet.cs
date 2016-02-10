@@ -57,6 +57,10 @@ namespace Summer.Batch.Extra.IO
     ///         <term>RESET</term>
     ///         <description>Creates new empty files, overwriting any existing file</description>
     ///     </item>
+    ///     <item>
+    ///         <term>COMPARE</term>
+    ///         <description>Compare two files for equality</description>
+    ///     </item>
     /// </list>
     /// 
     /// </summary>
@@ -227,7 +231,7 @@ namespace Summer.Batch.Extra.IO
                     Reset();
                     break;
                 case FileUtilsMode.Compare:
-                    this.Compare();
+                    Compare();
                     break;
                 default:
                     throw new InvalidOperationException("This mode is not supported :[" + Mode + "]");
@@ -392,10 +396,11 @@ namespace Summer.Batch.Extra.IO
         /// <exception cref="Exception"></exception>
         private void Compare()
         {
-            StringEqualityComparer strComparer = null;
-            bool _filesEqual = true;
 
-            if (this.FileCompareMode == FileType.Text)
+            Stopwatch sw = Stopwatch.StartNew();
+            bool filesEqual = true;
+
+            if (FileCompareMode == FileType.Text)
             {
                 //=> now compare text files...
                 var f0Lines = File.ReadLines(Sources[0].GetFullPath());
@@ -409,21 +414,21 @@ namespace Summer.Batch.Extra.IO
                 if (SequenceEqualityComparerType == EqualityComparerType.Default)
                 {
                     //=> are files equal?
-                    _filesEqual = f0Lines.SequenceEqual(f1Lines);
+                    filesEqual = f0Lines.SequenceEqual(f1Lines);
                 }
                 else if (SequenceEqualityComparerType == EqualityComparerType.IEBCOMPRLike)
                 {
                     //=> our IEBCOMPRLike comparer records sequence index of first 9 lines that are different between 2 files...
-                    strComparer = new StringEqualityComparer();
+                    var strComparer = new StringEqualityComparer();
 
                     //=> Check seqComparer.SequenceEquality as seqComparer has a hack to test for upto 10 unequal records...
                     //   if # of unequal records is < 10 SequenceEqual will return true(which is not true, so we need to test SequenceEquality)
                     f0Lines.SequenceEqual(f1Lines, strComparer);
 
                     //=> are files equals?
-                    _filesEqual = strComparer.SequenceEquality;
+                    filesEqual = strComparer.SequenceEquality;
 
-                    if (!_filesEqual && Logger.IsInfoEnabled)
+                    if (!filesEqual && Logger.IsInfoEnabled)
                     {
                         StringBuilder sb = new StringBuilder();
 
@@ -437,20 +442,20 @@ namespace Summer.Batch.Extra.IO
                         //=> lines from first file...
                         sb.AppendFormat("{0}", Sources[0].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in strComparer.seqNotEqIndexList)
+                        foreach (int index in strComparer.SeqNotEqIndexList)
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
-                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f0Lines.ElementAt(index).ToString());
+                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f0Lines.ElementAt(index));
                             sb.Append(Environment.NewLine);
                         }
 
                         //=> lines from second file...
                         sb.AppendFormat("{0}", Sources[1].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in strComparer.seqNotEqIndexList)
+                        foreach (int index in strComparer.SeqNotEqIndexList)
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
-                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f1Lines.ElementAt(index).ToString());
+                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f1Lines.ElementAt(index));
                             sb.Append(Environment.NewLine);
                         }
 
@@ -459,19 +464,23 @@ namespace Summer.Batch.Extra.IO
                     }
                 }
             }
-            else if (this.FileCompareMode == FileType.Binary)
+            else if (FileCompareMode == FileType.Binary)
             {
                 //=> are files the same?
-                _filesEqual = FileCompare(Sources[0].GetFileInfo(), Sources[1].GetFileInfo());
+                filesEqual = FileCompare(Sources[0].GetFileInfo(), Sources[1].GetFileInfo());
             }
 
+            //stopwatch stop
+            long cpTime = sw.ElapsedMilliseconds;
+            Logger.Info("Comparison took {0} ms", cpTime);
+            
             //=> if files equal...
-            if (_filesEqual)
+            if (filesEqual)
             {
                 Logger.Info("===> FILES {0} and {1} ARE EQUAL <===", Sources[0].GetFilename(), Sources[1].GetFilename());
             }
             else
-            {
+            {             
                 _exitStatus = new ExitStatus("FILESNOTEQUAL", "FILES ARE NOT EQUAL.");
 
                 if (Logger.IsInfoEnabled && SequenceEqualityComparerType != EqualityComparerType.IEBCOMPRLike)
@@ -486,8 +495,8 @@ namespace Summer.Batch.Extra.IO
         // files are not the same.
         private bool FileCompare(FileInfo file1, FileInfo file2)
         {
-            int file1byte;
-            int file2byte;
+            int file1Byte;
+            int file2Byte;
 
             // Determine if the same file was referenced two times.
             if (file1.FullName == file2.FullName)
@@ -510,16 +519,16 @@ namespace Summer.Batch.Extra.IO
                 do
                 {
                     // Read one byte from each file.
-                    file1byte = fs1.ReadByte();
-                    file2byte = fs2.ReadByte();
+                    file1Byte = fs1.ReadByte();
+                    file2Byte = fs2.ReadByte();
                 }
-                while ((file1byte == file2byte) && (file1byte != -1));
+                while ((file1Byte == file2Byte) && (file1Byte != -1));
             }
 
             // Return the success of the comparison. "file1byte" is 
             // equal to "file2byte" at this point only if the files are 
             // the same.
-            return ((file1byte - file2byte) == 0);
+            return ((file1Byte - file2Byte) == 0);
         }
 
         /// <summary>
@@ -566,7 +575,7 @@ namespace Summer.Batch.Extra.IO
                         Assert.State(source.Exists(), source.GetDescription() + " does not exist.");
 
                         //=> source should be a file (NOT Directory)...
-                        Assert.State(!source.GetFileInfo().Attributes.HasFlag(FileAttributes.Directory), source.GetDescription() + " shoul be a file, NOT Directory.");
+                        Assert.State(!source.GetFileInfo().Attributes.HasFlag(FileAttributes.Directory), source.GetDescription() + " should be a file, NOT Directory.");
                     }
                     break;
                 default:
@@ -596,9 +605,9 @@ namespace Summer.Batch.Extra.IO
     //   we created this comparer to trap index location of the first index not equal between the 2 files...
     internal class StringEqualityComparer : IEqualityComparer<string>
     {
-        private int _countNotEqLines = 0;
-        private int seqCount = 0;
-        internal protected List<int> seqNotEqIndexList = new List<int>();
+        private int _countNotEqLines; //defaults to 0
+        private int _seqCount; //defaults to 0
+        internal protected readonly List<int> SeqNotEqIndexList = new List<int>();
         internal protected bool SequenceEquality = true;
 
         public bool Equals(string s1, string s2)
@@ -612,10 +621,12 @@ namespace Summer.Batch.Extra.IO
             {
                 //=> return false if count of unequal lines is 10... 
                 if (++_countNotEqLines > 9)
+                {
                     return false;
+                }
 
                 //=> get index of unequal records and increment count...
-                seqNotEqIndexList.Add(seqCount++);
+                SeqNotEqIndexList.Add(_seqCount++);
 
                 //=> hack to know if SequenceEqual should return false BUT returns true since # of unequal lines _countNotEqLines < 10
                 //   make sure to test this parameter when Enumerable.SequenceEqual returns...
@@ -628,9 +639,9 @@ namespace Summer.Batch.Extra.IO
             }
 
             //=> keep track of index sequence count...
-            seqCount++;
+            _seqCount++;
 
-            return s1EQs2;
+            return true;
         }
 
         public int GetHashCode(string s)

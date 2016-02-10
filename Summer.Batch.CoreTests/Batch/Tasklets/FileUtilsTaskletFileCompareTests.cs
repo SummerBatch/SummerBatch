@@ -26,8 +26,6 @@ using Summer.Batch.Core.Step.Tasklet;
 using Summer.Batch.Core.Unity;
 using Summer.Batch.Core.Unity.Xml;
 using Summer.Batch.Extra.IO;
-using Summer.Batch.Infrastructure.Item.Util;
-using NLog;
 using Summer.Batch.Core.Scope.Context;
 using Summer.Batch.Infrastructure.Repeat;
 
@@ -99,6 +97,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                         { 
                             new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0.txt")),
                             new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0_modified.txt")) 
+ 
                         })
                     );
 
@@ -125,7 +124,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                         new List<IResource> 
                         { 
                             new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0.txt")),
-                            new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0_modified.txt")) 
+                            new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0_modified.txt"))                             
                         })
                     );
 
@@ -217,7 +216,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                 JobExecution job = stepExecution.JobExecution;
                 var jobName = job.JobInstance.JobName;
 
-                var filePathName = Path.Combine(TestDataDirectoryLogs, "1_" + jobName + "_" + job.StartTime.Value.Ticks.ToString() + ".log");
+                var filePathName = Path.Combine(TestDataDirectoryLogs, "1_" + jobName + "_" + job.StartTime.Value.Ticks+ ".log");
                 FileInfo fInfo = new FileInfo(filePathName);
 
                 using (StreamWriter logSW = new StreamWriter(fInfo.FullName, true))
@@ -240,7 +239,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
 
                         for (int j = 0; j < exceptions.Count; j++)
                         {
-                            logSW.WriteLine("Exception @ Step[" + stepName + "]: " + exceptions.ElementAt(j).InnerException.ToString());
+                            logSW.WriteLine("Exception @ Step[" + stepName + "]: " + exceptions.ElementAt(j).InnerException);
                         }
                     }
                 }
@@ -277,7 +276,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                 JobExecution job = stepExecution.JobExecution;
                 var jobName = job.JobInstance.JobName;
 
-                var filePathName = Path.Combine(TestDataDirectoryLogs, "1_" + jobName + "_" + job.StartTime.Value.Ticks.ToString() + ".log");
+                var filePathName = Path.Combine(TestDataDirectoryLogs, "1_" + jobName + "_" + job.StartTime.Value.Ticks+ ".log");
                 FileInfo fInfo = new FileInfo(filePathName);
 
                 using (StreamWriter logSW = new StreamWriter(fInfo.FullName, true))
@@ -295,7 +294,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                         logSW.WriteLine("Step: " + stepName + ", Batch Status: " + batchStatus + ", Exit Status: " + exitCode);
                         for (int j = 0; j < exceptions.Count; j++)
                         {
-                            logSW.WriteLine("Exception @ Step[" + stepName + "]: " + exceptions.ElementAt(j).InnerException.ToString());
+                            logSW.WriteLine("Exception @ Step[" + stepName + "]: " + exceptions.ElementAt(j).InnerException);
                         }
                     }
                 }
