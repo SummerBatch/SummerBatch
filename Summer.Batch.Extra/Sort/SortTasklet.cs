@@ -113,6 +113,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         public long MaxInMemorySize { get; set; }
 
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -137,7 +138,7 @@ namespace Summer.Batch.Extra.Sort
         /// <param name="contribution">ignored</param>
         /// <param name="chunkContext">ignored</param>
         /// <returns><see cref="RepeatStatus.Finished"/></returns>
-        public RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
+        public virtual RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
             Logger.Info("Starting sort tasklet.");
             var sorter = BuildSorter();
@@ -156,7 +157,7 @@ namespace Summer.Batch.Extra.Sort
         /// Builds the sorter.
         /// </summary>
         /// <returns>a <see cref="Sorter{T}"/></returns>
-        private Sorter<byte[]> BuildSorter()
+        public Sorter<byte[]> BuildSorter()
         {
             Logger.Debug("Building sorter");
             var sorter = new Sorter<byte[]>();

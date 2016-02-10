@@ -60,8 +60,23 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="NDbUnit.Core, Version=1.6.8.36615, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NDbUnit.Core.1.6.8.0\lib\Net35\NDbUnit.Core.dll</HintPath>
@@ -71,11 +86,11 @@
       <HintPath>..\packages\NDbUnit.SqlClient.1.6.8.0\lib\Net35\NDbUnit.SqlClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -129,6 +144,7 @@
     <Compile Include="Batch\Split\PersonMapper.cs" />
     <Compile Include="Batch\Split\UppercaseProcessor.cs" />
     <Compile Include="Batch\Split\Person.cs" />
+    <Compile Include="Batch\Tasklets\CustomFileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\FileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\Job11EmptyFileTaskletTests.cs" />
     <Compile Include="Batch\Tasklets\SqlScriptTaskletTests.cs" />
@@ -216,6 +232,7 @@
     <Compile Include="Proxy\ProxyFactoryTest.cs" />
     <Compile Include="Sort\LexerTest.cs" />
     <Compile Include="Sort\SorterTest.cs" />
+    <Compile Include="Sort\SplitSorterTest.cs" />
     <Compile Include="StepScope\StepScopeLifetimeManagerTest.cs" />
     <Compile Include="StepScope\StepScopeTest.cs" />
     <Compile Include="Template\TemplateLineAggregatorTest.cs" />
@@ -274,18 +291,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BA_REPORTS_log.ldf">
-      <DependentUpon>BA_REPORTS.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NewTestDB_log.ldf">
-      <DependentUpon>NewTestDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDB_log.ldf">
-      <DependentUpon>TestDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Ebcdic\Resources\copybooks\Address.fileformat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -330,9 +335,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
-    <Content Include="BA_REPORTS.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ba_reports_all_in_one.sql" />
     <Content Include="Ebcdic\Resources\inputs\Address.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -472,9 +474,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="NewTestDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\Batch\Job11EmptyFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -523,6 +522,7 @@
     <Content Include="TestData\FlatFile\output\Test.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Sort\Input\customSort\sort_test_in.txt" />
     <Content Include="TestData\Sort\Input\sort15.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -722,15 +722,18 @@
     <Content Include="TestData\Sort\Input\sort9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Sort\splitSort\sort101.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\splitSort\sort100.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\SqlScript\myscript.Designer.sql" />
     <Content Include="TestData\SqlScript\myscript.sql">
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Template\Template.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
