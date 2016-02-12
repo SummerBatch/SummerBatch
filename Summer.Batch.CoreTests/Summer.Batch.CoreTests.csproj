@@ -132,6 +132,7 @@
     <Compile Include="Batch\Tasklets\FileUtilsTaskletFileCompareTests.cs" />
     <Compile Include="Batch\Tasklets\FileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\Job11EmptyFileTaskletTests.cs" />
+    <Compile Include="Batch\Tasklets\PowerShellTaskletTests.cs" />
     <Compile Include="Batch\Tasklets\SqlScriptTaskletTests.cs" />
     <Compile Include="Batch\Tasklets\Job1TaskletTests.cs" />
     <Compile Include="Batch\Tasklets\ReportTaskletTest.cs" />
@@ -286,6 +287,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Job1FileCompareIEBCOMPRLike.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JobPowerShellSampleBatch1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JobPowerShellTimeoutTest.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NewTestDB_log.ldf">
@@ -556,6 +563,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestData\FileUtils\report2.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PowerShell\HelperFunctions.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PowerShell\Script1.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PowerShell\ScriptSampleBatch1.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PowerShell\ScriptTimeOut.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestDBDataSet.xsc">
