@@ -146,6 +146,9 @@ namespace Summer.Batch.Core.Step.Tasklet
         public IJobExplorer JobExplorer { private get; set; }
         private bool _stoppable; //defaults to false
 
+        //=> Exit status to pass to powershell runspace...
+        private ExitStatus scriptExitStatus;
+        
         //=> string buiders...
         private StringBuilder sbOutput = new StringBuilder();
         private StringBuilder sbVerbose = new StringBuilder();
@@ -216,6 +219,10 @@ namespace Summer.Batch.Core.Step.Tasklet
                         }
                     }
 
+                    //=> this is out exit status variables to be tested on exit from power shell script...
+                    //   it is defined in PwerShell global scope...and must be set by scipt writer...
+                    runSpace.SessionStateProxy.SetVariable("ScriptExitStatus", scriptExitStatus);
+
                     //=> Allows the execution of commands from a CLR
                     //RunspaceInvoke scriptInvoker = new RunspaceInvoke(runSpace);
                     //scriptInvoker.Invoke("Set-ExecutionPolicy Unrestricted"); 
@@ -233,6 +240,15 @@ namespace Summer.Batch.Core.Step.Tasklet
                             psInstance.Streams.Debug.DataAdded += AllStreams_DataAdded;
 
                             psInstance.Runspace = runSpace;
+
+                            //=> This tasklet should be in the same dll as ExitStatus, i.e. Summer.Batch.Core.dll 
+                            //   we need to get the path to loaded Summer.Batch.Core.dll so we can load it in PowerShell
+                            var assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+                            //=> need to load Summer.Batch.Core into runspace so we can reference ExitStatus
+                            psInstance.AddScript("[System.Reflection.Assembly]::LoadFrom(\""+assemblyLocation+"\")").AddStatement();
+
+                            //=> add user command and its parameters...
                             psInstance.AddCommand(ScriptResource.GetFullPath());
                             if (Parameters != null && Parameters.Any())
                             {
@@ -301,14 +317,38 @@ namespace Summer.Batch.Core.Step.Tasklet
                             //      PowerShell completed its work
 
                             //=> if status not yet set (script completed)...handle completion...
-                            if (contribution.ExitStatus.Equals(ExitStatus.Executing))
+                            if (contribution.ExitStatus.IsRunning())
                             {
                                 //=> script needs to set exit code...if exit code not set we assume 0
-                                var exitCode = (int)runSpace.SessionStateProxy.PSVariable.GetValue("LastExitCode", 0);
-                                var errorRec = runSpace.SessionStateProxy.PSVariable.GetValue("Error");
+                                var lastExitCode = (int)runSpace.SessionStateProxy.PSVariable.GetValue("LastExitCode", 0);
+                                var errorRecord  = runSpace.SessionStateProxy.PSVariable.GetValue("Error");
+                                scriptExitStatus = runSpace.SessionStateProxy.GetVariable("ScriptExitStatus") as ExitStatus;
 
                                 //=> set exit status...
-                                contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(exitCode, errorRec);
+                                if (scriptExitStatus != null && !scriptExitStatus.IsRunning())
+                                {
+                                    if (Logger.IsTraceEnabled)
+                                            Logger.Trace("***> ScriptExitStatus returned by script => " + scriptExitStatus);
+
+                                    contribution.ExitStatus = scriptExitStatus;
+                                }
+                                else //=> let user decide on ExitStatus
+                                {
+                                    if (Logger.IsTraceEnabled)
+                                    {
+                                        if (scriptExitStatus == null)
+                                        {
+                                            Logger.Trace("***> ScriptExitStatus is null. Using PowerShellExitCodeMapper to determine ExitStatus.");
+                                        }
+                                        else if (scriptExitStatus.IsRunning())
+                                        {
+                                            Logger.Trace("***> ScriptExitStatus is EXECUTING or UNKNOWN. Using PowerShellExitCodeMapper to determine ExitStatus.");
+                                        }                        
+                                    }
+
+                                    //=> determine exit status using User Provided PowerShellExitCodeMapper
+                                    contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(lastExitCode, errorRecord);
+                                }
                             }
 
                             if (Logger.IsInfoEnabled)
@@ -373,6 +413,7 @@ namespace Summer.Batch.Core.Step.Tasklet
         public override void BeforeStep(StepExecution stepExecution)
         {
             _execution = stepExecution;
+            scriptExitStatus = _execution.ExitStatus;
         }
 
         /// <summary>

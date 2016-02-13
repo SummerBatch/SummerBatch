@@ -9,3 +9,4 @@ Function Format-Error ($thisError)
     $errMsg += $thisError.InvocationInfo.PositionMessage
     Return $errMsg
 }
+

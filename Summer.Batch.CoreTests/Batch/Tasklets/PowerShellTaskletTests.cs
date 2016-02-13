@@ -155,6 +155,19 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             Assert.IsFalse(jobExecution.Status.IsRunning());
         }
 
+        [TestMethod]
+        public void PowerShellExitStatus()
+        {
+            XmlJob job = XmlJobParser.LoadJob("JobPowerShellExitStatus.xml");
+            IJobOperator jobOperator = BatchRuntime.GetJobOperator(new MyUnityLoaderPowerShellExitStatus(), job);
+            Assert.IsNotNull(jobOperator);
+            long? executionId = jobOperator.StartNextInstance(job.Id);
+            Assert.IsNotNull(executionId);
+            JobExecution jobExecution = ((SimpleJobOperator)jobOperator).JobExplorer.GetJobExecution((long)executionId);
+            Assert.IsFalse(jobExecution.Status.IsUnsuccessful());
+            Assert.IsFalse(jobExecution.Status.IsRunning());
+        }
+
         /// <summary>
         /// Extends UnityLoader and redefines LoadArtifacts() to supply the batch artifacts.
         /// </summary>
@@ -249,6 +262,9 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                 variables.Add("fileToCompare", new FileInfo(fileToCompare));
                 variables.Add("filesToCompare", filesToCompare);
 
+                //ExitStatus ScriptExitStatus = ExitStatus.Unknown;
+                //variables.Add("ScriptExitStatus", ScriptExitStatus);
+
                 //Register Tasklet
                 unityContainer.RegisterType<ITasklet, PowerShellTasklet>("JobPowerSampleBatch1/CopyCompareDelete",
                     new InjectionProperty("ScriptResource", new FileSystemResource(scriptFile)),
@@ -294,6 +310,32 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                     new InjectionProperty("ScriptResource", new FileSystemResource(scriptFile)),
                     //new InjectionProperty("Parameters", null), // script takes no parameters 
                     new InjectionProperty("Variables", variables), // variabes available within script
+                    new InjectionProperty("Timeout", 100000L), //NOTE : Timeout has to be given in ms and it is a long
+                    new InjectionProperty("TimeoutBehavior", PowerShellTasklet.TimeoutBehaviorOption.SetExitStatusToFailed), // this is default if not set
+                    new InjectionProperty("PowerShellExitCodeMapper", new PowerShellExitCodeMapper())
+                    );
+
+                // 
+                //unityContainer.RegisterStepScope<ITasklet, BatchErrorTasklet>("JobFileCompare/BatchError");
+                //unityContainer.RegisterStepScope<ITasklet, EndBatchTasklet>("JobFileCompare/EndBatch");
+            }
+        }
+
+        private class MyUnityLoaderPowerShellExitStatus : UnityLoader
+        {
+            public override void LoadArtifacts(IUnityContainer unityContainer)
+            {
+                //=> Prep input for PowerShellTasklet
+                Dictionary<string, object> variables = new Dictionary<string, object>();
+
+                //=> Set Variables...
+                string scriptFile = @".\TestData\PowerShell\ScriptExitStatus.ps1";
+
+                //Register Tasklet
+                unityContainer.RegisterType<ITasklet, PowerShellTasklet>("JobPowerExitStatus/TestExitStatus",
+                    new InjectionProperty("ScriptResource", new FileSystemResource(scriptFile)),
+                    //new InjectionProperty("Parameters", null), // script takes no parameters 
+                    //new InjectionProperty("Variables", variables), // variabes available within script
                     new InjectionProperty("Timeout", 100000L), //NOTE : Timeout has to be given in ms and it is a long
                     new InjectionProperty("TimeoutBehavior", PowerShellTasklet.TimeoutBehaviorOption.SetExitStatusToFailed), // this is default if not set
                     new InjectionProperty("PowerShellExitCodeMapper", new PowerShellExitCodeMapper())
