@@ -219,8 +219,8 @@ namespace Summer.Batch.Core.Step.Tasklet
                         }
                     }
 
-                    //=> this is out exit status variables to be tested on exit from power shell script...
-                    //   it is defined in PwerShell global scope...and must be set by scipt writer...
+                    //=> this is exit status variables to be tested on exit from power shell script...
+                    //   it is defined in PwerShell global scope...and must be set by scipt writer on exit...
                     runSpace.SessionStateProxy.SetVariable("ScriptExitStatus", scriptExitStatus);
 
                     //=> Allows the execution of commands from a CLR
@@ -321,7 +321,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                             {
                                 //=> script needs to set exit code...if exit code not set we assume 0
                                 var lastExitCode = (int)runSpace.SessionStateProxy.PSVariable.GetValue("LastExitCode", 0);
-                                var errorRecord  = runSpace.SessionStateProxy.PSVariable.GetValue("Error");
+
                                 scriptExitStatus = runSpace.SessionStateProxy.GetVariable("ScriptExitStatus") as ExitStatus;
 
                                 //=> set exit status...
@@ -347,7 +347,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                                     }
 
                                     //=> determine exit status using User Provided PowerShellExitCodeMapper
-                                    contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(lastExitCode, errorRecord);
+                                    contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(lastExitCode);
                                 }
                             }
 

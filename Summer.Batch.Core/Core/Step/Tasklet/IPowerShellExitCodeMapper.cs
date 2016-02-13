@@ -44,9 +44,8 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// <summary>
         /// </summary>
         /// <param name="exitCode">exit code returned by the PowerShell</param>
-        /// <param name="exitCode">Error array returned by the PowerShell</param>
         /// <returns>ExitStatus appropriate for the systemExitCode parameter value</returns>
-        ExitStatus GetExitStatus(int exitCode, object error);
+        ExitStatus GetExitStatus(int exitCode);
     }
 }
 

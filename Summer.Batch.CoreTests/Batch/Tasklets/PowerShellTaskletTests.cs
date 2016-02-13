@@ -38,71 +38,8 @@ using Microsoft.Practices.Unity;
 namespace Summer.Batch.CoreTests.Batch.Tasklets
 {
     [TestClass()]
-    public class SimpleJobLauncherTests
+    public class PowerShellTaskletTests
     {
-        class DummyValidator : IJobParametersValidator
-        {
-            public void Validate(JobParameters parameters)
-            {
-                //Do nothing on purpose
-            }
-        }
-
-        //[TestMethod()]
-        //public void RunLauncherPowerShellTasklet()
-        //{
-        //    SimpleJobLauncher launcher = new SimpleJobLauncher();
-        //    IJobInstanceDao jobInstanceDao = new MapJobInstanceDao();
-        //    IJobExecutionDao jobExecutionDao = new MapJobExecutionDao();
-        //    IStepExecutionDao stepExecutionDao = new MapStepExecutionDao();
-        //    IExecutionContextDao executionContextDao = new MapExecutionContextDao();
-
-        //    IJobRepository jobRepository =
-        //        new SimpleJobRepository(jobInstanceDao, jobExecutionDao, stepExecutionDao, executionContextDao);
-        //    launcher.JobRepository = jobRepository;
-
-        //    DefaultJobParametersConverter converter = new DefaultJobParametersConverter();
-        //    NameValueCollection props2 = new NameValueCollection
-        //    {
-        //        {"+dateDebut(date)", "1970/07/31"},
-        //        {"+everything(long)", "42"},
-        //        {"-balance(double)", "1000.0"},
-        //        {"+name(string)", "thierry"},
-        //        {"-default", "default"}
-        //    };
-        //    JobParameters jobParameters = converter.GetJobParameters(props2);
-
-        //    IJob job = new SimpleJob("myPowerShellJob");
-        //    job.JobParametersValidator = new DummyValidator();
-        //    job.Restartable = false;
-        //    TaskletStep step = new TaskletStep("simpleTS") {JobRepository = jobRepository};
-
-        //    //=> Prep input for PowerShellTasklet
-        //    Dictionary<string, object> parameters = new Dictionary<string, object>();
-
-        //    string scriptFile = @".\TestData\PowerShell\Script1.ps1";
-        //    parameters.Add("DateTimeNow", DateTime.Now);
-        //    parameters.Add("scriptFile", scriptFile);
-
-        //    PowerShellTasklet tasklet = new PowerShellTasklet
-        //    {
-        //        ScriptResource = new FileSystemResource(scriptFile),
-        //        Parameters = parameters,
-        //        Timeout = 10000,
-        //        PowerShellExitCodeMapper = new PowerShellExitCodeMapper()
-        //    };
-        //    step.Tasklet = tasklet;
-        //    step.RegisterStepExecutionListener(tasklet);
-        //    ((SimpleJob)job).AddStep(step);
-        //    ((SimpleJob)job).JobRepository = jobRepository;
-        //    ITaskExecutor taskExecutor = new SimpleAsyncTaskExecutor();
-        //    launcher.TaskExecutor = taskExecutor;
-        //    JobExecution jobExecution = launcher.Run(job, jobParameters);
-        //    //wait for execution end (asynchronous)            
-        //    Assert.IsFalse(jobExecution.Status.IsUnsuccessful());
-        //    Assert.IsFalse(jobExecution.Status.IsRunning());
-        //}
-
         [TestMethod]
         public void PowerShellTimeoutTest()
         {
@@ -168,9 +105,6 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             Assert.IsFalse(jobExecution.Status.IsRunning());
         }
 
-        /// <summary>
-        /// Extends UnityLoader and redefines LoadArtifacts() to supply the batch artifacts.
-        /// </summary>
         private class MyUnityLoaderPowerShellTimeoutTest : UnityLoader
         {
             public override void LoadArtifacts(IUnityContainer unityContainer)
@@ -203,9 +137,6 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             }
         }
 
-                /// <summary>
-        /// Extends UnityLoader and redefines LoadArtifacts() to supply the batch artifacts.
-        /// </summary>
         private class MyUnityLoaderPowerShellTimeoutTestThrowException : UnityLoader
         {
             public override void LoadArtifacts(IUnityContainer unityContainer)
@@ -238,9 +169,6 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             }
         }
 
-        /// <summary>
-        /// Extends UnityLoader and redefines LoadArtifacts() to supply the batch artifacts.
-        /// </summary>
         private class MyUnityLoaderPowerShellSampleBatch1 : UnityLoader
         {
             public override void LoadArtifacts(IUnityContainer unityContainer)
@@ -281,9 +209,6 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             }
         }
 
-        /// <summary>
-        /// Extends UnityLoader and redefines LoadArtifacts() to supply the batch artifacts.
-        /// </summary>
         private class MyUnityLoaderPowerShellSampleBatch1WithError : UnityLoader
         {
             public override void LoadArtifacts(IUnityContainer unityContainer)

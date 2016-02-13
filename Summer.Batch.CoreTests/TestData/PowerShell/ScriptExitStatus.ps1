@@ -9,9 +9,10 @@ $global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Noop
 $global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Failed
 $global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Stopped
 
-If $global:ScriptExitStatus is set to Executing or Unknown then PowerShellTasklet will use PowerShellExitCodeMapper provided by user to
-determine step exit status. PowerShellExitCodeMapper method GetExitStatus takes 2 parameters $LastExitStatus and $Error which are global
-variables defined by PowerShell runtime and user can then define in GetExitStatus ExitStatus
+If $global:ScriptExitStatus is set to Executing, Unknown, or $null then PowerShellTasklet will use 
+PowerShellExitCodeMapper provided by user to determine step exit status. 
+PowerShellExitCodeMapper method GetExitStatus takes 1 parameters $LastExitStatus which is set
+by PowerShell runtime on exit from system commands or by Return and Exit.
 #>
 
 # Enable Verbose messaging...
@@ -43,7 +44,7 @@ try
 	# make sure to set ScriptExitStatus in a global scope...
 	#$global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Completed
 
-	#user defined ExitStatus...[Summer.Batch.Core.ExitStatus]
+	#user defined ExitStatus...[Summer.Batch.Core.ExitStatus] must be used to strong type $userExitStatus 
 	[Summer.Batch.Core.ExitStatus]$userExitStatus = New-Object Summer.Batch.Core.ExitStatus -ArgumentList "UserExitCode","Description"
 
 	# set ScriptExitStatus to User defined ExitStatus...
@@ -54,18 +55,15 @@ try
 
 } catch {
 	
-	#we are done...let PowerShellTasklet know something failed...
-	#$ErrorMessage = $_.Exception.Message
-    #$FailedItem = $_.Exception.ItemName
-	
+	# let PowerShellTasklet know something failed...
 	[string] $errString = Format-Error($_)
 	Write-Error $errString -ErrorAction Continue
 	#Format-List -Property PositionMessage -InputObject $_.InvocationInfo | Out-String -Width 512 | Write-Error -ErrorAction Continue
 
-	# using built-in ExitStatus...
+	# using built-in ExitStatus...if set will be used by PowerShellTasklet...
 	$global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Failed
 
-	#=> Exit <> 0 will set ExitStatus of the step to Failed...
+	#=> Exit <> 0 will set ExitStatus of the step to Failed, if $global:ScriptExitStatus is set to Executing, Unknown, or $null
     Exit 1
 
 }finally{
@@ -78,5 +76,4 @@ try
 Write-Output "End Executing Script File: $scriptFile"
 
 # must specify exit or return status...
-# used by PowerShellExitCodeMapper to set ExitStatus if $global:ScriptExitStatus is set to Executing or Unknown 
 Exit 0

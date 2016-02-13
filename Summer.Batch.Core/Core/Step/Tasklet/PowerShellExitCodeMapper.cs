@@ -33,7 +33,6 @@
  */
 using System;
 using System.Collections;
-using System.Management.Automation;
 
 namespace Summer.Batch.Core.Step.Tasklet
 {
@@ -49,18 +48,8 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// </summary>
         /// <param name="exitCode"></param>
         /// <returns></returns>
-        public ExitStatus GetExitStatus(int exitCode, object error)
+        public ExitStatus GetExitStatus(int exitCode)
         {
-            //=> example for custom development...
-            //ArrayList listOfErrorRecords = error as ArrayList;
-
-            //foreach (ErrorRecord errRecord in listOfErrorRecords)
-            //{
-            //    //=> we ignore these errors...
-            //    if (errRecord.CategoryInfo.Activity.Equals("Write-Error"))
-            //        continue;
-            //}
-
             if (exitCode == 0)
             {
                 return ExitStatus.Completed;
