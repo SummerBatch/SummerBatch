@@ -15,7 +15,7 @@ $DebugPreference = "Continue"
 Write-Output "Start Executing Script File: $(([System.IO.FileInfo]$scriptFileInfo).FullName)"
 
 Write-Output "Loading Assembly: " 
-[System.Reflection.Assembly]::LoadFrom("C:\Users\g.briskin\Documents\GitHub\SummerBatch\Summer.Batch.CoreTests\bin\Debug\Summer.Batch.Core.dll")
+[System.Reflection.Assembly]::LoadFrom("..\..\bin\Debug\Summer.Batch.Core.dll")
 $ExitStatus = [Summer.Batch.Core.ExitStatus]
 
 [Summer.Batch.Core.ExitStatus]$ScriptExitStatus = $ExitStatus::Unknown

@@ -17,22 +17,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Summer.Batch.Core;
 using Summer.Batch.Core.Unity;
 using Summer.Batch.Core.Unity.Xml;
-using Summer.Batch.Core.Converter;
-using Summer.Batch.Core.Job;
 using Summer.Batch.Core.Launch;
 using Summer.Batch.Core.Launch.Support;
-using Summer.Batch.Core.Repository;
-using Summer.Batch.Core.Repository.Dao;
-using Summer.Batch.Core.Repository.Support;
 using Summer.Batch.Core.Step.Tasklet;
-using Summer.Batch.Common.TaskExecution;
 using Summer.Batch.Common.IO;
-using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using Summer.Batch.Core.Scope.Context;
-using Summer.Batch.Infrastructure.Repeat;
 using Microsoft.Practices.Unity;
 
 namespace Summer.Batch.CoreTests.Batch.Tasklets

@@ -13,24 +13,6 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-//   This file has been modified.
-//   Original copyright notice :
-
-/*
- * Copyright 2006-2013 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 #region Usings
 using NLog;
@@ -42,10 +24,7 @@ using Summer.Batch.Common.Util;
 using Summer.Batch.Common.IO;
 using System;
 using System.Text;
-using System.Diagnostics;
-using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Summer.Batch.Common.Factory;
@@ -147,14 +126,14 @@ namespace Summer.Batch.Core.Step.Tasklet
         private bool _stoppable; //defaults to false
 
         //=> Exit status to pass to powershell runspace...
-        private ExitStatus scriptExitStatus;
+        private ExitStatus _scriptExitStatus;
         
         //=> string buiders...
-        private StringBuilder sbOutput = new StringBuilder();
-        private StringBuilder sbVerbose = new StringBuilder();
-        private StringBuilder sbError = new StringBuilder();
-        private StringBuilder sbWarning = new StringBuilder();
-        private StringBuilder sbDebug = new StringBuilder();
+        private readonly StringBuilder _sbOutput = new StringBuilder();
+        private readonly StringBuilder _sbVerbose = new StringBuilder();
+        private readonly StringBuilder _sbError = new StringBuilder();
+        private readonly StringBuilder _sbWarning = new StringBuilder();
+        private readonly StringBuilder _sbDebug = new StringBuilder();
 
         #endregion
 
@@ -170,11 +149,11 @@ namespace Summer.Batch.Core.Step.Tasklet
             _stoppable = (JobExplorer != null);
 
             //=> initialize string builders...
-            sbOutput.AppendLine(Environment.NewLine + "*** PowerShell Write-Output Stream ***");
-            sbVerbose.AppendLine(Environment.NewLine + "*** PowerShell Write-Verbose Stream ***");
-            sbError.AppendLine(Environment.NewLine + "*** PowerShell Write-Error Stream ***");
-            sbWarning.AppendLine(Environment.NewLine + "*** PowerShell Write-Warning Stream ***");
-            sbDebug.AppendLine(Environment.NewLine + "*** PowerShell Write-Debug Stream ***");
+            _sbOutput.AppendLine(Environment.NewLine + "*** PowerShell Write-Output Stream ***");
+            _sbVerbose.AppendLine(Environment.NewLine + "*** PowerShell Write-Verbose Stream ***");
+            _sbError.AppendLine(Environment.NewLine + "*** PowerShell Write-Error Stream ***");
+            _sbWarning.AppendLine(Environment.NewLine + "*** PowerShell Write-Warning Stream ***");
+            _sbDebug.AppendLine(Environment.NewLine + "*** PowerShell Write-Debug Stream ***");
         }
 
         /// <summary>
@@ -190,10 +169,12 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public RepeatStatus Execute(StepContribution contribution, Scope.Context.ChunkContext chunkContext)
+        public RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
             if (Logger.IsTraceEnabled)
+            {
                 Logger.Trace("*** Executing PowerShell Script File: {0}", ScriptResource.GetFullPath());
+            }
 
             //=> PowerShell will throw an error if we do not Suppress ambient transaction...
             //   see https://msdn.microsoft.com/en-us/library/system.transactions.transaction.current(v=vs.110).aspx#NotExistJustToMakeTheAElementVisible
@@ -221,7 +202,7 @@ namespace Summer.Batch.Core.Step.Tasklet
 
                     //=> this is exit status variables to be tested on exit from power shell script...
                     //   it is defined in PwerShell global scope...and must be set by scipt writer on exit...
-                    runSpace.SessionStateProxy.SetVariable("ScriptExitStatus", scriptExitStatus);
+                    runSpace.SessionStateProxy.SetVariable("ScriptExitStatus", _scriptExitStatus);
 
                     //=> Allows the execution of commands from a CLR
                     //RunspaceInvoke scriptInvoker = new RunspaceInvoke(runSpace);
@@ -265,7 +246,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                             long t0 = DateTime.Now.Ticks;
                             while (!asyncResult.IsCompleted)
                             {
-                                //=> take a nap and let scipt do its job...
+                                //=> take a nap and let script do its job...
                                 Thread.Sleep(new TimeSpan(_checkInterval));
                                 
                                 //=> to check if job was told to stop...
@@ -278,7 +259,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                                     //=> Stop PowerShell...
                                     psInstance.Stop();
 
-                                    //=> bahave based on TimeoutBehaviorOption
+                                    //=> behave based on TimeoutBehaviorOption
                                     if (_timeoutBehavior.Equals(TimeoutBehaviorOption.SetExitStatusToFailed))
                                     {
                                         contribution.ExitStatus = ExitStatus.Failed;
@@ -288,7 +269,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                                     {
                                         //=> lets dump what we got before throwing an error...
                                         LogStreams();
-                                        throw new FatalStepExecutionException("Execution of PowerShell script exceede allotted time.", null);
+                                        throw new FatalStepExecutionException("Execution of PowerShell script exceeded allotted time.", null);
                                     }
                                 }
                                 else if (_execution.TerminateOnly)
@@ -322,25 +303,27 @@ namespace Summer.Batch.Core.Step.Tasklet
                                 //=> script needs to set exit code...if exit code not set we assume 0
                                 var lastExitCode = (int)runSpace.SessionStateProxy.PSVariable.GetValue("LastExitCode", 0);
 
-                                scriptExitStatus = runSpace.SessionStateProxy.GetVariable("ScriptExitStatus") as ExitStatus;
+                                _scriptExitStatus = runSpace.SessionStateProxy.GetVariable("ScriptExitStatus") as ExitStatus;
 
                                 //=> set exit status...
-                                if (scriptExitStatus != null && !scriptExitStatus.IsRunning())
+                                if (_scriptExitStatus != null && !_scriptExitStatus.IsRunning())
                                 {
                                     if (Logger.IsTraceEnabled)
-                                            Logger.Trace("***> ScriptExitStatus returned by script => " + scriptExitStatus);
+                                    {
+                                        Logger.Trace("***> ScriptExitStatus returned by script => {0}", _scriptExitStatus);
+                                    }
 
-                                    contribution.ExitStatus = scriptExitStatus;
+                                    contribution.ExitStatus = _scriptExitStatus;
                                 }
                                 else //=> let user decide on ExitStatus
                                 {
                                     if (Logger.IsTraceEnabled)
                                     {
-                                        if (scriptExitStatus == null)
+                                        if (_scriptExitStatus == null)
                                         {
                                             Logger.Trace("***> ScriptExitStatus is null. Using PowerShellExitCodeMapper to determine ExitStatus.");
                                         }
-                                        else if (scriptExitStatus.IsRunning())
+                                        else if (_scriptExitStatus.IsRunning())
                                         {
                                             Logger.Trace("***> ScriptExitStatus is EXECUTING or UNKNOWN. Using PowerShellExitCodeMapper to determine ExitStatus.");
                                         }                        
@@ -352,7 +335,9 @@ namespace Summer.Batch.Core.Step.Tasklet
                             }
 
                             if (Logger.IsInfoEnabled)
+                            {
                                 Logger.Info("PowerShell execution exit status [{0}]", contribution.ExitStatus);
+                            }
 
                             //=> output captured stream data to Log...
                             LogStreams();
@@ -379,19 +364,29 @@ namespace Summer.Batch.Core.Step.Tasklet
         private void LogStreams()
         {
             if (Logger.IsTraceEnabled)
-                Logger.Trace(sbVerbose.ToString());
+            {
+                Logger.Trace(_sbVerbose.ToString());
+            }
 
             if (Logger.IsInfoEnabled)
-                Logger.Info(sbOutput.ToString());
+            {
+                Logger.Info(_sbOutput.ToString());
+            }
 
             if (Logger.IsWarnEnabled)
-                Logger.Warn(sbWarning.ToString());
+            {
+                Logger.Warn(_sbWarning.ToString());
+            }
 
             if (Logger.IsErrorEnabled)
-                Logger.Error(sbError.ToString());
+            {
+                Logger.Error(_sbError.ToString());
+            }
 
             if (Logger.IsDebugEnabled)
-                Logger.Debug(sbDebug.ToString());
+            {
+                Logger.Debug(_sbDebug.ToString());
+            }
         }
 
         private void CheckStoppingState(ChunkContext chunkContext)
@@ -413,7 +408,7 @@ namespace Summer.Batch.Core.Step.Tasklet
         public override void BeforeStep(StepExecution stepExecution)
         {
             _execution = stepExecution;
-            scriptExitStatus = _execution.ExitStatus;
+            _scriptExitStatus = _execution.ExitStatus;
         }
 
         /// <summary>
@@ -432,31 +427,41 @@ namespace Summer.Batch.Core.Step.Tasklet
             if (outputStream != null)
             {
                 if (outputStream[e.Index] != null)
-                    sbOutput.AppendLine(outputStream[e.Index].ToString());
+                {
+                    _sbOutput.AppendLine(outputStream[e.Index].ToString());
+                }
             }
             else if (verboseStream != null)
             {
                 if (verboseStream[e.Index] != null)
-                    sbVerbose.AppendLine(verboseStream[e.Index].ToString());
+                {
+                    _sbVerbose.AppendLine(verboseStream[e.Index].ToString());
+                }
             }
             else if (errorStream != null)
             {
                 if (errorStream[e.Index] != null)
-                    sbError.AppendLine(errorStream[e.Index].ToString());
+                {
+                    _sbError.AppendLine(errorStream[e.Index].ToString());
+                }
             }
             else if (warningStream != null)
             {
                 if (warningStream[e.Index] != null)
-                    sbWarning.AppendLine(warningStream[e.Index].ToString());
+                {
+                    _sbWarning.AppendLine(warningStream[e.Index].ToString());
+                }
             }
             else if (debugStream != null)
             {
                 if (debugStream[e.Index] != null)
-                    sbDebug.AppendLine(debugStream[e.Index].ToString());
+                {
+                    _sbDebug.AppendLine(debugStream[e.Index].ToString());
+                }
             }
             else
             {
-                sbOutput.AppendLine("Data is comming from stream: " + sender.GetType().FullName);
+                _sbOutput.AppendLine("Data is comming from stream: " + sender.GetType().FullName);
             }
         }
 
