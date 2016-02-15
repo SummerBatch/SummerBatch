@@ -30,9 +30,6 @@ $scriptFile = $MyInvocation.MyCommand.Definition
 # Let user know script file being executed...
 Write-Output "Start Executing Script File: $scriptFile"
 
-#Write-Output "Loading Assembly: " ... decided to move into PowerShellTasklet ... no need for used to deal with it...
-#[System.Reflection.Assembly]::LoadFrom("C:\Users\g.briskin\Documents\GitHub\SummerBatch\Summer.Batch.CoreTests\bin\Debug\Summer.Batch.Core.dll")
-
 # $ScriptExitStatus is pre-set from PowerShellTasklet in a GLOBAL scope...
 Write-Output "Initial ScriptExitStatus => $($global:ScriptExitStatus.ExitCode)"
 

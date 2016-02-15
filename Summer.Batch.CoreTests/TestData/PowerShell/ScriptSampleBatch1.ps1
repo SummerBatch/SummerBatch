@@ -11,18 +11,14 @@ $DebugPreference = "Continue"
 # if you need to trace at statement level...
 #Set-PSDebug -Trace 2
 
+# set script file being executed...
+$scriptFile = $MyInvocation.MyCommand.Definition
+
 # Let user know script file being executed...
-Write-Output "Start Executing Script File: $(([System.IO.FileInfo]$scriptFileInfo).FullName)"
+Write-Output "Start Executing Script File: $scriptFile"
 
-Write-Output "Loading Assembly: " 
-[System.Reflection.Assembly]::LoadFrom("..\..\bin\Debug\Summer.Batch.Core.dll")
-$ExitStatus = [Summer.Batch.Core.ExitStatus]
+Write-Output "On Entry ScriptExitStatus is $global:ScriptExitStatus"
 
-[Summer.Batch.Core.ExitStatus]$ScriptExitStatus = $ExitStatus::Unknown
-Write-Output "Initial ScriptExitStatus is $ScriptExitStatus"
-
-#$ExitStatus = New-Object Summer.Batch.Core.ExitStatus
-#Write-Output "Initial ExitStatus is Summer.Batch.Core.ExitStatus.Failed"
 try
 {
 	#Make all errors terminating
@@ -72,20 +68,23 @@ try
 		Remove-Item $fileName
 	}
 
-	$ScriptExitStatus = $ExitStatus::Completed
-	Write-Output "On Exit ScriptExitStatus is $ScriptExitStatus"
+	# make sure to set ScriptExitStatus in a global scope...
+	$global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Completed
+	Write-Output "On Exit ScriptExitStatus is $global:ScriptExitStatus"
 
 } catch {
 	
 	#we are done...let PowerShellTasklet know something failed...
-	$ErrorMessage = $_.Exception.Message
-    $FailedItem = $_.Exception.ItemName
+	#$ErrorMessage = $_.Exception.Message
+    #$FailedItem = $_.Exception.ItemName
 	
 	[string] $errString = Format-Error($_)
 	Write-Error $errString -ErrorAction Continue
 	#Format-List -Property PositionMessage -InputObject $_.InvocationInfo  -Expand Both | Out-String -Width 512 | Write-Error -ErrorAction Continue
 
-	$ScriptExitStatus = $ExitStatus::Failed
+	# using built-in ExitStatus...if set will be used by PowerShellTasklet...
+	$global:ScriptExitStatus = [Summer.Batch.Core.ExitStatus]::Failed
+	Write-Output "On Catch Block Exit ScriptExitStatus is $global:ScriptExitStatus"
 
 	#=> Exit <> 0 will set ExitStatus of the step to Failed
     Exit 1
