@@ -49,7 +49,6 @@ try
 	
 	Write-Output "On Exit ScriptExitStatus => $($global:ScriptExitStatus.ExitCode)"
 
-
 } catch {
 	
 	# let PowerShellTasklet know something failed...

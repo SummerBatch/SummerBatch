@@ -252,8 +252,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                     //new InjectionProperty("Parameters", null), // script takes no parameters 
                     //new InjectionProperty("Variables", variables), // variabes available within script
                     new InjectionProperty("Timeout", 100000L), //NOTE : Timeout has to be given in ms and it is a long
-                    new InjectionProperty("TimeoutBehavior", PowerShellTasklet.TimeoutBehaviorOption.SetExitStatusToFailed), // this is default if not set
-                    new InjectionProperty("PowerShellExitCodeMapper", new PowerShellExitCodeMapper())
+                    new InjectionProperty("TimeoutBehavior", PowerShellTasklet.TimeoutBehaviorOption.SetExitStatusToFailed) // this is default if not set
                     );
 
                 // 

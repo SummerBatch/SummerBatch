@@ -144,7 +144,6 @@ namespace Summer.Batch.Core.Step.Tasklet
         {
             //=> make sure source exists...
             Assert.State(ScriptResource.Exists(), ScriptResource.GetDescription() + " does not exist.");
-            Assert.NotNull(PowerShellExitCodeMapper, "PowerShellExitCodeMapper must be set");
             Assert.IsTrue(_timeout > 0, "timeout value must be greater than zero");
             _stoppable = (JobExplorer != null);
 
@@ -329,8 +328,20 @@ namespace Summer.Batch.Core.Step.Tasklet
                                         }                        
                                     }
 
-                                    //=> determine exit status using User Provided PowerShellExitCodeMapper
-                                    contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(lastExitCode);
+                                    if (PowerShellExitCodeMapper != null)
+                                    {
+                                        //=> determine exit status using User Provided PowerShellExitCodeMapper
+                                        contribution.ExitStatus = PowerShellExitCodeMapper.GetExitStatus(lastExitCode);
+                                    }
+                                    else //at this point we are not able to determine exit status, user needs to fix this...
+                                    {
+                                        //=> lets dump what we got before throwing an error...
+                                        LogStreams();
+                                        throw new FatalStepExecutionException(
+                                            "PowerShellTasklet is not able to determine ExitStatus. ScriptExitStatus is null or (is EXECUTING or UNKNOWN) and "+
+                                            "PowerShellExitCodeMapper is NOT defined. Please set $global:ScriptExitStatus or define PowerShellExitCodeMapper.", null);
+                                    }
+
                                 }
                             }
 
