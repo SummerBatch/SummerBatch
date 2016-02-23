@@ -1,6 +1,9 @@
 ﻿using NLog;
+using Summer.Batch.Common.Collections;
 using Summer.Batch.Extra.Sort.Filter;
 using Summer.Batch.Extra.Sort.Format;
+using Summer.Batch.Extra.Sort.Legacy.Accessor;
+using Summer.Batch.Extra.Sort.Legacy.Format;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +22,8 @@ namespace Summer.Batch.Extra.Sort
 
         public IList<OutputFileFormat<T>> _outputWriters { get; set; }
 
+
+        public static string newLine = "";
         /// <summary>
         /// Sorts files. If the files are too big to be sorted in memory, they are sorted by blocks
         /// saved on disk in temporary files, which are then merged to produce the final output file.
@@ -74,14 +79,26 @@ namespace Summer.Batch.Extra.Sort
                             _logger.Debug("Writing header");
                             writer.WriteHeader(reader.ReadHeader(HeaderSize));
                             var record = ReadRecord(reader);
+
+                            WriteReportHeader(fileFormat, writer);
+                            string prev = "";
+                            decimal noOfRecords = 0;
+                            fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
+
                             while (record != null)
                             {
                                 if (Select(record) && Select(record, fileFormat.Filter))
                                 {
+                                    prev = WriteSection(fileFormat, writer, prev, record);
+                                    writePageHeaderTrailer(fileFormat, writer, noOfRecords);
                                     writer.Write(record);
+                                    noOfRecords++;
+                                    fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
                                 }
                                 record = ReadRecord(reader);
                             }
+                            WriteReportTrailer(fileFormat, writer);
+                            writer.Dispose();
                         }
                     }
                 }
@@ -146,7 +163,7 @@ namespace Summer.Batch.Extra.Sort
                     var tmpFiles = tasks.Select(task => task.Result).ToList();
 
                     // Merge
-                    Merge(tmpFiles, writer);
+                    Merge(tmpFiles, writer, fileFormat);
                 }
             }
 
@@ -192,23 +209,106 @@ namespace Summer.Batch.Extra.Sort
                     records.Sort(Comparer);
                     // Write the records
                     writer.WriteHeader(_header);
+                    WriteReportHeader(fileFormat, writer);
+                    string prev = "";
+                    decimal noOfRecords = 0;
+                    fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
                     foreach (var record in records)
                     {
+                        prev = WriteSection(fileFormat, writer, prev, record);
+                        writePageHeaderTrailer(fileFormat, writer, noOfRecords);
                         writer.Write(record);
-                        
+                        noOfRecords++;
+                        fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
                     }
+                    WriteReportTrailer(fileFormat, writer);
                     writer.Dispose();
                     _logger.Info("Writing file=== for sorter - " + count);
                 }
-                 
             }
-
-           
-
-
-
-
         }
+
+        private static void WriteReportTrailer(OutputFileFormat<T> fileFormat, SumWriter<T> writer)
+        {
+            if (!string.IsNullOrWhiteSpace(fileFormat.trailer1))
+            {
+                writer.Write(fileFormat.trailer1.Replace("&COUNT", fileFormat.countForTrailer1.ToString()));
+            }
+        }
+
+        private static void WriteReportHeader(OutputFileFormat<T> fileFormat, SumWriter<T> writer)
+        {
+            if (!string.IsNullOrWhiteSpace(fileFormat.header1))
+            {
+                writer.Write(fileFormat.header1.Replace("&DATE", new DateTime().ToString("MM'/'dd'/'yyyy")));
+            }
+        }
+
+        private static void writePageHeaderTrailer(OutputFileFormat<T> fileFormat, SumWriter<T> writer, decimal noOfRecords)
+        {
+            if (noOfRecords % fileFormat.lines == 0)
+            {
+                if (!string.IsNullOrWhiteSpace(fileFormat.trailer2))
+                {
+                    writer.Write(fileFormat.trailer2.Replace("&COUNT", fileFormat.countForTrailer2.ToString()));
+                }
+                if (!string.IsNullOrWhiteSpace(fileFormat.header2))
+                {
+                    writer.Write(fileFormat.header2.Replace("&PAGE", (noOfRecords / fileFormat.lines).ToString()).Replace("&DATE", new DateTime().ToString("MM'/'dd'/'yyyy")));
+                }
+                fileFormat.countForTrailer2 = 0;
+            }
+        }
+
+        private string WriteSection(OutputFileFormat<T> fileFormat, SumWriter<T> writer, string prev, T record)
+        {
+            if (null != fileFormat.section)
+            {
+                prev = (prev == "") ? fileFormat.section.Get(record) : prev;
+                string current = fileFormat.section.Get(record);
+                if (//!string.IsNullOrWhiteSpace(prev) && 
+                    !prev.Equals(current))
+                {
+                    writeSection(writer, fileFormat);
+                    prev = current;
+                }
+                fileFormat.countForTrailer3 = 0;
+            }
+            return prev;
+        }
+
+        private void writeSection(SumWriter<T> writer, OutputFileFormat<T> outfileFormat)
+        {
+            writeFooter(writer, outfileFormat);
+            writeSkipLines(writer, outfileFormat.section);
+            writeHeader(writer, outfileFormat.section);
+        }
+
+        private static void writeSkipLines(SumWriter<T> writer, ISection<string> section)
+        {
+            for (int i = 0; i < section.skipLines; i++)
+            {
+                writer.Write(newLine);
+            }
+        }
+
+        private static void writeFooter(SumWriter<T> writer, OutputFileFormat<T> outfileFormat)
+        {
+            if (!string.IsNullOrWhiteSpace(outfileFormat.section.trailer3))
+            {
+                writer.Write(outfileFormat.section.trailer3.Replace("&COUNT",outfileFormat.countForTrailer3.ToString()));
+            }
+        }
+
+        private static void writeHeader(SumWriter<T> writer, ISection<string> section)
+        {
+            if (!string.IsNullOrWhiteSpace(section.header3))
+            {
+                writer.Write(section.header3);
+            }
+        }
+
+
         public SumWriter<T> GetSumWriter(FileInfo file, OutputFileFormat<T> fileFormat, int no)
         {
             file = new FileInfo(file.FullName + no);
@@ -228,7 +328,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="tmpFiles"></param>
         /// <param name="outputFile"></param>
-        public void Merge(ICollection<string> tmpFiles, SumWriter<T> writer)
+        public void Merge(ICollection<string> tmpFiles, SumWriter<T> writer, OutputFileFormat<T> fileFormat)
         {
             _logger.Info("Merging temporary files");
             // we use a list of buffers to sort them by
@@ -241,9 +341,12 @@ namespace Summer.Batch.Extra.Sort
 
 
             writer.WriteHeader(_header);
+            WriteReportHeader(fileFormat, writer);
             try
             {
-                Merge(buffers, writer);
+                Merge(buffers, writer, fileFormat);
+                WriteReportTrailer(fileFormat, writer);
+                
             }
             finally
             {
@@ -262,6 +365,32 @@ namespace Summer.Batch.Extra.Sort
                 File.Delete(file);
             }
         }
+
+        private void Merge(List<RecordReaderBuffer<T>> buffers, SumWriter<T> writer, OutputFileFormat<T> fileFormat)
+        {
+            // Buffers are stored in a priority queue to have the buffers with the
+            // lowest record (with respect to Comparer) as the first buffer
+            var queue = new PriorityQueue<RecordReaderBuffer<T>>(buffers);
+            string prev = "";
+            decimal noOfRecords = 0;
+            fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
+            while (queue.Count > 0)
+            {
+                var buffer = queue.Poll();
+                var record = buffer.Read();
+                prev = WriteSection(fileFormat, writer, prev, record);
+                writePageHeaderTrailer(fileFormat, writer, noOfRecords);
+                writer.Write(record);
+                noOfRecords++;
+                fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
+                // If the buffer has still records, we put it back in the queue
+                // so that is is correctly sorted
+                if (buffer.HasNext())
+                {
+                    queue.Add(buffer);
+                }
+            }
+        }
     }
 
 
@@ -270,5 +399,40 @@ namespace Summer.Batch.Extra.Sort
         public IFormatter<T> OutputFormatter { get; set; }
 
         public IFilter<T> Filter { get; set; }
+
+        public string header1 { get; set; }
+
+        public string header2 { get; set; }
+
+        public ISection<string> section { get; set; }
+
+        public string trailer1 { get; set; }
+
+        public string trailer2 { get; set; }
+
+        public decimal lines { get; set; }
+
+        public decimal countForTrailer1 { get; set; }
+
+        public decimal countForTrailer2 { get; set; }
+
+        public decimal countForTrailer3 { get; set; }
+
+    }
+
+    public class ISection<T>
+    {
+        public IAccessor<string> accessor { get; set; }
+
+        public int skipLines { get; set; }
+
+        public string header3 { get; set; }
+
+        public string trailer3 { get; set; }
+
+        public string Get(object record)
+        {
+            return accessor.Get((byte[]) record);
+        }
     }
 }

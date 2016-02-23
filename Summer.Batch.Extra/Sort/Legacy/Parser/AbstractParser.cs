@@ -15,6 +15,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Summer.Batch.Extra.Sort.Legacy.Accessor;
+using System;
 
 namespace Summer.Batch.Extra.Sort.Legacy.Parser
 {
@@ -63,6 +64,10 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         private const string Card = "card";
         private const string Format1 = "format1";
         private const string Format2 = "format2";
+        private static readonly char space = ' ';
+        private static readonly Regex headerRegex
+            = new Regex("\\d+:");
+
 
         #endregion
 
@@ -132,6 +137,46 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                     throw new ParsingException("Unknown format: " + format);
             }
             return result;
+        }
+
+
+        public string ExtractElement(Lexer lexer, string Info)
+        {
+            string Content = "";
+            while (Info != ClosingPar)
+            {
+                var parentheses = Info == (OpeningPar);
+                if (parentheses)
+                {
+                    Info = lexer.Parse();
+                }
+                var matches = headerRegex.Matches(Info);
+                if (matches.Count == 1)
+                {
+                    string[] tokens = Info.Split(':');
+                    if (tokens.Length == 2)
+                    {
+                        int lengthOfField = Convert.ToInt16(tokens[0]) - 1;
+                        Content += tokens[1].PadLeft(lengthOfField, space);
+                    }
+
+                }
+                else if (Info.Contains("/") && string.IsNullOrWhiteSpace(Info.Replace("/", "")))
+                {
+                    Content += Info.Replace("/", System.Environment.NewLine);
+                }
+                else
+                {
+                    Content += Info.Replace("'", "");
+                }
+               
+                Info = lexer.Parse();
+                if (string.IsNullOrWhiteSpace(Info))
+                {
+                    break;
+                }
+            }
+            return Content;
         }
     }
 }

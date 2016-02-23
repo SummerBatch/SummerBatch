@@ -7,6 +7,7 @@ using Summer.Batch.Core.Scope.Context;
 using Summer.Batch.Extra.Sort.Format;
 using Summer.Batch.Extra.Sort.Legacy;
 using Summer.Batch.Extra.Sort.Legacy.Parser;
+using Summer.Batch.Extra.Sort.Section;
 using Summer.Batch.Extra.Sort.Sum;
 using Summer.Batch.Infrastructure.Repeat;
 using System;
@@ -113,13 +114,39 @@ namespace Summer.Batch.Extra.Sort
                     Logger.Debug("Building sorter - fileformat outrec = " + file.Outrec);
                     writer.OutputFormatter = formatterParser.GetFormatter(file.Outrec);
                 }
-
                 if (!string.IsNullOrWhiteSpace(file.Include) || !string.IsNullOrWhiteSpace(file.Omit))
                 {
                     Logger.Debug("Building sorter - fileformat Include = " + file.Include);
                     var filterParser = new FilterParser { Encoding = Encoding, SortEncoding = SortEncoding };
                     writer.Filter = filterParser.GetFilter(file.Include, file.Omit);
                 }
+                SectionFormatter<string> format = new SectionFormatter<string> { Encoding = Encoding };
+                if (!string.IsNullOrWhiteSpace(file.section))
+                {
+                    Logger.Debug("Building sorter - fileformat Section = " + file.section);
+                    writer.section = format.ParseSection(file.section, Encoding);
+                }
+                if (!string.IsNullOrWhiteSpace(file.header1))
+                {
+                    Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
+                    writer.header1 = format.ParseElement(file.header1, Encoding);
+                }
+                if (!string.IsNullOrWhiteSpace(file.header2))
+                {
+                    Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
+                    writer.header2 = format.ParseElement(file.header2, Encoding);
+                }
+                if (!string.IsNullOrWhiteSpace(file.trailer1))
+                {
+                    Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
+                    writer.trailer1 = format.ParseElement(file.trailer1, Encoding);
+                }
+                if (!string.IsNullOrWhiteSpace(file.trailer2))
+                {
+                    Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
+                    writer.trailer2 = format.ParseElement(file.trailer2, Encoding);
+                }
+                writer.lines = (file.lines == 0) ? 60 : file.lines;
                 sorter._outputWriters.Add(writer);
             }
 
@@ -137,7 +164,9 @@ namespace Summer.Batch.Extra.Sort
 
 
     }
-
+    /// <summary>
+    /// The OUTFIL information
+    /// </summary>
     public class OutputFile
     {
         /// <summary>
@@ -154,5 +183,45 @@ namespace Summer.Batch.Extra.Sort
         /// The omit configuration card
         /// </summary>
         public string Omit { get; set; }
+
+        /// <summary>
+        /// The report header information
+        /// </summary>
+        public string header1 { get; set; }
+
+        /// <summary>
+        /// The page header information
+        /// </summary>
+        public string header2 { get; set; }
+
+        /// <summary>
+        /// The section header information
+        /// </summary>
+        public string header3 { get; set; }
+
+        /// <summary>
+        /// The report trailer information
+        /// </summary>
+        public string trailer1 { get; set; }
+
+        /// <summary>
+        /// The page trailer information
+        /// </summary>
+        public string trailer2 { get; set; }
+
+        /// <summary>
+        /// The section trailer information
+        /// </summary>
+        public string trailer3 { get; set; }
+
+        /// <summary>
+        /// The section information for header3 & trailer3
+        /// </summary>
+        public string section { get; set; }
+
+        /// <summary>
+        /// The lines information for page, header2 & trailer2
+        /// </summary>
+        public decimal lines { get; set; }
     }
 }

@@ -64,5 +64,12 @@ namespace Summer.Batch.Extra.Sort.Legacy.Format
 
             return result;
         }
+
+
+        public byte[] Format(string p)
+        {
+            byte[] newline = Encoding.ASCII.GetBytes(p);
+            return newline;
+        }
     }
 }

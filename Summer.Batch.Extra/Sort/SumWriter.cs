@@ -18,6 +18,7 @@ using NLog;
 using Summer.Batch.Extra.Sort.Format;
 using Summer.Batch.Extra.Sort.Sum;
 using Summer.Batch.Common.Util;
+using System.Text;
 
 namespace Summer.Batch.Extra.Sort
 {
@@ -77,6 +78,12 @@ namespace Summer.Batch.Extra.Sort
             }
         }
 
+        public void Write(string p)
+        {
+            _writer.Write(_outputFormatter.Format(p));
+        }
+
+
         /// <summary>
         /// Writes the header
         /// </summary>
@@ -128,5 +135,9 @@ namespace Summer.Batch.Extra.Sort
 
         #endregion
 
+
+
+
+        
     }
 }
