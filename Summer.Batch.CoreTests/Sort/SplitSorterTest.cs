@@ -66,11 +66,11 @@ namespace Summer.Batch.CoreTests.Sort
             //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
-        [TestMethod]
+       [TestMethod]
         public void TestSort2()
         {
 
-            var output = new FileInfo(@"TestData\Sort\Input\sort_test_in.txt");
+            var output = new FileInfo(@"TestData\Sort\Input\sort_17_o.txt");
             
 
             var sortTasklet = new CustomSortTasklet
@@ -80,7 +80,7 @@ namespace Summer.Batch.CoreTests.Sort
                 outputFile = new List<OutputFile>(),
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
-                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort_test_in.txt")) },
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
                 Output = new FileSystemResource(output)
             };
             var outputFile1 = new OutputFile
@@ -104,6 +104,92 @@ namespace Summer.Batch.CoreTests.Sort
             sortTasklet.outputFile.Add(outputFile2);
             sortTasklet.outputFile.Add(outputFile3);
             sortTasklet.outputFile.Add(outputFile4);
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+           // Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+        [TestMethod]
+        public void TestSort3()
+        {
+
+            var output = new FileInfo(@"TestData\Sort\Input\sort17_o_1.txt");
+
+
+            var sortTasklet = new SortTasklet
+            {
+                Separator = "\n",
+                SortCard = "(121,14,CH,A)",
+                Include = "75,2,BI,NE,X'5244'",
+                Encoding = Cp1252,
+                SortEncoding = Cp1147,
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
+                Output = new FileSystemResource(output)
+            };
+           
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+
+        [TestMethod]
+        public void TestSort4()
+        {
+
+            var output = new FileInfo(@"TestData\Sort\Input\sort17_o_1.txt");
+
+
+            var sortTasklet = new CustomSortTasklet
+            {
+                Separator = "\r\n",
+                SortCard = "(1,15,CH,A)",
+                outputFile = new List<OutputFile>(),
+                Encoding = Cp1252,
+                SortEncoding = Cp1147,
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
+                Output = new FileSystemResource(output)
+            };
+            var outputFile1 = new OutputFile
+            {
+                Outrec = "1,200,77,3,ZD,EDIT=($TT.00)",
+                //section = "0,15,SKIP=2L,HEADER3=(1:'DEPARTMENT', 23:'SALES MGR'),TRAILER3=(1:'TOTAL RECORDS FOR DEPARTMENT = ',&COUNT)",
+                header1 = "47:'ALBERTA HEALTH OVERLAY ROWS REPORT',/,&DATE",
+                header2 = "2:'REPORT ID: NCI049R1 ',&PAGE,/,46:'WORKERS'' COMPENSATION BOARD - ALBERTA'",
+                trailer2 = "100:'TOTAL RECORDS FOR DEPARTMENT = ',&COUNT",
+                lines = 6
+            };
+            sortTasklet.outputFile.Add(outputFile1);
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+        [TestMethod]
+        public void TestSort5()
+        {
+
+            var output = new FileInfo(@"TestData\Sort\Input\jpnci046.step080.sortout.dat.txt");
+            var sortTasklet = new CustomSortTasklet
+            {
+                
+                RecordLength = 89,
+                SortCard = "(1,27,A) FORMAT='BI'",
+                outputFile = new List<OutputFile>(),
+                Encoding = Cp1047,
+                SortEncoding = Cp1047,
+                Input = new List<IResource> { new FileSystemResource(new FileInfo("P:/PRJ - Projets/Accenture/WCB/000 - Project/02 - inputs/SummerBatchPrototypeFiles/jpnci046.step080.sortin.dat")) },
+                Output = new FileSystemResource(output)
+            };
+            var outputFile1 = new OutputFile
+            {
+                Outrec = "12:1,7,33:8,10,52:18,10,72:28,1,60X",
+                section = "89,0,TRAILER3=(//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *')",
+                header2 = "2:'REPORT ID: NCI046R1',46:'WORKERS'' COMPENSATION BOARD - ALBERTA',118:'PAGE: ',&PAGE,/,   47:'ALBERTA HEALTH OVERLAY ROWS REPORT',103:'RUN DATE (MM/DD/YY): ',&DATE,/,52:'FOR SERVICE CODE OVERLAYS',///,12:'SERVICE CODE',31:'EFFECTIVE DATE',53:'END DATE',65:'DIAG CD REQD FLG',/,12:'------------',31:'--------------',52:'----------',65:'---------------',/",
+                //trailer2 = "100:'TOTAL RECORDS FOR DEPARTMENT = ',&COUNT",
+                lines = 60
+            };
+            sortTasklet.outputFile.Add(outputFile1);
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
 
             //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
