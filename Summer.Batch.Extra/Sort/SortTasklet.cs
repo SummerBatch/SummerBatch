@@ -157,7 +157,7 @@ namespace Summer.Batch.Extra.Sort
         /// Builds the sorter.
         /// </summary>
         /// <returns>a <see cref="Sorter{T}"/></returns>
-        public Sorter<byte[]> BuildSorter()
+        private Sorter<byte[]> BuildSorter()
         {
             Logger.Debug("Building sorter");
             var sorter = new Sorter<byte[]>();
