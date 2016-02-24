@@ -317,7 +317,6 @@
     <Compile Include="Core\Scope\Context\ChunkContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Xsd\SummerBatchXML_1_0.xsd">
       <SubType>Designer</SubType>

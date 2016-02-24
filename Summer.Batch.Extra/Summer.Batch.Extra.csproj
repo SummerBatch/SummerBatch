@@ -103,7 +103,6 @@
     <Compile Include="EmptyCheckSupport\EmptyFileCheckTasklet.cs" />
     <Compile Include="IItemCondition.cs" />
     <Compile Include="ContextManagerUnityLoader.cs" />
-    <Compile Include="IO\CustomFileUtils\CustomFileUtilsTasklet.cs" />
     <Compile Include="IO\FileUtilsTasklet.cs" />
     <Compile Include="IO\GdgResourceLoader.cs">
       <SubType>Code</SubType>
@@ -224,6 +223,7 @@
     <Compile Include="Sort\Legacy\SeparatorAccessorFactory.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordReader.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordWriter.cs" />
+    <Compile Include="Sort\SectionFormatter.cs" />
     <Compile Include="Sort\SplitSorter.cs" />
     <Compile Include="Sort\Sum\SkipSum.cs" />
     <Compile Include="Sort\RecordReaderBuffer.cs" />
@@ -268,8 +268,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

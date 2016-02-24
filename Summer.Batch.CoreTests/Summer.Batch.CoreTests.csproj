@@ -144,7 +144,6 @@
     <Compile Include="Batch\Split\PersonMapper.cs" />
     <Compile Include="Batch\Split\UppercaseProcessor.cs" />
     <Compile Include="Batch\Split\Person.cs" />
-    <Compile Include="Batch\Tasklets\CustomFileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\FileUtilsTaskletTest.cs" />
     <Compile Include="Batch\Tasklets\Job11EmptyFileTaskletTests.cs" />
     <Compile Include="Batch\Tasklets\SqlScriptTaskletTests.cs" />
@@ -720,12 +719,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Sort\Input\sort9.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Sort\splitSort\sort101.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Sort\splitSort\sort100.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\SqlScript\myscript.Designer.sql" />

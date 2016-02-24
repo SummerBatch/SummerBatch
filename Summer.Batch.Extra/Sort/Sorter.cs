@@ -212,7 +212,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="records">the records to sort</param>
         /// <returns>the task that will perform the sort and return the path to the temporary file</returns>
-        public Task<string> SortAndSave(List<T> records)
+        protected Task<string> SortAndSave(List<T> records)
         {
             return Task.Run(() =>
             {
@@ -240,7 +240,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="tmpFiles"></param>
         /// <param name="outputFile"></param>
-        public void Merge(ICollection<string> tmpFiles, FileInfo outputFile)
+        private void Merge(ICollection<string> tmpFiles, FileInfo outputFile)
         {
             _logger.Info("Merging temporary files");
             // we use a list of buffers to sort them by
@@ -280,7 +280,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="buffers">the buffers to read the temporary files</param>
         /// <param name="writer">the writer for the output file</param>
-        public static void Merge(IEnumerable<RecordReaderBuffer<T>> buffers, IRecordWriter<T> writer)
+        private static void Merge(IEnumerable<RecordReaderBuffer<T>> buffers, IRecordWriter<T> writer)
         {
             // Buffers are stored in a priority queue to have the buffers with the
             // lowest record (with respect to Comparer) as the first buffer
@@ -307,7 +307,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="inputFiles">the files to sort</param>
         /// <param name="outputFile">the output file</param>
-        public void InMemorySort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
+        private void InMemorySort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
         {
             _logger.Info("Sorting in memory - from SortTasklet");
             var records = new List<T>();
@@ -351,7 +351,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="reader">the reader to read from</param>
         /// <returns>the read record</returns>
-        public T ReadRecord(IRecordReader<T> reader)
+        protected T ReadRecord(IRecordReader<T> reader)
         {
             var record = reader.Read();
             return InputFormatter == null || record == null ? record : InputFormatter.Format(record);
@@ -362,7 +362,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="record">the record to check</param>
         /// <returns><code>true</code> if the record has been selected, <code>false</code> otherwise</returns>
-        public bool Select(T record)
+        protected bool Select(T record)
         {
             return Filter == null || Filter.Select(record);
         }
@@ -372,7 +372,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="file">the file to write to</param>
         /// <returns>the sum writer</returns>
-        public SumWriter<T> GetSumWriter(FileInfo file)
+        protected SumWriter<T> GetSumWriter(FileInfo file)
         {
             file.Directory.Create();
             return new SumWriter<T>(RecordAccessorFactory.CreateWriter(file.Create()), Sum, Comparer, OutputFormatter);
@@ -386,7 +386,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="record">the first record</param>
         /// <returns>the maximumu number of records to store in memory</returns>
-        public long ComputeMaxInMemoryRecords(T record)
+        protected long ComputeMaxInMemoryRecords(T record)
         {
             // We write the record in a memory stream just to check its size,
             // then compare with the max file size.
