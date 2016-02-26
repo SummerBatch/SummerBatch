@@ -174,7 +174,7 @@ namespace Summer.Batch.CoreTests.Sort
             {
                 
                 RecordLength = 89,
-                SortCard = "(1,10,BI,A)",
+                SortCard = "(1,88,BI,A)",
                 outputFile = new List<OutputFile>(),
                 Encoding = Cp1047,
                 SortEncoding = Cp1047,

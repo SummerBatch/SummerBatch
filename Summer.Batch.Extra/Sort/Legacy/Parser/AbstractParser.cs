@@ -131,6 +131,11 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                     result = new BinaryAccessor { Encoding = encoding, Length = length, Start = start, Signed = true };
                     break;
                 case BinaryFormat:
+                    if (length > 12)
+                    {
+                        result = new BigBinaryAccessor { Encoding = encoding, Length = length, Start = start, Signed = false };
+                        break;
+                    }
                     result = new BinaryAccessor { Encoding = encoding, Length = length, Start = start, Signed = false };
                     break;
                 default:

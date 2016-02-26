@@ -173,6 +173,7 @@
     <Compile Include="Sort\Legacy\Accessor\AbstractAccessor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Sort\Legacy\Accessor\BigBinaryAccessor.cs" />
     <Compile Include="Sort\Legacy\Accessor\ConstantAccessor.cs">
       <SubType>Code</SubType>
     </Compile>
