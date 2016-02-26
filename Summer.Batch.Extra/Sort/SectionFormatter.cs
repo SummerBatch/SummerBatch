@@ -29,7 +29,7 @@ namespace Summer.Batch.Extra.Sort.Section
         {
             Encoding = Encoding.Default;
         }
-        public ISection<string> ParseSection(string configuration, Encoding encoding)
+        public ISection<string> ParseSection(string configuration, Encoding encoding, int recordLength)
         {
             ISection<string> section = null;
             
@@ -42,7 +42,7 @@ namespace Summer.Batch.Extra.Sort.Section
                 {
                     lexer.MoveNext();
                 }
-                section = ParseSection(lexer, encoding);
+                section = ParseSection(lexer, encoding, recordLength);
                 if (parentheses)
                 {
                     lexer.Parse(ClosingPar);
@@ -51,7 +51,7 @@ namespace Summer.Batch.Extra.Sort.Section
             return section;
         }
 
-        private ISection<string> ParseSection(Lexer lexer, Encoding encoding)
+        private ISection<string> ParseSection(Lexer lexer, Encoding encoding, int recordLength)
         {
             ISection<string> section = new ISection<string>();
             int start = lexer.ParseInt();
@@ -67,20 +67,20 @@ namespace Summer.Batch.Extra.Sort.Section
             if (null != nextElement && nextElement.IndexOf(header3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 String info = lexer.Current.Replace(header3, "");
-                String headerContent = ExtractElement(lexer, info);
+                String headerContent = ExtractElement(lexer, info, recordLength);
                 section.header3 = headerContent;
                 nextElement = lexer.Parse();
             }
             if (null != nextElement && nextElement.IndexOf(trailer3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 String info = lexer.Current.Replace(trailer3, "");
-                String trailerContent = ExtractElement(lexer, info);
+                String trailerContent = ExtractElement(lexer, info, recordLength);
                 section.trailer3 = trailerContent;
             }
             return section;
         }
 
-        public string ParseElement(string configuration, Encoding encoding)
+        public string ParseElement(string configuration, Encoding encoding, int recordLength)
         {
             string elementContent = "";
             var lexer = new Lexer(configuration);
@@ -91,7 +91,7 @@ namespace Summer.Batch.Extra.Sort.Section
                 {
                     lexer.MoveNext();
                 }
-                elementContent = ExtractElement(lexer, "");
+                elementContent = ExtractElement(lexer, "", recordLength);
                 if (parentheses)
                 {
                     lexer.Parse(ClosingPar);

@@ -68,7 +68,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Format
 
         public byte[] Format(string p)
         {
-            byte[] newline = Encoding.ASCII.GetBytes(p);
+            byte[] newline = Encoding.GetBytes(p);
             return newline;
         }
     }

@@ -140,11 +140,13 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         }
 
 
-        public string ExtractElement(Lexer lexer, string Info)
+        public string ExtractElement(Lexer lexer, string Info, int recordLength)
         {
             string Content = "";
+            int currentLength = 0;
             while (Info != ClosingPar)
             {
+                
                 var parentheses = Info == (OpeningPar);
                 if (parentheses)
                 {
@@ -156,18 +158,36 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                     string[] tokens = Info.Split(':');
                     if (tokens.Length == 2)
                     {
-                        int lengthOfField = Convert.ToInt16(tokens[0]) - 1;
-                        Content += tokens[1].PadLeft(lengthOfField, space);
+                        int lengthOfField = Convert.ToInt16(tokens[0]);
+                        String temp = tokens[1].PadLeft(lengthOfField - currentLength, space);
+                        Content += temp;
+                        currentLength += temp.Length;
+
                     }
 
                 }
                 else if (Info.Contains("/") && string.IsNullOrWhiteSpace(Info.Replace("/", "")))
                 {
-                    Content += Info.Replace("/", System.Environment.NewLine);
+                    if (recordLength == 0)
+                    {
+                        Content += Info.Replace("/", System.Environment.NewLine);
+                    }
+                    else
+                    {
+                        if (currentLength < recordLength)
+                        {
+                            String x = "".PadRight(recordLength - currentLength, space);
+                            Content += x;
+                        }
+                    }
+                   
+                    currentLength = 0;
                 }
                 else
                 {
-                    Content += Info.Replace("'", "");
+                     String temp = Info.Replace("'", "");
+                     Content += temp;
+                     currentLength += temp.Length;
                 }
                
                 Info = lexer.Parse();

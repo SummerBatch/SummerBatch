@@ -240,7 +240,7 @@ namespace Summer.Batch.Extra.Sort
         {
             if (!string.IsNullOrWhiteSpace(fileFormat.header1))
             {
-                writer.Write(fileFormat.header1.Replace("&DATE", new DateTime().ToString("MM'/'dd'/'yyyy")));
+                writer.Write(fileFormat.header1.Replace("&DATE", DateTime.Now.ToString("MM'/'dd'/'yyyy")));
             }
         }
 
@@ -254,7 +254,7 @@ namespace Summer.Batch.Extra.Sort
                 }
                 if (!string.IsNullOrWhiteSpace(fileFormat.header2))
                 {
-                    writer.Write(fileFormat.header2.Replace("&PAGE", (noOfRecords / fileFormat.lines).ToString()).Replace("&DATE", new DateTime().ToString("MM'/'dd'/'yyyy")));
+                    writer.Write(fileFormat.header2.Replace("&PAGE", ((noOfRecords / fileFormat.lines)+1).ToString()).Replace("&DATE", DateTime.Now.ToString("MM'/'dd'/'yyyy")));
                 }
                 fileFormat.countForTrailer2 = 0;
             }

@@ -124,27 +124,27 @@ namespace Summer.Batch.Extra.Sort
                 if (!string.IsNullOrWhiteSpace(file.section))
                 {
                     Logger.Debug("Building sorter - fileformat Section = " + file.section);
-                    writer.section = format.ParseSection(file.section, Encoding);
+                    writer.section = format.ParseSection(file.section, Encoding, file.outputFileRecordLength);
                 }
                 if (!string.IsNullOrWhiteSpace(file.header1))
                 {
                     Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
-                    writer.header1 = format.ParseElement(file.header1, Encoding);
+                    writer.header1 = format.ParseElement(file.header1, Encoding, file.outputFileRecordLength);
                 }
                 if (!string.IsNullOrWhiteSpace(file.header2))
                 {
                     Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
-                    writer.header2 = format.ParseElement(file.header2, Encoding);
+                    writer.header2 = format.ParseElement(file.header2, Encoding, file.outputFileRecordLength);
                 }
                 if (!string.IsNullOrWhiteSpace(file.trailer1))
                 {
                     Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
-                    writer.trailer1 = format.ParseElement(file.trailer1, Encoding);
+                    writer.trailer1 = format.ParseElement(file.trailer1, Encoding, file.outputFileRecordLength);
                 }
                 if (!string.IsNullOrWhiteSpace(file.trailer2))
                 {
                     Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
-                    writer.trailer2 = format.ParseElement(file.trailer2, Encoding);
+                    writer.trailer2 = format.ParseElement(file.trailer2, Encoding, file.outputFileRecordLength);
                 }
                 writer.lines = (file.lines == 0) ? 60 : file.lines;
                 sorter._outputWriters.Add(writer);
@@ -223,5 +223,8 @@ namespace Summer.Batch.Extra.Sort
         /// The lines information for page, header2 & trailer2
         /// </summary>
         public decimal lines { get; set; }
+
+
+        public int outputFileRecordLength { get; set; }
     }
 }

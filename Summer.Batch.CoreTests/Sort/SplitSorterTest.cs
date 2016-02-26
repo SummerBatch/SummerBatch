@@ -174,7 +174,7 @@ namespace Summer.Batch.CoreTests.Sort
             {
                 
                 RecordLength = 89,
-                SortCard = "(1,27,A) FORMAT='BI'",
+                SortCard = "(1,10,BI,A)",
                 outputFile = new List<OutputFile>(),
                 Encoding = Cp1047,
                 SortEncoding = Cp1047,
@@ -184,10 +184,13 @@ namespace Summer.Batch.CoreTests.Sort
             var outputFile1 = new OutputFile
             {
                 Outrec = "12:1,7,33:8,10,52:18,10,72:28,1,60X",
-                section = "89,0,TRAILER3=(//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *')",
-                header2 = "2:'REPORT ID: NCI046R1',46:'WORKERS'' COMPENSATION BOARD - ALBERTA',118:'PAGE: ',&PAGE,/,   47:'ALBERTA HEALTH OVERLAY ROWS REPORT',103:'RUN DATE (MM/DD/YY): ',&DATE,/,52:'FOR SERVICE CODE OVERLAYS',///,12:'SERVICE CODE',31:'EFFECTIVE DATE',53:'END DATE',65:'DIAG CD REQD FLG',/,12:'------------',31:'--------------',52:'----------',65:'---------------',/",
-                //trailer2 = "100:'TOTAL RECORDS FOR DEPARTMENT = ',&COUNT",
-                lines = 60
+                //section = "88,1,TRAILER3=(//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *')",
+                header2 = "2:'REPORT ID: NCI046R1',46:'WORKERS'' COMPENSATION BOARD - ALBERTA',118:'PAGE: ',&PAGE,/,"+   
+                "47:'ALBERTA HEALTH OVERLAY ROWS REPORT',103:'RUN DATE (MM/DD/YY): ',&DATE,/,"+
+                "52:'FOR SERVICE CODE OVERLAYS',///,12:'SERVICE CODE',31:'EFFECTIVE DATE',53:'END DATE',65:'DIAG CD REQD FLG',/,12:'------------',31:'--------------',52:'----------',65:'---------------',/",
+                trailer1 = "//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *'",
+                lines = 60,
+                outputFileRecordLength = 132
             };
             sortTasklet.outputFile.Add(outputFile1);
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
