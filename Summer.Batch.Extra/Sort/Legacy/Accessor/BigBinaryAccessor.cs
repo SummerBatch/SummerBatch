@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Summer.Batch.Extra.Sort.Legacy.Accessor
 {
+    /// <summary>
+    /// Big Binary Accessor is used to sort on fields of length > 12 characters
+    /// </summary>
     class BigBinaryAccessor : AbstractAccessor<BigInteger>
     {
         /// <summary>

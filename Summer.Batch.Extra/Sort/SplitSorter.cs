@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace Summer.Batch.Extra.Sort
 {
+    /// <summary>
+    /// Multiple output sorter
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class SplitSorter<T> : Sorter<T> where T : class
     {
 

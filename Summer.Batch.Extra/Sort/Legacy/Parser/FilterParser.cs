@@ -183,7 +183,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
             }
             if (elements.Count == 2 && elements[0] == "X")
             {
-                // string constant
+                // HexaDecimal constant
                 var constant = elements[1].Substring(1, elements[1].Length - 2);
                 BinaryAccessor accessor =  new BinaryAccessor ();
                 int value = Convert.ToInt32(constant, 16);

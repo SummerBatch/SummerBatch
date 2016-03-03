@@ -138,7 +138,7 @@ namespace Summer.Batch.Extra.Sort
         /// <param name="contribution">ignored</param>
         /// <param name="chunkContext">ignored</param>
         /// <returns><see cref="RepeatStatus.Finished"/></returns>
-        public virtual RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
+        public RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
             Logger.Info("Starting sort tasklet.");
             var sorter = BuildSorter();

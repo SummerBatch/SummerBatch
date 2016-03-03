@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 
 namespace Summer.Batch.Extra.Sort.Section
 {
+    /// <summary>
+    /// Object parsing the outrec format for the section formats used in  extedend sort steps
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     class SectionFormatter<T> : AbstractParser
     {
 
-        private static readonly string skip = "SKIP=";
-        private static readonly string header3 = "HEADER3=";
-        private static readonly string trailer3 = "TRAILER3=";
+        private const string Skip = "SKIP=";
+        private const string Header3 = "HEADER3=";
+        private const string Trailer3 = "TRAILER3=";
         
         private static readonly Regex DefaultEmptyRegex = new Regex("");
          /// <summary>
@@ -58,22 +62,22 @@ namespace Summer.Batch.Extra.Sort.Section
             int length = lexer.ParseInt();
             section.Accessor = (IAccessor<string>)GetAccessor(start, length, "CH", encoding);
             string nextElement = lexer.Parse();
-            if (null != nextElement && nextElement.IndexOf(skip, StringComparison.OrdinalIgnoreCase) >= 0)
+            if (null != nextElement && nextElement.IndexOf(Skip, StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                int lines = Convert.ToInt16(nextElement.ToUpper().Replace(skip, "").Replace("L", ""));
+                int lines = Convert.ToInt16(nextElement.ToUpper().Replace(Skip, "").Replace("L", ""));
                 section.SkipLines = lines;
                 nextElement = lexer.Parse();
             }
-            if (null != nextElement && nextElement.IndexOf(header3, StringComparison.OrdinalIgnoreCase) >= 0)
+            if (null != nextElement && nextElement.IndexOf(Header3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                String info = lexer.Current.Replace(header3, "");
+                String info = lexer.Current.Replace(Header3, "");
                 String headerContent = ExtractElement(lexer, info, recordLength);
                 section.Header3 = headerContent;
                 nextElement = lexer.Parse();
             }
-            if (null != nextElement && nextElement.IndexOf(trailer3, StringComparison.OrdinalIgnoreCase) >= 0)
+            if (null != nextElement && nextElement.IndexOf(Trailer3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                String info = lexer.Current.Replace(trailer3, "");
+                String info = lexer.Current.Replace(Trailer3, "");
                 String trailerContent = ExtractElement(lexer, info, recordLength);
                 section.Trailer3 = trailerContent;
             }

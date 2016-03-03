@@ -48,7 +48,7 @@ namespace Summer.Batch.Extra.Sort
         /// <param name="contribution">ignored</param>
         /// <param name="chunkContext">ignored</param>
         /// <returns><see cref="RepeatStatus.Finished"/></returns>
-        public override RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
+        public new RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
             Logger.Info("Starting ExtendedSort tasklet.");
             SplitSorter<byte[]> sorter = (SplitSorter<byte[]>)BuildSorter();
