@@ -181,6 +181,18 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                 var constant = elements[1].Substring(1, elements[1].Length - 2);
                 return new ConstantAccessor<string> { Constant = constant };
             }
+            if (elements.Count == 2 && elements[0] == "X")
+            {
+                // HexaDecimal constant
+                var constant = elements[1].Substring(1, elements[1].Length - 2);
+                BinaryAccessor accessor =  new BinaryAccessor ();
+                int value = Convert.ToInt32(constant, 16);
+                byte[] bytes = Enumerable.Range(0, constant.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(constant.Substring(x, 2), 16)).ToArray();
+                accessor.SetBytes(bytes, bytes, 0);
+                decimal constant1 = Convert.ToInt32(constant, 16);
+
+                return new ConstantAccessor<decimal> { Constant = constant1 };     
+            }
             // field accesor
             var start = int.Parse(elements[0]) - 1;
             var length = int.Parse(elements[1]);
@@ -209,6 +221,14 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                         Right = (IAccessor<string>) rightAccessor,
                         Operator = comparisonOperator,
                         SortEncoding = SortEncoding
+                    };
+                case BinaryFormat:
+                    return new DecimalFilter
+                    {
+                        Left = (IAccessor<decimal>)leftAccessor,
+                        Right = (IAccessor<decimal>)rightAccessor,
+                        Operator = comparisonOperator
+                        
                     };
                 case SubstringFormat:
                     return new SubstringFilter { Left = (IAccessor<string>) leftAccessor, Right = (IAccessor<string>) rightAccessor };

@@ -113,6 +113,7 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         public long MaxInMemorySize { get; set; }
 
+
         /// <summary>
         /// Default constructor.
         /// </summary>

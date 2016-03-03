@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using Summer.Batch.Extra.Sort.Comparer;
 using Summer.Batch.Extra.Sort.Legacy.Accessor;
 using Summer.Batch.Extra.Sort.Legacy.Comparer;
+using System.Numerics;
 
 namespace Summer.Batch.Extra.Sort.Legacy.Parser
 {
@@ -142,8 +143,18 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
             }
             else
             {
-                var accessor = GetAccessor(start, length, format, Encoding) as IAccessor<decimal>;
-                comparer = new DefaultComparer<decimal> { Ascending = ascending, Accessor = accessor };
+                //decimal can hold upto 12 bytes.
+                if (length < 13)
+                {
+                    var accessor = GetAccessor(start, length, format, Encoding) as IAccessor<decimal>;
+                    comparer = new DefaultComparer<decimal> { Ascending = ascending, Accessor = accessor };
+                }
+                else
+                {
+                    var accessor = GetAccessor(start, length, format, Encoding) as IAccessor<BigInteger>;
+                    comparer = new DefaultComparer<BigInteger> { Ascending = ascending, Accessor = accessor };
+                }
+              
             }
 
             return comparer;

@@ -143,6 +143,7 @@
     <Compile Include="Service\Stop\ServiceStop.cs" />
     <Compile Include="Service\Stop\SkippedItemException.cs" />
     <Compile Include="Sort\Comparer\ComparerChain.cs" />
+    <Compile Include="Sort\ExtendedSortTasklet.cs" />
     <Compile Include="Sort\Filter\ConjunctionFilter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +159,7 @@
     <Compile Include="Sort\Legacy\Accessor\AbstractAccessor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Sort\Legacy\Accessor\BigBinaryAccessor.cs" />
     <Compile Include="Sort\Legacy\Accessor\ConstantAccessor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -208,6 +210,8 @@
     <Compile Include="Sort\Legacy\SeparatorAccessorFactory.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordReader.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordWriter.cs" />
+    <Compile Include="Sort\SectionFormatter.cs" />
+    <Compile Include="Sort\SplitSorter.cs" />
     <Compile Include="Sort\Sum\SkipSum.cs" />
     <Compile Include="Sort\RecordReaderBuffer.cs" />
     <Compile Include="Sort\Sorter.cs" />

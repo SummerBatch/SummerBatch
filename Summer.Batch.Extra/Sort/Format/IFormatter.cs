@@ -26,5 +26,7 @@ namespace Summer.Batch.Extra.Sort.Format
         /// <param name="record">the record to format</param>
         /// <returns>the formatted record</returns>
         T Format(T record);
+
+        T Format(string p);
     }
 }

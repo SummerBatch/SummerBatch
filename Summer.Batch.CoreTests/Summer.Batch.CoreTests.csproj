@@ -60,7 +60,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Unity">
+       <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="NDbUnit.Core, Version=1.6.8.36615, Culture=neutral, processorArchitecture=MSIL">
@@ -216,6 +216,7 @@
     <Compile Include="Proxy\ProxyFactoryTest.cs" />
     <Compile Include="Sort\LexerTest.cs" />
     <Compile Include="Sort\SorterTest.cs" />
+    <Compile Include="Sort\SplitSorterTest.cs" />
     <Compile Include="StepScope\StepScopeLifetimeManagerTest.cs" />
     <Compile Include="StepScope\StepScopeTest.cs" />
     <Compile Include="Template\TemplateLineAggregatorTest.cs" />
@@ -274,18 +275,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BA_REPORTS_log.ldf">
-      <DependentUpon>BA_REPORTS.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NewTestDB_log.ldf">
-      <DependentUpon>NewTestDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDB_log.ldf">
-      <DependentUpon>TestDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Ebcdic\Resources\copybooks\Address.fileformat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -330,9 +319,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
-    <Content Include="BA_REPORTS.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ba_reports_all_in_one.sql" />
     <Content Include="Ebcdic\Resources\inputs\Address.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -472,9 +458,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="NewTestDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\Batch\Job11EmptyFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -722,15 +705,22 @@
     <Content Include="TestData\Sort\Input\sort9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	
+	<Content Include="TestData\Sort\Input\customSort\sort_test_in.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	
+	<Content Include="TestData\Sort\Input\test_raw_input_EBCDIC.dat" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	
+	
     <Content Include="TestData\SqlScript\myscript.Designer.sql" />
     <Content Include="TestData\SqlScript\myscript.sql">
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\Template\Template.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
