@@ -56,26 +56,26 @@ namespace Summer.Batch.Extra.Sort.Section
             ISection<string> section = new ISection<string>();
             int start = lexer.ParseInt();
             int length = lexer.ParseInt();
-            section.accessor = (IAccessor<string>)GetAccessor(start, length, "CH", encoding);
+            section.Accessor = (IAccessor<string>)GetAccessor(start, length, "CH", encoding);
             string nextElement = lexer.Parse();
             if (null != nextElement && nextElement.IndexOf(skip, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 int lines = Convert.ToInt16(nextElement.ToUpper().Replace(skip, "").Replace("L", ""));
-                section.skipLines = lines;
+                section.SkipLines = lines;
                 nextElement = lexer.Parse();
             }
             if (null != nextElement && nextElement.IndexOf(header3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 String info = lexer.Current.Replace(header3, "");
                 String headerContent = ExtractElement(lexer, info, recordLength);
-                section.header3 = headerContent;
+                section.Header3 = headerContent;
                 nextElement = lexer.Parse();
             }
             if (null != nextElement && nextElement.IndexOf(trailer3, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 String info = lexer.Current.Replace(trailer3, "");
                 String trailerContent = ExtractElement(lexer, info, recordLength);
-                section.trailer3 = trailerContent;
+                section.Trailer3 = trailerContent;
             }
             return section;
         }

@@ -35,11 +35,11 @@ namespace Summer.Batch.Extra.Sort
     public class Sorter<T> where T : class
     {
         // 1MB in bytes
-        private const int MbFactor = 1024 * 1024;
+        protected const int MbFactor = 1024 * 1024;
 
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private IEnumerable<T> _header;
+        protected IEnumerable<T> _header;
         private long _maxInMemorySize = 100 * MbFactor;
 
         #region Properties

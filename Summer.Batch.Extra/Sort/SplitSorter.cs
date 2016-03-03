@@ -14,23 +14,31 @@ namespace Summer.Batch.Extra.Sort
 {
     public class SplitSorter<T> : Sorter<T> where T : class
     {
-        private const int MbFactor = 1024 * 1024;
 
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private IEnumerable<T> _header;
-
         public IList<OutputFileFormat<T>> _outputWriters { get; set; }
 
+        /// <summary>
+        /// A Dummy variable to write new lines.
+        /// </summary>
+        private const string NewLine = "";
 
-        public static string newLine = "";
+        private const string CobolCountReference = "&COUNT";
+
+        private const string CobolPageReference = "&PAGE";
+
+        private const string CobolDateReference = "&DATE";
+
+
+
         /// <summary>
         /// Sorts files. If the files are too big to be sorted in memory, they are sorted by blocks
         /// saved on disk in temporary files, which are then merged to produce the final output file.
         /// </summary>
         /// <param name="inputFiles">the files to sort</param>
         /// <param name="outputFile">the output file</param>
-        public void Sort(ICollection<FileInfo> inputFiles, FileInfo outputFile)
+        public new void Sort(ICollection<FileInfo> inputFiles, FileInfo outputFile)
         {
             if (Comparer == null)
             {
@@ -83,17 +91,17 @@ namespace Summer.Batch.Extra.Sort
                             WriteReportHeader(fileFormat, writer);
                             string prev = "";
                             decimal noOfRecords = 0;
-                            fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
+                            fileFormat.CountForTrailer1 = 0; fileFormat.CountForTrailer2 = 0; fileFormat.Section.CountForTrailer3 = 0;
 
                             while (record != null)
                             {
                                 if (Select(record) && Select(record, fileFormat.Filter))
                                 {
                                     prev = WriteSection(fileFormat, writer, prev, record);
-                                    writePageHeaderTrailer(fileFormat, writer, noOfRecords);
+                                    WritePageTrailerHeader(fileFormat, writer, noOfRecords);
                                     writer.Write(record);
                                     noOfRecords++;
-                                    fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
+                                    fileFormat.CountForTrailer1++; fileFormat.CountForTrailer2++; fileFormat.Section.CountForTrailer3++;
                                 }
                                 record = ReadRecord(reader);
                             }
@@ -116,8 +124,6 @@ namespace Summer.Batch.Extra.Sort
         public void ExternalSort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
         {
             _logger.Info("Input files too big for memory sort, performing an external merge sort");
-           
-
 
             long maxRecordsInMemory = -1;
             int count = 0;
@@ -175,14 +181,14 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="inputFiles">the files to sort</param>
         /// <param name="outputFile">the output file</param>
-        public new void InMemorySort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
+        private void InMemorySort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
         {
             _logger.Info("Sorting in memory from CustomSortTasklet");
-            
+
             int count = 0;
             foreach (var fileFormat in _outputWriters)
             {
-                
+
                 count++;
                 _logger.Info("Sorting in memory for sorter - " + count);
                 using (SumWriter<T> writer = GetSumWriter(outputFile, fileFormat, count))
@@ -212,14 +218,14 @@ namespace Summer.Batch.Extra.Sort
                     WriteReportHeader(fileFormat, writer);
                     string prev = "";
                     decimal noOfRecords = 0;
-                    fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
+                    fileFormat.CountForTrailer1 = 0; fileFormat.CountForTrailer2 = 0; fileFormat.Section.CountForTrailer3 = 0;
                     foreach (var record in records)
                     {
                         prev = WriteSection(fileFormat, writer, prev, record);
-                        writePageHeaderTrailer(fileFormat, writer, noOfRecords);
+                        WritePageTrailerHeader(fileFormat, writer, noOfRecords);
                         writer.Write(record);
                         noOfRecords++;
-                        fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
+                        fileFormat.CountForTrailer1++; fileFormat.CountForTrailer2++; fileFormat.Section.CountForTrailer3++;
                     }
                     WriteReportTrailer(fileFormat, writer);
                     writer.Dispose();
@@ -228,87 +234,139 @@ namespace Summer.Batch.Extra.Sort
             }
         }
 
+
+        /// <summary>
+        /// Writes a report trailer
+        /// Replaces Cobol &Count by the number of lines
+        /// </summary>
+        /// <param name="fileFormat">The output format</param>
+        /// <param name="writer">the sum writer</param>
         private static void WriteReportTrailer(OutputFileFormat<T> fileFormat, SumWriter<T> writer)
         {
-            if (!string.IsNullOrWhiteSpace(fileFormat.trailer1))
+            if (!string.IsNullOrWhiteSpace(fileFormat.Trailer1))
             {
-                writer.Write(fileFormat.trailer1.Replace("&COUNT", fileFormat.countForTrailer1.ToString()));
+                writer.Write(fileFormat.Trailer1.Replace(CobolCountReference, fileFormat.CountForTrailer1.ToString()));
             }
         }
 
+        /// <summary>
+        /// Writes a report header
+        /// </summary>
+        /// <param name="fileFormat">the output format</param>
+        /// <param name="writer">the sum writer</param>
         private static void WriteReportHeader(OutputFileFormat<T> fileFormat, SumWriter<T> writer)
         {
-            if (!string.IsNullOrWhiteSpace(fileFormat.header1))
+            if (!string.IsNullOrWhiteSpace(fileFormat.Header1))
             {
-                writer.Write(fileFormat.header1.Replace("&DATE", DateTime.Now.ToString("MM'/'dd'/'yyyy")));
+                writer.Write(fileFormat.Header1.Replace(CobolDateReference, DateTime.Now.ToString("MM'/'dd'/'yyyy")));
             }
         }
 
-        private static void writePageHeaderTrailer(OutputFileFormat<T> fileFormat, SumWriter<T> writer, decimal noOfRecords)
+        /// <summary>
+        /// Writes Page Trailer and next page Header
+        /// </summary>
+        /// <param name="fileFormat">the output format</param>
+        /// <param name="writer">the sum writer</param>
+        /// <param name="noOfRecords">page current number of record</param>
+        private static void WritePageTrailerHeader(OutputFileFormat<T> fileFormat, SumWriter<T> writer, decimal noOfRecords)
         {
-            if (noOfRecords % fileFormat.lines == 0)
+            if (noOfRecords % fileFormat.MaxPageLines == 0)
             {
-                if (!string.IsNullOrWhiteSpace(fileFormat.trailer2))
+                if (!string.IsNullOrWhiteSpace(fileFormat.Trailer2))
                 {
-                    writer.Write(fileFormat.trailer2.Replace("&COUNT", fileFormat.countForTrailer2.ToString()));
+                    writer.Write(fileFormat.Trailer2.Replace("T", fileFormat.CountForTrailer2.ToString()));
                 }
-                if (!string.IsNullOrWhiteSpace(fileFormat.header2))
+                if (!string.IsNullOrWhiteSpace(fileFormat.Header2))
                 {
-                    writer.Write(fileFormat.header2.Replace("&PAGE", ((noOfRecords / fileFormat.lines)+1).ToString()).Replace("&DATE", DateTime.Now.ToString("MM'/'dd'/'yyyy")));
+                    writer.Write(fileFormat.Header2.Replace(CobolCountReference, ((noOfRecords / fileFormat.MaxPageLines) + 1).ToString()).Replace(CobolDateReference, DateTime.Now.ToString("MM'/'dd'/'yyyy")));
                 }
-                fileFormat.countForTrailer2 = 0;
+                fileFormat.CountForTrailer2 = 0;
             }
         }
 
-        private string WriteSection(OutputFileFormat<T> fileFormat, SumWriter<T> writer, string prev, T record)
+        /// <summary>
+        /// Writes a section
+        /// A new section is created whenever the key changes
+        /// </summary>
+        /// <param name="fileFormat">the output format</param>
+        /// <param name="writer">the sum writer</param>
+        /// <param name="previousKey">The last handled key<param>
+        /// <param name="record">the record currently being handled</param>
+        /// <returns> the new previous key</returns>
+        private string WriteSection(OutputFileFormat<T> fileFormat, SumWriter<T> writer, string previousKey, T record)
         {
-            if (null != fileFormat.section)
+            if (null != fileFormat.Section)
             {
-                prev = (prev == "") ? fileFormat.section.Get(record) : prev;
-                string current = fileFormat.section.Get(record);
-                if (//!string.IsNullOrWhiteSpace(prev) && 
-                    !prev.Equals(current))
+                previousKey = (previousKey == "") ? fileFormat.Section.Get(record) : previousKey;
+                string current = fileFormat.Section.Get(record);
+                if (!previousKey.Equals(current))
                 {
-                    writeSection(writer, fileFormat);
-                    prev = current;
+                    WriteSection(fileFormat, writer);
+                    previousKey = current;
                 }
-                fileFormat.countForTrailer3 = 0;
+                fileFormat.Section.CountForTrailer3 = 0;
             }
-            return prev;
+            return previousKey;
         }
 
-        private void writeSection(SumWriter<T> writer, OutputFileFormat<T> outfileFormat)
+        /// <summary>
+        /// Writes a complete section
+        /// </summary>
+        /// <param name="outfileFormat">the output format</param>
+        /// <param name="writer">the sum writer</param>
+        private void WriteSection(OutputFileFormat<T> outfileFormat, SumWriter<T> writer)
         {
-            writeFooter(writer, outfileFormat);
-            writeSkipLines(writer, outfileFormat.section);
-            writeHeader(writer, outfileFormat.section);
+            WriteSectionFooter(outfileFormat.Section, writer);
+            WriteSkipLines(outfileFormat.Section, writer);
+            WriteSectionHeader(outfileFormat.Section, writer);
         }
 
-        private static void writeSkipLines(SumWriter<T> writer, ISection<string> section)
+        /// <summary>
+        /// Creates a new line. Used for section Skip Lines parameters
+        /// </summary>
+        /// <param name="section">The section format</param>
+        /// <param name="writer">the sum writer</param>
+        private static void WriteSkipLines(ISection<string> section, SumWriter<T> writer)
         {
-            for (int i = 0; i < section.skipLines; i++)
+            for (int i = 0; i < section.SkipLines; i++)
             {
-                writer.Write(newLine);
+                writer.Write(NewLine);
             }
         }
 
-        private static void writeFooter(SumWriter<T> writer, OutputFileFormat<T> outfileFormat)
+        /// <summary>
+        /// Writes a section footer 
+        /// </summary>
+        /// <param name="outfileFormat">the section ourput format</param>
+        /// <param name="writer">the sum writer</param>
+        private static void WriteSectionFooter(ISection<string> section, SumWriter<T> writer)
         {
-            if (!string.IsNullOrWhiteSpace(outfileFormat.section.trailer3))
+            if (!string.IsNullOrWhiteSpace(section.Trailer3))
             {
-                writer.Write(outfileFormat.section.trailer3.Replace("&COUNT",outfileFormat.countForTrailer3.ToString()));
+                writer.Write(section.Trailer3.Replace(CobolCountReference, section.CountForTrailer3.ToString()));
             }
         }
 
-        private static void writeHeader(SumWriter<T> writer, ISection<string> section)
+        /// <summary>
+        /// Writes a section header
+        /// </summary>
+        /// <param name="section">the section output format</param>
+        /// <param name="writer">the sum writer</param>
+        private static void WriteSectionHeader(ISection<string> section, SumWriter<T> writer)
         {
-            if (!string.IsNullOrWhiteSpace(section.header3))
+            if (!string.IsNullOrWhiteSpace(section.Header3))
             {
-                writer.Write(section.header3);
+                writer.Write(section.Header3);
             }
         }
 
-
+        /// <summary>
+        /// Gets the current splitted sum writer
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="fileFormat"></param>
+        /// <param name="no"></param>
+        /// <returns></returns>
         public SumWriter<T> GetSumWriter(FileInfo file, OutputFileFormat<T> fileFormat, int no)
         {
             file = new FileInfo(file.FullName + no);
@@ -346,7 +404,7 @@ namespace Summer.Batch.Extra.Sort
             {
                 Merge(buffers, writer, fileFormat);
                 WriteReportTrailer(fileFormat, writer);
-                
+
             }
             finally
             {
@@ -366,6 +424,12 @@ namespace Summer.Batch.Extra.Sort
             }
         }
 
+        /// <summary>
+        ///  Merges the temporary files to the final output file
+        /// </summary>
+        /// <param name="buffers"></param>
+        /// <param name="writer"></param>
+        /// <param name="fileFormat"></param>
         private void Merge(List<RecordReaderBuffer<T>> buffers, SumWriter<T> writer, OutputFileFormat<T> fileFormat)
         {
             // Buffers are stored in a priority queue to have the buffers with the
@@ -373,16 +437,16 @@ namespace Summer.Batch.Extra.Sort
             var queue = new PriorityQueue<RecordReaderBuffer<T>>(buffers);
             string prev = "";
             decimal noOfRecords = 0;
-            fileFormat.countForTrailer1 = 0; fileFormat.countForTrailer2 = 0; fileFormat.countForTrailer3 = 0; 
+            fileFormat.CountForTrailer1 = 0; fileFormat.CountForTrailer2 = 0; fileFormat.Section.CountForTrailer3 = 0;
             while (queue.Count > 0)
             {
                 var buffer = queue.Poll();
                 var record = buffer.Read();
                 prev = WriteSection(fileFormat, writer, prev, record);
-                writePageHeaderTrailer(fileFormat, writer, noOfRecords);
+                WritePageTrailerHeader(fileFormat, writer, noOfRecords);
                 writer.Write(record);
                 noOfRecords++;
-                fileFormat.countForTrailer1++; fileFormat.countForTrailer2++; fileFormat.countForTrailer3++;
+                fileFormat.CountForTrailer1++; fileFormat.CountForTrailer2++; fileFormat.Section.CountForTrailer3++;
                 // If the buffer has still records, we put it back in the queue
                 // so that is is correctly sorted
                 if (buffer.HasNext())
@@ -393,46 +457,88 @@ namespace Summer.Batch.Extra.Sort
         }
     }
 
-
+    /// <summary>
+    /// Output file format. Used to hold the different Cobol Style formatting parameters
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OutputFileFormat<T>
     {
         public IFormatter<T> OutputFormatter { get; set; }
 
         public IFilter<T> Filter { get; set; }
 
-        public string header1 { get; set; }
+        /// <summary>
+        /// Header format for the whole report
+        /// </summary>
+        public string Header1 { get; set; }
 
-        public string header2 { get; set; }
 
-        public ISection<string> section { get; set; }
+        /// <summary>
+        /// Header format for the page
+        /// </summary>
+        public string Header2 { get; set; }
 
-        public string trailer1 { get; set; }
+        public ISection<string> Section { get; set; }
 
-        public string trailer2 { get; set; }
+        /// <summary>
+        /// Trailer format for the whole report
+        /// </summary>
+        public string Trailer1 { get; set; }
 
-        public decimal lines { get; set; }
 
-        public decimal countForTrailer1 { get; set; }
+        /// <summary>
+        /// Trailer format for the page
+        /// </summary>
+        public string Trailer2 { get; set; }
+        
+        /// <summary>
+        /// Max Number of lines per page
+        /// </summary>
+        public decimal MaxPageLines { get; set; }
 
-        public decimal countForTrailer2 { get; set; }
+        /// <summary>
+        /// Current number of records processed report wide
+        /// </summary>
+        public decimal CountForTrailer1 { get; set; }
 
-        public decimal countForTrailer3 { get; set; }
+        /// <summary>
+        /// Current number of records processed page wide
+        /// </summary>
+        public decimal CountForTrailer2 { get; set; }
 
     }
 
+    /// <summary>
+    /// Section Cobol style format
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ISection<T>
     {
-        public IAccessor<string> accessor { get; set; }
+        public IAccessor<string> Accessor { get; set; }
 
-        public int skipLines { get; set; }
+        /// <summary>
+        /// Number of lines to be skipped after a section
+        /// </summary>
+        public int SkipLines { get; set; }
 
-        public string header3 { get; set; }
+        /// <summary>
+        /// Header format for the section
+        /// </summary>
+        public string Header3 { get; set; }
 
-        public string trailer3 { get; set; }
+        /// <summary>
+        /// Trailer format for the section
+        /// </summary>
+        public string Trailer3 { get; set; }
+       
+        /// <summary>
+        /// Number of records processed section wide
+        /// </summary>
+        public decimal CountForTrailer3 { get; set; }
 
         public string Get(object record)
         {
-            return accessor.Get((byte[]) record);
+            return Accessor.Get((byte[])record);
         }
     }
 }

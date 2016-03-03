@@ -19,19 +19,27 @@ using System.Threading.Tasks;
 
 namespace Summer.Batch.Extra.Sort
 {
-    public class CustomSortTasklet : SortTasklet, IInitializationPostOperations
+    public class ExtendedSortTasklet : SortTasklet, IInitializationPostOperations
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public IList<OutputFile> outputFile { get; set; }
+        public IList<OutputFile> OutputFiles { get; set; }
 
-
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public CustomSortTasklet()
+        public ExtendedSortTasklet()
         {
             Encoding = Encoding.Default;
+        }
+
+        /// <summary>
+        /// @see IInitializationPostOperations#AfterPropertiesSet.
+        /// </summary>
+        public new void AfterPropertiesSet()
+        {
+            Assert.NotNull(OutputFiles, "OutputFiles must be set");
         }
 
         /// <summary>
@@ -42,7 +50,7 @@ namespace Summer.Batch.Extra.Sort
         /// <returns><see cref="RepeatStatus.Finished"/></returns>
         public override RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
-            Logger.Info("Starting CustomSort tasklet.");
+            Logger.Info("Starting ExtendedSort tasklet.");
             SplitSorter<byte[]> sorter = (SplitSorter<byte[]>)BuildSorter();
 
             var stopwatch = new Stopwatch();
@@ -61,7 +69,7 @@ namespace Summer.Batch.Extra.Sort
         /// <returns>a <see cref="Sorter{T}"/></returns>
         public SplitSorter<byte[]> BuildSorter()
         {
-            Logger.Debug("Building sorter for CustomSort");
+            Logger.Debug("Building sorter for ExtendedSort");
             var sorter = new SplitSorter<byte[]>();
 
             if (RecordLength > 0 || Separator == null)
@@ -105,7 +113,7 @@ namespace Summer.Batch.Extra.Sort
 
             sorter._outputWriters = new List<OutputFileFormat<byte[]>>();
             int count = 0;
-            foreach (var file in outputFile)
+            foreach (var file in OutputFiles)
             {
                 Logger.Debug("Building sorter - fileformat " + ++count);
                 OutputFileFormat<byte[]> writer = new OutputFileFormat<byte[]>();
@@ -121,32 +129,32 @@ namespace Summer.Batch.Extra.Sort
                     writer.Filter = filterParser.GetFilter(file.Include, file.Omit);
                 }
                 SectionFormatter<string> format = new SectionFormatter<string> { Encoding = Encoding };
-                if (!string.IsNullOrWhiteSpace(file.section))
+                if (!string.IsNullOrWhiteSpace(file.Section))
                 {
-                    Logger.Debug("Building sorter - fileformat Section = " + file.section);
-                    writer.section = format.ParseSection(file.section, Encoding, file.outputFileRecordLength);
+                    Logger.Debug("Building sorter - fileformat Section = " + file.Section);
+                    writer.Section = format.ParseSection(file.Section, Encoding, file.OutputFileRecordLength);
                 }
-                if (!string.IsNullOrWhiteSpace(file.header1))
+                if (!string.IsNullOrWhiteSpace(file.Header1))
                 {
-                    Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
-                    writer.header1 = format.ParseElement(file.header1, Encoding, file.outputFileRecordLength);
+                    Logger.Debug("Building sorter - fileformat header1 = " + file.Header1);
+                    writer.Header1 = format.ParseElement(file.Header1, Encoding, file.OutputFileRecordLength);
                 }
-                if (!string.IsNullOrWhiteSpace(file.header2))
+                if (!string.IsNullOrWhiteSpace(file.Header2))
                 {
-                    Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
-                    writer.header2 = format.ParseElement(file.header2, Encoding, file.outputFileRecordLength);
+                    Logger.Debug("Building sorter - fileformat header2 = " + file.Header1);
+                    writer.Header2 = format.ParseElement(file.Header2, Encoding, file.OutputFileRecordLength);
                 }
-                if (!string.IsNullOrWhiteSpace(file.trailer1))
+                if (!string.IsNullOrWhiteSpace(file.Trailer1))
                 {
-                    Logger.Debug("Building sorter - fileformat header1 = " + file.header1);
-                    writer.trailer1 = format.ParseElement(file.trailer1, Encoding, file.outputFileRecordLength);
+                    Logger.Debug("Building sorter - fileformat header1 = " + file.Header1);
+                    writer.Trailer1 = format.ParseElement(file.Trailer1, Encoding, file.OutputFileRecordLength);
                 }
-                if (!string.IsNullOrWhiteSpace(file.trailer2))
+                if (!string.IsNullOrWhiteSpace(file.Trailer2))
                 {
-                    Logger.Debug("Building sorter - fileformat header2 = " + file.header1);
-                    writer.trailer2 = format.ParseElement(file.trailer2, Encoding, file.outputFileRecordLength);
+                    Logger.Debug("Building sorter - fileformat header2 = " + file.Header1);
+                    writer.Trailer2 = format.ParseElement(file.Trailer2, Encoding, file.OutputFileRecordLength);
                 }
-                writer.lines = (file.lines == 0) ? 60 : file.lines;
+                writer.MaxPageLines = (file.Lines == 0) ? 60 : file.Lines;
                 sorter._outputWriters.Add(writer);
             }
 
@@ -187,44 +195,46 @@ namespace Summer.Batch.Extra.Sort
         /// <summary>
         /// The report header information
         /// </summary>
-        public string header1 { get; set; }
+        public string Header1 { get; set; }
 
         /// <summary>
         /// The page header information
         /// </summary>
-        public string header2 { get; set; }
+        public string Header2 { get; set; }
 
         /// <summary>
         /// The section header information
         /// </summary>
-        public string header3 { get; set; }
+        public string Header3 { get; set; }
 
         /// <summary>
         /// The report trailer information
         /// </summary>
-        public string trailer1 { get; set; }
+        public string Trailer1 { get; set; }
 
         /// <summary>
         /// The page trailer information
         /// </summary>
-        public string trailer2 { get; set; }
+        public string Trailer2 { get; set; }
 
         /// <summary>
         /// The section trailer information
         /// </summary>
-        public string trailer3 { get; set; }
+        public string Trailer3 { get; set; }
 
         /// <summary>
         /// The section information for header3 & trailer3
         /// </summary>
-        public string section { get; set; }
+        public string Section { get; set; }
 
         /// <summary>
         /// The lines information for page, header2 & trailer2
         /// </summary>
-        public decimal lines { get; set; }
+        public decimal Lines { get; set; }
 
-
-        public int outputFileRecordLength { get; set; }
+        /// <summary>
+        /// Fixed block record length
+        /// </summary>
+        public int OutputFileRecordLength { get; set; }
     }
 }
