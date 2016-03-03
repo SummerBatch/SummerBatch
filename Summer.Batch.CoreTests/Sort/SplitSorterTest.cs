@@ -26,52 +26,13 @@ namespace Summer.Batch.CoreTests.Sort
         private static readonly Encoding Cp1047 = Encoding.GetEncoding("IBM01047");
         private static readonly Encoding Cp1252 = Encoding.GetEncoding("Windows-1252");
 
+
         [TestMethod]
-        public void TestSort1()
-        {
-            SplitSorter<byte[]> sorter = new SplitSorter<byte[]>
-            {
-                RecordAccessorFactory = new SeparatorAccessorFactory { Separator = CrLf },
-                HeaderSize = 1,
-                Comparer = new ComparerChain<byte[]>
-                {
-                    Comparers = new List<IComparer<byte[]>>
-                    {
-                        new Summer.Batch.Extra.Sort.Legacy.Comparer.StringComparer { Start = 0, Length = 25 },
-                        new DefaultComparer<decimal>
-                        {
-                            Ascending = false,
-                            Accessor = new ZonedAccessor { Start = 25, Length = 10 }
-                        }
-                    }
-                },
-                Filter = new DecimalFilter
-                {
-                    Left = new ZonedAccessor { Start = 35, Length = 1 },
-                    Right = new ConstantAccessor<decimal> { Constant = 5 },
-                    Operator = ComparisonOperator.Ne
-                }
-            };
-
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort1a.txt"),
-                new FileInfo(@"TestData\Sort\Input\sort1b.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\splitSort");
-            var expected = new FileInfo(@"TestData\Sort\splitSort\sort101.txt");
-
-            sorter.Sort(input, output);
-
-            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
-        }
-
-       [TestMethod]
-        public void TestSort2()
+        public void TestMultipleOutputFilesSortFunction()
         {
 
-            var output = new FileInfo(@"TestData\Sort\Input\sort_17_o.txt");
-            
+            var output = new FileInfo(@"TestData\Sort\Input\customSort\sort_test_out1.txt");
+
 
             var sortTasklet = new ExtendedSortTasklet
             {
@@ -80,7 +41,7 @@ namespace Summer.Batch.CoreTests.Sort
                 OutputFiles = new List<OutputFile>(),
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
-                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\customSort\sort_test_in.txt")) },
                 Output = new FileSystemResource(output)
             };
             var outputFile1 = new OutputFile
@@ -105,15 +66,13 @@ namespace Summer.Batch.CoreTests.Sort
             sortTasklet.OutputFiles.Add(outputFile3);
             sortTasklet.OutputFiles.Add(outputFile4);
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
-
-           // Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
         [TestMethod]
-        public void TestSort3()
+        public void TestHexadecimalFilterCriteriaSort()
         {
 
-            var output = new FileInfo(@"TestData\Sort\Input\sort17_o_1.txt");
+            var output = new FileInfo(@"TestData\Sort\Input\customSort\sort_test_out2.txt");
 
 
             var sortTasklet = new SortTasklet
@@ -123,21 +82,20 @@ namespace Summer.Batch.CoreTests.Sort
                 Include = "75,2,BI,NE,X'5244'",
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
-                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\customSort\sort_test_in.txt")) },
                 Output = new FileSystemResource(output)
             };
-           
+
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
 
-            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
 
         [TestMethod]
-        public void TestSort4()
+        public void TestHeaderAndTrailerForPageAndReport()
         {
 
-            var output = new FileInfo(@"TestData\Sort\Input\sort17_o_1.txt");
+            var output = new FileInfo(@"TestData\Sort\Input\customSort\sort_test_out2.txt");
 
 
             var sortTasklet = new ExtendedSortTasklet
@@ -147,7 +105,7 @@ namespace Summer.Batch.CoreTests.Sort
                 OutputFiles = new List<OutputFile>(),
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
-                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\customSort\sort_test_in.txt")) },
                 Output = new FileSystemResource(output)
             };
             var outputFile1 = new OutputFile
@@ -162,31 +120,30 @@ namespace Summer.Batch.CoreTests.Sort
             sortTasklet.OutputFiles.Add(outputFile1);
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
 
-            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
         [TestMethod]
-        public void TestSort5()
+        public void TestEBCDICReport()
         {
 
-            var output = new FileInfo(@"TestData\Sort\Input\jpnci046.step080.sortout.dat.txt");
+            var output = new FileInfo(@"TestData\Sort\Input\test_raw_output_EBCDIC.dat");
             var sortTasklet = new ExtendedSortTasklet
             {
-                
+
                 RecordLength = 89,
                 SortCard = "(1,88,BI,A)",
                 OutputFiles = new List<OutputFile>(),
                 Encoding = Cp1047,
                 SortEncoding = Cp1047,
-                Input = new List<IResource> { new FileSystemResource(new FileInfo("P:/PRJ - Projets/Accenture/WCB/000 - Project/02 - inputs/SummerBatchPrototypeFiles/jpnci046.step080.sortin.dat")) },
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\test_raw_input_EBCDIC.dat")) },
                 Output = new FileSystemResource(output)
             };
             var outputFile1 = new OutputFile
             {
                 Outrec = "12:1,7,33:8,10,52:18,10,72:28,1,60X",
                 //section = "88,1,TRAILER3=(//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *')",
-                Header2 = "2:'REPORT ID: NCI046R1',46:'WORKERS'' COMPENSATION BOARD - ALBERTA',118:'PAGE: ',&PAGE,/,"+   
-                "47:'ALBERTA HEALTH OVERLAY ROWS REPORT',103:'RUN DATE (MM/DD/YY): ',&DATE,/,"+
+                Header2 = "2:'REPORT ID: NCI046R1',46:'WORKERS'' COMPENSATION BOARD - ALBERTA',118:'PAGE: ',&PAGE,/," +
+                "47:'ALBERTA HEALTH OVERLAY ROWS REPORT',103:'RUN DATE (MM/DD/YY): ',&DATE,/," +
                 "52:'FOR SERVICE CODE OVERLAYS',///,12:'SERVICE CODE',31:'EFFECTIVE DATE',53:'END DATE',65:'DIAG CD REQD FLG',/,12:'------------',31:'--------------',52:'----------',65:'---------------',/",
                 Trailer1 = "//,15:'TOTAL NUMBER OF RECORDS OVERLAID: ',&COUNT,//,51:'* * * * END OF REPORT * * * *'",
                 Lines = 60,
@@ -195,7 +152,6 @@ namespace Summer.Batch.CoreTests.Sort
             sortTasklet.OutputFiles.Add(outputFile1);
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
 
-            //Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
     }
 }

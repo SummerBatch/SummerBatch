@@ -506,7 +506,6 @@
     <Content Include="TestData\FlatFile\output\Test.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Sort\Input\customSort\sort_test_in.txt" />
     <Content Include="TestData\Sort\Input\sort15.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -706,6 +705,16 @@
     <Content Include="TestData\Sort\Input\sort9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	
+	<Content Include="TestData\Sort\Input\customSort\sort_test_in.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	
+	<Content Include="TestData\Sort\Input\test_raw_input_EBCDIC.dat" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	
+	
     <Content Include="TestData\SqlScript\myscript.Designer.sql" />
     <Content Include="TestData\SqlScript\myscript.sql">
       <SubType>Component</SubType>

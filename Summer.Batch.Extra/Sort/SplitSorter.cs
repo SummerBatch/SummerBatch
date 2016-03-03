@@ -222,14 +222,23 @@ namespace Summer.Batch.Extra.Sort
                     WriteReportHeader(fileFormat, writer);
                     string prev = "";
                     decimal noOfRecords = 0;
-                    fileFormat.CountForTrailer1 = 0; fileFormat.CountForTrailer2 = 0; fileFormat.Section.CountForTrailer3 = 0;
+                    fileFormat.CountForTrailer1 = 0; fileFormat.CountForTrailer2 = 0;
+                    if (fileFormat.Section != null)
+                    {
+                        fileFormat.Section.CountForTrailer3 = 0;
+                    }
+                   
                     foreach (var record in records)
                     {
                         prev = WriteSection(fileFormat, writer, prev, record);
                         WritePageTrailerHeader(fileFormat, writer, noOfRecords);
                         writer.Write(record);
                         noOfRecords++;
-                        fileFormat.CountForTrailer1++; fileFormat.CountForTrailer2++; fileFormat.Section.CountForTrailer3++;
+                        fileFormat.CountForTrailer1++; fileFormat.CountForTrailer2++;
+                        if (fileFormat.Section != null)
+                        {
+                            fileFormat.Section.CountForTrailer3++;
+                        }
                     }
                     WriteReportTrailer(fileFormat, writer);
                     writer.Dispose();
