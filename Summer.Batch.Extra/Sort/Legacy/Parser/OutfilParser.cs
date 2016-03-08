@@ -76,7 +76,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                 string include = null;
                 string omit = null;
 
-                while (lexer.Current != null && lexer.Current != SemiColon)
+                while (lexer.Current != null)
                 {
                     // Look for the supported commands
                     if (string.Equals(Outrec, lexer.Current, StringComparison.InvariantCultureIgnoreCase))
@@ -93,6 +93,15 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                     {
                         lexer.MoveNext();
                         omit = ParseCommandParameters(lexer);
+                    }
+                    else if (lexer.Current != SemiColon)
+                    {
+                        throw new ParsingException(string.Format("Unexpected token at index {0}: {1}", lexer.Index,
+                            lexer.Current));
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
 
