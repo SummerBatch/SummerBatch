@@ -1,5 +1,4 @@
-﻿//
-//   Copyright 2015 Blu Age Corporation - Plano, Texas
+﻿//   Copyright 2015 Blu Age Corporation - Plano, Texas
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -8,46 +7,38 @@
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 //   Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
+//   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using System;
 using System.Collections.Generic;
 using NLog;
-using Summer.Batch.Extra.Sort.Format;
 using Summer.Batch.Extra.Sort.Sum;
 using Summer.Batch.Common.Util;
 
 namespace Summer.Batch.Extra.Sort
 {
-    /// <summary>
-    /// Implementation of a <see cref="IRecordWriter{T}"/> that can sum similare records using a <see cref="ISum{T}"/>.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class SumWriter<T> : IRecordWriter<T>
+    public class SumWriter<T> : IDisposable where T : class
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private readonly IRecordWriter<T> _writer;
+        private readonly IOutputFile<T> _outputFile;
         private readonly ISum<T> _sum;
         private readonly IComparer<T> _comparer;
-        private readonly IFormatter<T> _outputFormatter;
         private readonly IList<T> _buffer = new List<T>();
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// <param name="writer">the underlying writer</param>
-        /// <param name="sum">the sum to use for similar items (or <code>null</code>)</param>
-        /// <param name="comparer">the comparer to use for records</param>
-        /// <param name="outputFormatter">the formatter to use when writing the records (or <code>null</code>)</param>
-        public SumWriter(IRecordWriter<T> writer, ISum<T> sum, IComparer<T> comparer, IFormatter<T> outputFormatter)
+        /// <param name="outputFile">The description of the current output file.</param>
+        /// <param name="sum">The sum to use for similar items (or <code>null</code>).</param>
+        /// <param name="comparer">The comparer to use for sorting records.</param>
+        public SumWriter(IOutputFile<T> outputFile, ISum<T> sum, IComparer<T> comparer)
         {
-            _writer = writer;
+            _outputFile = outputFile;
             _sum = sum;
             _comparer = comparer;
-            _outputFormatter = outputFormatter;
         }
 
         /// <summary>
@@ -83,23 +74,23 @@ namespace Summer.Batch.Extra.Sort
         /// <param name="header">the header, as a list of records</param>
         public void WriteHeader(IEnumerable<T> header)
         {
-            _writer.WriteHeader(header);
+            _outputFile.WriteHeader(header);
         }
 
         /// <summary>
-        /// Writes a record using the output formatter if it has been defined.
+        /// Writes a record using the output formatter if there is one.
         /// </summary>
         /// <param name="record">the record to write</param>
         private void WriteRecord(T record)
         {
             if (_logger.IsTraceEnabled) { _logger.Trace("Writing record: {0}", ObjectUtils.Dump(record)); }
-            _writer.Write(_outputFormatter == null ? record : _outputFormatter.Format(record));
+            _outputFile.Write(record);
         }
 
-        #region Dispose pattern members
+        #region Disposable pattern
 
         /// <summary>
-        /// @see IDisposable#Dispose
+        /// Releases the used resources.
         /// </summary>
         public void Dispose()
         {
@@ -114,19 +105,18 @@ namespace Summer.Batch.Extra.Sort
         /// Indicates whether the method was invoked from the <see cref="IDisposable.Dispose"/>
         /// implementation or from the finalizer
         /// </param>
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
-            if (disposing && _writer != null)
+            if (disposing && _outputFile != null)
             {
                 if (_buffer.Count > 0)
                 {
                     WriteRecord(_sum.Sum(_buffer));
                 }
-                _writer.Dispose();
+                _outputFile.Dispose();
             }
         }
 
         #endregion
-
     }
 }

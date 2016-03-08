@@ -13,14 +13,14 @@ namespace Summer.Batch.CoreTests.Common.IO
         public void TestFindMatchingResources1()
         {
             var resources = _antPathResolver.FindMatchingResources("TestData/Sort/Input/sort*.txt");
-            Assert.AreEqual(18, resources.Count());
+            Assert.AreEqual(19, resources.Count());
         }
 
         [TestMethod]
         public void TestFindMatchingResources2()
         {
             var resources = _antPathResolver.FindMatchingResources("TestData/**/Input/sort*.txt");
-            Assert.AreEqual(18, resources.Count());
+            Assert.AreEqual(19, resources.Count());
         }
     }
 }

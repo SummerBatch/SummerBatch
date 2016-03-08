@@ -1,5 +1,4 @@
-﻿//
-//   Copyright 2015 Blu Age Corporation - Plano, Texas
+﻿//   Copyright 2015 Blu Age Corporation - Plano, Texas
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -8,7 +7,7 @@
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 //   Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
+//   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
@@ -26,12 +25,11 @@ namespace Summer.Batch.Extra.Sort
 {
     /// <summary>
     /// Sorts a collection of files. Files are read as records using a <see cref="IRecordReader{T}"/>.
-    /// Records can be filtered using <see cref="Filter"/>. <see cref="InputFormatter"/> (respectively
-    /// <see cref="OutputFormatter"/>) allows to format the records before (respectively after) they are
-    /// sorted. If <see cref="Comparer"/> is not set, records are copied in the order they are read,
-    /// but they are still filtered or formatted.
+    /// Records can be filtered using <see cref="Filter"/>. <see cref="InputFormatter"/> allows to
+    /// format the records before  they are sorted. If <see cref="Comparer"/> is not set, records are
+    /// copied in the order they are read, but they are still filtered or formatted.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the records to sort.</typeparam>
     public class Sorter<T> where T : class
     {
         // 1MB in bytes
@@ -43,6 +41,16 @@ namespace Summer.Batch.Extra.Sort
         private long _maxInMemorySize = 100 * MbFactor;
 
         #region Properties
+
+        /// <summary>
+        /// The files to sort.
+        /// </summary>
+        public IList<FileInfo> InputFiles { get; set; }
+
+        /// <summary>
+        /// The output files.
+        /// </summary>
+        public ICollection<IOutputFile<T>> OutputFiles { get; set; }
 
         /// <summary>
         /// The <see cref="IComparer{T}"/> used for sorting the files.
@@ -58,11 +66,6 @@ namespace Summer.Batch.Extra.Sort
         /// Formatter used while reading records.
         /// </summary>
         public IFormatter<T> InputFormatter { get; set; }
-
-        /// <summary>
-        /// Formatter used while writing records.
-        /// </summary>
-        public IFormatter<T> OutputFormatter { get; set; }
 
         /// <summary>
         /// If not null, used to sum records that are identical according to <see cref="Comparer"/>.
@@ -97,28 +100,26 @@ namespace Summer.Batch.Extra.Sort
         /// Sorts files. If the files are too big to be sorted in memory, they are sorted by blocks
         /// saved on disk in temporary files, which are then merged to produce the final output file.
         /// </summary>
-        /// <param name="inputFiles">the files to sort</param>
-        /// <param name="outputFile">the output file</param>
-        public void Sort(ICollection<FileInfo> inputFiles, FileInfo outputFile)
+        public void Sort()
         {
             if (Comparer == null)
             {
                 // No comparer, records are treated one by one and do not need to be kept in memory
-                Copy(inputFiles, outputFile);
+                Copy();
             }
             else
             {
                 // compute the size of the input files, in MB
-                var inputSize = inputFiles.Sum(f => f.Length) / MbFactor;
+                var inputSize = InputFiles.Sum(f => f.Length) / MbFactor;
                 if (inputSize > MaxInMemorySize)
                 {
                     // if the input is too big, do an external sort
-                    ExternalSort(inputFiles, outputFile);
+                    ExternalSort();
                 }
                 else
                 {
                     // otherwise sort in memory
-                    InMemorySort(inputFiles, outputFile);
+                    InMemorySort();
                 }
             }
         }
@@ -127,29 +128,36 @@ namespace Summer.Batch.Extra.Sort
         /// Copies records. This method is used when there is no comparer.
         /// Records are still filtered and formatted as required.
         /// </summary>
-        /// <param name="inputFiles">the files to copy</param>
-        /// <param name="outputFile">the output file</param>
-        private void Copy(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
+        private void Copy()
         {
             _logger.Info("No comparer: copying records to output using filter and formatter");
-            using (var writer = GetSumWriter(outputFile))
+            var sumWriters = GetSumWriters();
+            try
             {
-                foreach (var file in inputFiles)
+                foreach (var file in InputFiles)
                 {
                     using (var reader = RecordAccessorFactory.CreateReader(file.OpenRead()))
                     {
-                        _logger.Debug("Writing header");
-                        writer.WriteHeader(reader.ReadHeader(HeaderSize));
+                        _header = reader.ReadHeader(HeaderSize);
+                        WriteHeader(sumWriters);
                         var record = ReadRecord(reader);
                         while (record != null)
                         {
                             if (Select(record))
                             {
-                                writer.Write(record);
+                                WriteRecord(sumWriters, record);
                             }
                             record = ReadRecord(reader);
                         }
                     }
+                }
+            }
+            finally
+            {
+                // Dispose all the sum writers
+                foreach (var sumWriter in sumWriters)
+                {
+                    sumWriter.Dispose();
                 }
             }
         }
@@ -159,16 +167,14 @@ namespace Summer.Batch.Extra.Sort
         /// <summary>
         /// Performs the sort using the external merge sort algorithm.
         /// </summary>
-        /// <param name="inputFiles">the files to sort</param>
-        /// <param name="outputFile">the output file</param>
-        private void ExternalSort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
+        private void ExternalSort()
         {
             _logger.Info("Input files too big for memory sort, performing an external merge sort");
             var tasks = new List<Task<string>>();
             var records = new List<T>();
             long maxRecordsInMemory = -1;
 
-            foreach (var file in inputFiles)
+            foreach (var file in InputFiles)
             {
                 using (var reader = RecordAccessorFactory.CreateReader(file.OpenRead()))
                 {
@@ -204,7 +210,7 @@ namespace Summer.Batch.Extra.Sort
             var tmpFiles = tasks.Select(task => task.Result).ToList();
 
             // Merge
-            Merge(tmpFiles, outputFile);
+            Merge(tmpFiles);
         }
 
         /// <summary>
@@ -239,8 +245,7 @@ namespace Summer.Batch.Extra.Sort
         /// Merges the temporary files to the final output file
         /// </summary>
         /// <param name="tmpFiles"></param>
-        /// <param name="outputFile"></param>
-        private void Merge(ICollection<string> tmpFiles, FileInfo outputFile)
+        private void Merge(ICollection<string> tmpFiles)
         {
             _logger.Info("Merging temporary files");
             // we use a list of buffers to sort them by
@@ -250,12 +255,13 @@ namespace Summer.Batch.Extra.Sort
                     f => new RecordReaderBuffer<T>(RecordAccessorFactory.CreateReader(new FileStream(f, FileMode.Open)), Comparer))
                     .ToList();
 
-            using (var writer = GetSumWriter(outputFile))
+            var sumWriters = GetSumWriters();
+            try
             {
-                writer.WriteHeader(_header);
+                WriteHeader(sumWriters);
                 try
                 {
-                    Merge(buffers, writer);
+                    Merge(buffers, sumWriters);
                 }
                 finally
                 {
@@ -264,6 +270,14 @@ namespace Summer.Batch.Extra.Sort
                     {
                         buffer.Dispose();
                     }
+                }
+            }
+            finally
+            {
+                // Dispose all the sum writers
+                foreach (var sumWriter in sumWriters)
+                {
+                    sumWriter.Dispose();
                 }
             }
 
@@ -279,8 +293,8 @@ namespace Summer.Batch.Extra.Sort
         /// Merges the temporary files to the final output file
         /// </summary>
         /// <param name="buffers">the buffers to read the temporary files</param>
-        /// <param name="writer">the writer for the output file</param>
-        private static void Merge(IEnumerable<RecordReaderBuffer<T>> buffers, IRecordWriter<T> writer)
+        /// <param name="sumWriters">the sum writers corresponding to the different output files</param>
+        private static void Merge(IEnumerable<RecordReaderBuffer<T>> buffers, ICollection<SumWriter<T>> sumWriters)
         {
             // Buffers are stored in a priority queue to have the buffers with the
             // lowest record (with respect to Comparer) as the first buffer
@@ -290,7 +304,7 @@ namespace Summer.Batch.Extra.Sort
             {
                 var buffer = queue.Poll();
                 var record = buffer.Read();
-                writer.Write(record);
+                WriteRecord(sumWriters, record);
                 // If the buffer has still records, we put it back in the queue
                 // so that is is correctly sorted
                 if (buffer.HasNext())
@@ -305,15 +319,13 @@ namespace Summer.Batch.Extra.Sort
         /// <summary>
         /// Sorts the input files in memory.
         /// </summary>
-        /// <param name="inputFiles">the files to sort</param>
-        /// <param name="outputFile">the output file</param>
-        private void InMemorySort(IEnumerable<FileInfo> inputFiles, FileInfo outputFile)
+        private void InMemorySort()
         {
             _logger.Info("Sorting in memory");
             var records = new List<T>();
 
             // Read all the records
-            foreach (var file in inputFiles)
+            foreach (var file in InputFiles)
             {
                 using (var reader = RecordAccessorFactory.CreateReader(file.OpenRead()))
                 {
@@ -334,12 +346,21 @@ namespace Summer.Batch.Extra.Sort
             records.Sort(Comparer);
 
             // Write the records
-            using (var writer = GetSumWriter(outputFile))
+            var sumWriters = GetSumWriters();
+            try
             {
-                writer.WriteHeader(_header);
+                WriteHeader(sumWriters);
                 foreach (var record in records)
                 {
-                    writer.Write(record);
+                    WriteRecord(sumWriters, record);
+                }
+            }
+            finally
+            {
+                // Dispose all the sum writers
+                foreach (var sumWriter in sumWriters)
+                {
+                    sumWriter.Dispose();
                 }
             }
         }
@@ -368,14 +389,49 @@ namespace Summer.Batch.Extra.Sort
         }
 
         /// <summary>
-        /// Returns a record writer that uses <see cref="Sum"/> to sum similar records.
+        /// Writes a record to all the given sum writers.
         /// </summary>
-        /// <param name="file">the file to write to</param>
-        /// <returns>the sum writer</returns>
-        private SumWriter<T> GetSumWriter(FileInfo file)
+        /// <param name="sumWriters">the sum writers to write to</param>
+        /// <param name="record">the record to write</param>
+        private static void WriteRecord(IEnumerable<SumWriter<T>> sumWriters, T record)
         {
-            file.Directory.Create();
-            return new SumWriter<T>(RecordAccessorFactory.CreateWriter(file.Create()), Sum, Comparer, OutputFormatter);
+            foreach (var sumWriter in sumWriters)
+            {
+                sumWriter.Write(record);
+            }
+        }
+
+        /// <summary>
+        /// Writes the header to all the given sum writers.
+        /// </summary>
+        /// <param name="sumWriters">the sum writers to write to</param>
+        private void WriteHeader(IEnumerable<SumWriter<T>> sumWriters)
+        {
+            _logger.Debug("Writing header");
+            foreach (var sumWriter in sumWriters)
+            {
+                sumWriter.WriteHeader(_header);
+            }
+        }
+
+        /// <summary>
+        /// Creates a sum writer for each output file.
+        /// </summary>
+        /// <returns>a collection of sum writers corresponding to the different output files</returns>
+        private ICollection<SumWriter<T>> GetSumWriters()
+        {
+            var sumWriters = new List<SumWriter<T>>();
+            foreach (var outputFile in OutputFiles)
+            {
+                var file = outputFile.Output;
+                if (file.Directory != null && !file.Directory.Exists)
+                {
+                    file.Directory.Create();
+                }
+                outputFile.OpenWriter(RecordAccessorFactory);
+                sumWriters.Add(new SumWriter<T>(outputFile, Sum, Comparer));
+            }
+            return sumWriters;
         }
 
         #endregion

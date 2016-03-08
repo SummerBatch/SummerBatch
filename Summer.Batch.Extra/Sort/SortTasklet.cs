@@ -1,5 +1,4 @@
-﻿//
-//   Copyright 2015 Blu Age Corporation - Plano, Texas
+﻿//   Copyright 2015 Blu Age Corporation - Plano, Texas
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -8,25 +7,26 @@
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 //   Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
+//   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using NLog;
+using Summer.Batch.Common.Factory;
+using Summer.Batch.Common.IO;
+using Summer.Batch.Common.Util;
 using Summer.Batch.Core;
 using Summer.Batch.Core.Scope.Context;
 using Summer.Batch.Core.Step.Tasklet;
 using Summer.Batch.Extra.Sort.Legacy;
 using Summer.Batch.Extra.Sort.Legacy.Parser;
 using Summer.Batch.Extra.Sort.Sum;
-using Summer.Batch.Common.Factory;
-using Summer.Batch.Common.IO;
 using Summer.Batch.Infrastructure.Repeat;
-using Summer.Batch.Common.Util;
 
 namespace Summer.Batch.Extra.Sort
 {
@@ -46,7 +46,7 @@ namespace Summer.Batch.Extra.Sort
         /// <summary>
         /// The output resource.
         /// </summary>
-        public IResource Output { get; set; }
+        public IList<IResource> Output { get; set; }
 
         /// <summary>
         /// The encoding of the input files. Default is <see cref="System.Text.Encoding.Default"/>.
@@ -99,6 +99,11 @@ namespace Summer.Batch.Extra.Sort
         public string Sum { get; set; }
 
         /// <summary>
+        /// Configuration cards for outfils, separated by semi-colons.
+        /// </summary>
+        public string Outfils { get; set; }
+
+        /// <summary>
         /// Whether duplicates should be skipped or kept.
         /// </summary>
         public bool SkipDuplicates { get; set; }
@@ -144,7 +149,7 @@ namespace Summer.Batch.Extra.Sort
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            sorter.Sort(Input.Select(r => r.GetFileInfo()).ToList(), Output.GetFileInfo());
+            sorter.Sort();
             stopwatch.Stop();
             Logger.Info("Total sort time: {0:F2}s", stopwatch.ElapsedMilliseconds / 1000d);
 
@@ -160,6 +165,35 @@ namespace Summer.Batch.Extra.Sort
         {
             Logger.Debug("Building sorter");
             var sorter = new Sorter<byte[]>();
+
+            var formatterParser = new FormatterParser { Encoding = Encoding };
+
+            sorter.InputFiles = Input.Select(r => r.GetFileInfo()).ToList();
+            if (Output.Count == 1)
+            {
+                var outputFiles = new List<IOutputFile<byte[]>>();
+                var outputFile = new LegacyOutputFile { Output = Output[0].GetFileInfo() };
+                if (!string.IsNullOrWhiteSpace(Outrec))
+                {
+                    outputFile.Formatter = formatterParser.GetFormatter(Outrec);
+                }
+                outputFiles.Add(outputFile);
+                sorter.OutputFiles = outputFiles;
+            }
+            if (Output.Count > 1)
+            {
+                var outfilParser = new OutfilParser { Encoding = Encoding, SortEncoding = SortEncoding };
+                var outputFiles = outfilParser.GetOutputFiles(Outfils);
+                if (Output.Count != outputFiles.Count)
+                {
+                    throw new SortException("The number of output files must match the number of outfil configurations.");
+                }
+                for (var i = 0; i < Output.Count; i++)
+                {
+                    outputFiles[i].Output = Output[i].GetFileInfo();
+                }
+                sorter.OutputFiles = outputFiles;
+            }
 
             if (RecordLength > 0 || Separator == null)
             {
@@ -189,14 +223,9 @@ namespace Summer.Batch.Extra.Sort
                 var sumParser = new SumParser { Encoding = Encoding };
                 sorter.Sum = sumParser.GetSum(Sum);
             }
-            var formatterParser = new FormatterParser { Encoding = Encoding };
             if (!string.IsNullOrWhiteSpace(Inrec))
             {
                 sorter.InputFormatter = formatterParser.GetFormatter(Inrec);
-            }
-            if (!string.IsNullOrWhiteSpace(Outrec))
-            {
-                sorter.OutputFormatter = formatterParser.GetFormatter(Outrec);
             }
 
             if (MaxInMemorySize > 0)

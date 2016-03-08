@@ -87,7 +87,7 @@ namespace Summer.Batch.CoreTests.Batch.Split
                     new InjectionProperty("Separator", "\r\n"),
                     new InjectionProperty("SortCard", "FIELDS=(1,1,CH,A)"),
                     new InjectionProperty("Input", new List<IResource> { new FileSystemResource(TestPathIn) }),
-                    new InjectionProperty("Output", new FileSystemResource(TestPathOutSorted)));
+                    new InjectionProperty("Output", new List<IResource> { new FileSystemResource(TestPathOutSorted) }));
 
                 // Step 1
                 // Registering reader

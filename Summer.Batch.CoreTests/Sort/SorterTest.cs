@@ -43,8 +43,23 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort1()
         {
+            var input = new List<FileInfo>
+            {
+                new FileInfo(@"TestData\Sort\Input\sort1a.txt"),
+                new FileInfo(@"TestData\Sort\Input\sort1b.txt")
+            };
+            var output = new FileInfo(@"TestData\Sort\Output\sort1.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output
+                }
+            };
             var sorter = new Sorter<byte[]>
             {
+                InputFiles = input,
+                OutputFiles = outputFiles,
                 RecordAccessorFactory = new SeparatorAccessorFactory { Separator = CrLf },
                 HeaderSize = 1,
                 Comparer = new ComparerChain<byte[]>
@@ -66,16 +81,9 @@ namespace Summer.Batch.CoreTests.Sort
                     Operator = ComparisonOperator.Ne
                 }
             };
-
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort1a.txt"),
-                new FileInfo(@"TestData\Sort\Input\sort1b.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\Output\sort1.txt");
             var expected = new FileInfo(@"TestData\Sort\Expected\sort1.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -83,25 +91,36 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort1Parsed()
         {
-            var comparerParser = new ComparerParser();
-            var filterParser = new FilterParser();
-            var sorter = new Sorter<byte[]>
-            {
-                RecordAccessorFactory = new SeparatorAccessorFactory { Separator = CrLf },
-                HeaderSize = 1,
-                Comparer = comparerParser.GetComparer("FORMAT=CH,FIELDS=(1,25,A,26,10,ZD,D)"),
-                Filter = filterParser.GetFilter(null, "(36,1,ZD,EQ,5)")
-            };
-
             var input = new List<FileInfo>
             {
                 new FileInfo(@"TestData\Sort\Input\sort1a.txt"),
                 new FileInfo(@"TestData\Sort\Input\sort1b.txt")
             };
             var output = new FileInfo(@"TestData\Sort\Output\sort1p.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output
+                }
+            };
+            
+            var comparerParser = new ComparerParser();
+            var filterParser = new FilterParser();
+
+            var sorter = new Sorter<byte[]>
+            {
+                InputFiles = input,
+                OutputFiles = outputFiles,
+                RecordAccessorFactory = new SeparatorAccessorFactory { Separator = CrLf },
+                HeaderSize = 1,
+                Comparer = comparerParser.GetComparer("FORMAT=CH,FIELDS=(1,25,A,26,10,ZD,D)"),
+                Filter = filterParser.GetFilter(null, "(36,1,ZD,EQ,5)")
+            };
+
             var expected = new FileInfo(@"TestData\Sort\Expected\sort1.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -122,7 +141,7 @@ namespace Summer.Batch.CoreTests.Sort
                     new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort1a.txt")),
                     new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort1b.txt"))
                 },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -133,8 +152,23 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort2()
         {
+            var input = new List<FileInfo>
+            {
+                new FileInfo(@"TestData\Sort\Input\sort2.txt")
+            };
+            var output = new FileInfo(@"TestData\Sort\Output\sort2.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output
+                }
+            };
+
             var sorter = new Sorter<byte[]>
             {
+                InputFiles = input,
+                OutputFiles = outputFiles,
                 RecordAccessorFactory = new SeparatorAccessorFactory { Separator = Lf },
                 Filter = new ConjunctionFilter<byte[]>
                 {
@@ -155,15 +189,10 @@ namespace Summer.Batch.CoreTests.Sort
                     }
                 }
             };
-
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort2.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\Output\sort2.txt");
+            
             var expected = new FileInfo(@"TestData\Sort\Expected\sort2.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -180,7 +209,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Include = "(1,2,CH,EQ,C'99',AND,22,1,CH,EQ,C'&')",
                 SortEncoding = Encoding.GetEncoding("IBM01147"),
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort2.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -191,8 +220,23 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort3()
         {
+            var input = new List<FileInfo>
+            {
+                new FileInfo(@"TestData\Sort\Input\sort3.txt")
+            };
+            var output = new FileInfo(@"TestData\Sort\Output\sort3.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output
+                }
+            };
+
             var sorter = new Sorter<byte[]>
             {
+                InputFiles = input,
+                OutputFiles = outputFiles,
                 RecordAccessorFactory = new SeparatorAccessorFactory { Separator = Lf },
                 Comparer = new ComparerChain<byte[]>
                 {
@@ -213,14 +257,9 @@ namespace Summer.Batch.CoreTests.Sort
                 }
             };
 
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort3.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\Output\sort3.txt");
             var expected = new FileInfo(@"TestData\Sort\Expected\sort3.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -237,7 +276,7 @@ namespace Summer.Batch.CoreTests.Sort
                 SortCard = "9,2,CH,A,259,6,CH,D,17,3,CH,A,296,1,CH,D",
                 Sum = "233,12,ZD",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort3.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -248,8 +287,23 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort4()
         {
+            var input = new List<FileInfo>
+            {
+                new FileInfo(@"TestData\Sort\Input\sort4.txt")
+            };
+            var output = new FileInfo(@"TestData\Sort\Output\sort4.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output
+                }
+            };
+
             var sorter = new Sorter<byte[]>
             {
+                InputFiles = input,
+                OutputFiles = outputFiles,
                 RecordAccessorFactory = new SeparatorAccessorFactory { Separator = Lf },
                 Comparer = new StringComparer { Start = 0, Length = 23, SortEncoding = Cp1147 },
                 InputFormatter = new LegacyFormatter
@@ -269,14 +323,9 @@ namespace Summer.Batch.CoreTests.Sort
                 }
             };
 
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort4.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\Output\sort4.txt");
             var expected = new FileInfo(@"TestData\Sort\Expected\sort4.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -295,7 +344,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort4.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -306,8 +355,36 @@ namespace Summer.Batch.CoreTests.Sort
         [TestMethod]
         public void TestSort5()
         {
+            var input = new List<FileInfo>
+            {
+                new FileInfo(@"TestData\Sort\Input\sort5.txt")
+            };
+            var output = new FileInfo(@"TestData\Sort\Output\sort5.txt");
+            var outputFiles = new List<IOutputFile<byte[]>>
+            {
+                new LegacyOutputFile
+                {
+                    Output =  output,
+                    Formatter = new LegacyFormatter
+                    {
+                        Formatters = new List<ISubFormatter>
+                        {
+                            new CopyFormatter { InputIndex = 25, Length = 6 },
+                            new CopyFormatter { InputIndex = 74, Length = 7, OutputIndex = 6 },
+                            new CopyFormatter { InputIndex = 81, Length = 40, OutputIndex = 13 },
+                            new ConstantFormatter { Constant = Encoding.Default.GetBytes("  "), OutputIndex = 53 },
+                            new CopyFormatter { InputIndex = 227, Length = 80, OutputIndex = 55 },
+                            new CopyFormatter { InputIndex = 680, Length = 4, OutputIndex = 135 },
+                            new ConstantFormatter { Constant = Encoding.Default.GetBytes("           "), OutputIndex = 139 }
+                        }
+                    }
+                }
+            };
+
             var sorter = new Sorter<byte[]>
             {
+                InputFiles = input,
+                OutputFiles = outputFiles,
                 RecordAccessorFactory = new SeparatorAccessorFactory { Separator = Lf },
                 Comparer = new StringComparer { Start = 0, Length = 6, SortEncoding = Cp1147 },
                 Filter = new StringFilter
@@ -315,30 +392,12 @@ namespace Summer.Batch.CoreTests.Sort
                     Left = new StringAccessor { Start = 74, Length = 7, Encoding = Cp1252 },
                     Right = new ConstantAccessor<string> { Constant = "       " },
                     Operator = ComparisonOperator.Ne
-                },
-                OutputFormatter = new LegacyFormatter
-                {
-                    Formatters = new List<ISubFormatter>
-                    {
-                        new CopyFormatter { InputIndex = 25, Length = 6 },
-                        new CopyFormatter { InputIndex = 74, Length = 7, OutputIndex = 6 },
-                        new CopyFormatter { InputIndex = 81, Length = 40, OutputIndex = 13 },
-                        new ConstantFormatter { Constant = Encoding.Default.GetBytes("  "), OutputIndex = 53 },
-                        new CopyFormatter { InputIndex = 227, Length = 80, OutputIndex = 55 },
-                        new CopyFormatter { InputIndex = 680, Length = 4, OutputIndex = 135 },
-                        new ConstantFormatter { Constant = Encoding.Default.GetBytes("           "), OutputIndex = 139 }
-                    }
                 }
             };
 
-            var input = new List<FileInfo>
-            {
-                new FileInfo(@"TestData\Sort\Input\sort5.txt")
-            };
-            var output = new FileInfo(@"TestData\Sort\Output\sort5.txt");
             var expected = new FileInfo(@"TestData\Sort\Expected\sort5.txt");
 
-            sorter.Sort(input, output);
+            sorter.Sort();
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
@@ -358,7 +417,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Encoding = Cp1252,
                 SortEncoding = Cp1147,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort5.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -376,7 +435,7 @@ namespace Summer.Batch.CoreTests.Sort
             {
                 Separator = "\r\n",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort6.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -395,7 +454,7 @@ namespace Summer.Batch.CoreTests.Sort
                 RecordLength = 2,
                 SortCard = "(1,2,ZD,A)",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort7.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -416,7 +475,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Sum = "FIELDS=(23,11,34,11,45,11,56,11),FORMAT=ZD",
                 Omit = "(04,03,CH,EQ,C'555')",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort8.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -439,7 +498,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Inrec = "(X'001C',1,5)",
                 Encoding = Cp1047,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort9.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -461,7 +520,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Outrec = "X,1,4",
                 RecordLength = 4,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort10.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -481,7 +540,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Sum = "25,8,ZD",
                 Encoding = Cp1047,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort11.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -500,7 +559,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Include = "1,10,CH,EQ,C'INCLUDE '",
                 Separator = "\r\n",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort12.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -520,7 +579,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Encoding = Cp1047,
                 RecordLength = 45,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort13.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -540,7 +599,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Encoding = Cp1047,
                 RecordLength = 24,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort14.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -561,7 +620,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Encoding = Cp1047,
                 RecordLength = 2500,
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort15.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -582,7 +641,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Outrec = "1,5,6,3,ZD,EDIT=(TTT)",
                 Separator = "\r\n",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort16.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
@@ -602,12 +661,44 @@ namespace Summer.Batch.CoreTests.Sort
                 Outrec = "1:1,7,11:8,2",
                 Separator = "\r\n",
                 Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort17.txt")) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+        [TestMethod]
+        public void TestSort18Tasklet()
+        {
+            var input = new FileInfo(@"TestData\Sort\Input\sort18.txt");
+            var output1 = new FileInfo(@"TestData\Sort\Output\sort18-1.txt");
+            var output2 = new FileInfo(@"TestData\Sort\Output\sort18-2.txt");
+            var output3 = new FileInfo(@"TestData\Sort\Output\sort18-3.txt");
+            var expected1 = new FileInfo(@"TestData\Sort\Expected\sort18-1.txt");
+            var expected2 = new FileInfo(@"TestData\Sort\Expected\sort18-2.txt");
+            var expected3 = new FileInfo(@"TestData\Sort\Expected\sort18-3.txt");
+
+            var sortTasklet = new SortTasklet
+            {
+                SortCard = "31,9,ZD,D,40,9,ZD,A",
+                Outfils = "INCLUDE=(49,2,CH,EQ,C'01'),OUTREC=(15,10,25,6);INCLUDE=(49,2,CH,EQ,C'02'),OUTREC=(1,4,31,9);INCLUDE=(49,2,CH,EQ,C'03'),OUTREC=(5,10,40,9)",
+                Separator = "\r\n",
+                Input = new List<IResource> { new FileSystemResource(input) },
+                Output = new List<IResource>
+                {
+                    new FileSystemResource(output1),
+                    new FileSystemResource(output2),
+                    new FileSystemResource(output3)
+                }
+            };
+
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected1.OpenRead(), output1.OpenRead()));
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected2.OpenRead(), output2.OpenRead()));
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected3.OpenRead(), output3.OpenRead()));
         }
 
         [TestMethod]
@@ -625,7 +716,7 @@ namespace Summer.Batch.CoreTests.Sort
                 Separator = "\r\n",
                 HeaderSize = 1,
                 Input = new List<IResource> { new FileSystemResource(input) },
-                Output = new FileSystemResource(output)
+                Output = new List<IResource> { new FileSystemResource(output) }
             };
 
             sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);

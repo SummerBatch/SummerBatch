@@ -8,10 +8,11 @@
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 //   Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
+//   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -33,6 +34,18 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         /// The current token
         /// </summary>
         public string Current { get; private set; }
+
+        /// <summary>
+        /// An index that points to the next character to read.
+        /// </summary>
+        public int Index { get { return _index; } }
+
+        public string SubString(int start, int length)
+        {
+            var subArray = new char[length];
+            Array.Copy(_chars, start, subArray, 0, length);
+            return new string(subArray);
+        }
 
         /// <summary>
         /// Default constructor.
@@ -135,6 +148,9 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                         // no other token, the parenthese is the new token
                         _index++;
                         return c.ToString();
+                    case ';':
+                        _index++;
+                        return ";";
                     case Quote:
                         // a quote ends any read token and starts a new string literal token
                         return sb.Length > 0 ? sb.ToString() : ParseString();

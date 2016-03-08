@@ -152,6 +152,7 @@
     <Compile Include="Sort\Filter\IFilter.cs" />
     <Compile Include="Sort\Filter\NegationFilter.cs" />
     <Compile Include="Sort\Format\IFormatter.cs" />
+    <Compile Include="Sort\IOutputFile.cs" />
     <Compile Include="Sort\IRecordAccessorFactory.cs" />
     <Compile Include="Sort\IRecordReader.cs" />
     <Compile Include="Sort\IRecordWriter.cs" />
@@ -198,16 +199,19 @@
     <Compile Include="Sort\Legacy\Format\ISubFormatter.cs" />
     <Compile Include="Sort\Legacy\Format\LegacyFormatter.cs" />
     <Compile Include="Sort\Legacy\Format\NumericEditFormatter.cs" />
+    <Compile Include="Sort\Legacy\LegacyOutputFile.cs" />
     <Compile Include="Sort\Legacy\Parser\ComparerParser.cs" />
     <Compile Include="Sort\Legacy\Parser\FilterParser.cs" />
     <Compile Include="Sort\Legacy\Parser\FormatterParser.cs" />
     <Compile Include="Sort\Legacy\Parser\Lexer.cs" />
     <Compile Include="Sort\Legacy\Parser\AbstractParser.cs" />
+    <Compile Include="Sort\Legacy\Parser\OutfilParser.cs" />
     <Compile Include="Sort\Legacy\Parser\ParsingException.cs" />
     <Compile Include="Sort\Legacy\Parser\SumParser.cs" />
     <Compile Include="Sort\Legacy\SeparatorAccessorFactory.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordReader.cs" />
     <Compile Include="Sort\Legacy\SeparatorRecordWriter.cs" />
+    <Compile Include="Sort\SortException.cs" />
     <Compile Include="Sort\Sum\SkipSum.cs" />
     <Compile Include="Sort\RecordReaderBuffer.cs" />
     <Compile Include="Sort\Sorter.cs" />
