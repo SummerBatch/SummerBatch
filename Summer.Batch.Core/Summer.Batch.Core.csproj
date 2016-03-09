@@ -65,6 +65,10 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Management.Automation.dll.10.0.10586.0\lib\net40\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="Microsoft.CSharp" />
@@ -126,6 +130,9 @@
     <Compile Include="Core\Step\Builder\PartitionStepBuilder.cs" />
     <Compile Include="Core\Step\Builder\SimpleStepBuilder.cs" />
     <Compile Include="Core\Step\Builder\TaskletStepBuilder.cs" />
+    <Compile Include="Core\Step\Tasklet\IPowerShellExitCodeMapper.cs" />
+    <Compile Include="Core\Step\Tasklet\PowerShellExitCodeMapper.cs" />
+    <Compile Include="Core\Step\Tasklet\PowerShellTasklet.cs" />
     <Compile Include="Core\Unity\Injection\JobContextDependencyResolverPolicy.cs">
       <SubType>Code</SubType>
     </Compile>

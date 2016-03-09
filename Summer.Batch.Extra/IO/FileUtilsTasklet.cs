@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Linq;
 using NLog;
 using Summer.Batch.Common.Factory;
@@ -56,11 +57,17 @@ namespace Summer.Batch.Extra.IO
     ///         <term>RESET</term>
     ///         <description>Creates new empty files, overwriting any existing file</description>
     ///     </item>
+    ///     <item>
+    ///         <term>COMPARE</term>
+    ///         <description>Compare two files for equality</description>
+    ///     </item>
     /// </list>
     /// 
     /// </summary>
-    public class FileUtilsTasklet : ITasklet, IInitializationPostOperations
+    public class FileUtilsTasklet : ITasklet, IInitializationPostOperations, IStepExecutionListener
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Enumeration of the possible file operations.
         /// </summary>
@@ -85,13 +92,64 @@ namespace Summer.Batch.Extra.IO
             /// <summary>
             /// Resets a file (the file is emptied).
             /// </summary>
-            Reset
+            Reset,
+            /// <summary>
+            /// Compare 2 files for equality
+            /// </summary>
+            Compare
         };
 
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// Enumeration of the possible file types.
+        /// </summary>
+        public enum FileType
+        {
+            /// <summary>
+            /// Files to compare are text files
+            /// </summary>
+            Text,
+            /// <summary>
+            /// Files to compare are binary files, i.e. zip, etc...
+            /// </summary>
+            Binary
+        }
+
+        /// <summary>
+        /// Enumeration of the possible Sequence EqualityComparer Types...
+        /// </summary>
+        public enum EqualityComparerType
+        {
+            /// <summary>
+            /// Use Dafault IEqualityComparer...
+            /// </summary>
+            Default,
+            /// <summary>
+            /// Custom SequenceEqualityComparer similar to z/OS IEBCOMPR...
+            /// </summary>
+            IEBCOMPRLike
+        }
+
+        private EqualityComparerType _seqEqComparerType = EqualityComparerType.Default;
+        /// <summary>
+        /// FileType flag property.
+        /// </summary>
+        public EqualityComparerType SequenceEqualityComparerType
+        {
+            get { return _seqEqComparerType; }
+            set { _seqEqComparerType = value; }
+        }
+
+        private FileType _fileType = FileType.Text;
+        /// <summary>
+        /// FileType flag property.
+        /// </summary>
+        public FileType FileCompareMode
+        {
+            get { return _fileType; }
+            set { _fileType = value; }
+        }
 
         private bool _strict = true;
-
         /// <summary>
         /// Strict mode flag property.
         /// </summary>
@@ -115,6 +173,27 @@ namespace Summer.Batch.Extra.IO
         /// List of target resources property.
         /// </summary>
         public IList<IResource> Targets { private get; set; }
+
+        private StepExecution _stepExecution;
+        private JobInstance _jobInstance;
+        /// <summary>
+        /// Do nothing before step
+        /// </summary>
+        /// <param name="stepExecution"></param>
+        public void BeforeStep(StepExecution stepExecution)
+        {
+            _stepExecution = stepExecution;
+            _jobInstance = stepExecution.JobExecution.JobInstance;
+        }
+
+        //=> declare and set exit status...
+        private ExitStatus _exitStatus = ExitStatus.Completed;
+
+        public ExitStatus AfterStep(StepExecution stepExecution)
+        {
+            return _exitStatus;
+        }
+
 
         /// <summary>
         /// @see ITasklet#Execute()
@@ -150,6 +229,9 @@ namespace Summer.Batch.Extra.IO
                     break;
                 case FileUtilsMode.Reset:
                     Reset();
+                    break;
+                case FileUtilsMode.Compare:
+                    Compare();
                     break;
                 default:
                     throw new InvalidOperationException("This mode is not supported :[" + Mode + "]");
@@ -222,7 +304,7 @@ namespace Summer.Batch.Extra.IO
                 fm = FileMode.Append;
             }
             bool sourceIsTarget = (Sources.Contains(Targets[0]));
-            string tmpFileName = Path.GetTempFileName(); 
+            string tmpFileName = Path.GetTempFileName();
 
             // if source is target, use a temporary file that will be appended in the end. Otherwise, just use the given target.
             using (
@@ -248,7 +330,7 @@ namespace Summer.Batch.Extra.IO
             if (sourceIsTarget)
             {
                 //append tmpFile to existing target
-                using(FileStream fsmerged = File.Open(Targets[0].GetFullPath(), fm, FileAccess.Write))
+                using (FileStream fsmerged = File.Open(Targets[0].GetFullPath(), fm, FileAccess.Write))
                 using (Stream tmpStream = new FileInfo(tmpFileName).OpenRead())
                 {
                     tmpStream.CopyTo(fsmerged);
@@ -297,7 +379,7 @@ namespace Summer.Batch.Extra.IO
                 {
                     if (source.Exists())
                     {
-                        string targetName = Path.Combine(Targets[0].GetFileInfo().DirectoryName, source.GetFilename());             
+                        string targetName = Path.Combine(Targets[0].GetFileInfo().DirectoryName, source.GetFilename());
                         File.Copy(source.GetFullPath(), targetName);
                     }
                     else
@@ -306,6 +388,147 @@ namespace Summer.Batch.Extra.IO
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Compare 2 files for equality
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        private void Compare()
+        {
+
+            Stopwatch sw = Stopwatch.StartNew();
+            bool filesEqual = true;
+
+            if (FileCompareMode == FileType.Text)
+            {
+                //=> now compare text files...
+                var f0Lines = File.ReadLines(Sources[0].GetFullPath());
+                var f1Lines = File.ReadLines(Sources[1].GetFullPath());
+
+                // The basic definition of two equal sequences is if they have:
+                // * The same number of elements, and 
+                // * The same values at each position in both sequences. 
+                //
+                // Note: SequenceEqual compares two collections for exact equality. 
+                if (SequenceEqualityComparerType == EqualityComparerType.Default)
+                {
+                    //=> are files equal?
+                    filesEqual = f0Lines.SequenceEqual(f1Lines);
+                }
+                else if (SequenceEqualityComparerType == EqualityComparerType.IEBCOMPRLike)
+                {
+                    //=> our IEBCOMPRLike comparer records sequence index of first 9 lines that are different between 2 files...
+                    var strComparer = new StringEqualityComparer();
+
+                    //=> Check seqComparer.SequenceEquality as seqComparer has a hack to test for upto 10 unequal records...
+                    //   if # of unequal records is < 10 SequenceEqual will return true(which is not true, so we need to test SequenceEquality)
+                    f0Lines.SequenceEqual(f1Lines, strComparer);
+
+                    //=> are files equals?
+                    filesEqual = strComparer.SequenceEquality;
+
+                    if (!filesEqual && Logger.IsInfoEnabled)
+                    {
+                        StringBuilder sb = new StringBuilder();
+
+                        //=> Build message...
+                        sb.Append(Environment.NewLine);
+                        sb.AppendFormat("*** JobName={0}, StepName={1}, Id={2} ***", _jobInstance.JobName, _stepExecution.StepName, _stepExecution.Id);
+                        sb.Append(Environment.NewLine);
+                        sb.Append("===> FILES ARE NOT EQUAL <===");
+                        sb.Append(Environment.NewLine);
+
+                        //=> lines from first file...
+                        sb.AppendFormat("{0}", Sources[0].GetFilename());
+                        sb.Append(Environment.NewLine);
+                        foreach (int index in strComparer.SeqNotEqIndexList)
+                        {
+                            var lNum = index + 1; //line numbers start with 1, List index is 0 based...
+                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f0Lines.ElementAt(index));
+                            sb.Append(Environment.NewLine);
+                        }
+
+                        //=> lines from second file...
+                        sb.AppendFormat("{0}", Sources[1].GetFilename());
+                        sb.Append(Environment.NewLine);
+                        foreach (int index in strComparer.SeqNotEqIndexList)
+                        {
+                            var lNum = index + 1; //line numbers start with 1, List index is 0 based...
+                            sb.AppendFormat("{0,8:D8}: {1}", lNum, f1Lines.ElementAt(index));
+                            sb.Append(Environment.NewLine);
+                        }
+
+                        //=> log it...
+                        Logger.Info(sb.ToString());
+                    }
+                }
+            }
+            else if (FileCompareMode == FileType.Binary)
+            {
+                //=> are files the same?
+                filesEqual = FileCompare(Sources[0].GetFileInfo(), Sources[1].GetFileInfo());
+            }
+
+            //stopwatch stop
+            long cpTime = sw.ElapsedMilliseconds;
+            Logger.Info("Comparison took {0} ms", cpTime);
+            
+            //=> if files equal...
+            if (filesEqual)
+            {
+                Logger.Info("===> FILES {0} and {1} ARE EQUAL <===", Sources[0].GetFilename(), Sources[1].GetFilename());
+            }
+            else
+            {             
+                _exitStatus = new ExitStatus("FILESNOTEQUAL", "FILES ARE NOT EQUAL.");
+
+                if (Logger.IsInfoEnabled && SequenceEqualityComparerType != EqualityComparerType.IEBCOMPRLike)
+                    Logger.Info("===> FILES {0} and {1} ARE NOT EQUAL <===", Sources[0].GetFilename(), Sources[1].GetFilename());
+            }
+        }
+
+        //=> code for this method was taken from https://support.microsoft.com/en-us/kb/320348
+        // This method accepts two FileInfo parameters that represent two files to 
+        // compare. A return value of 0 indicates that the contents of the files
+        // are the same. A return value of any other value indicates that the 
+        // files are not the same.
+        private bool FileCompare(FileInfo file1, FileInfo file2)
+        {
+            int file1Byte;
+            int file2Byte;
+
+            // Determine if the same file was referenced two times.
+            if (file1.FullName == file2.FullName)
+            {
+                // Return true to indicate that the files are the same.
+                return true;
+            }
+
+            // Check the file sizes. If they are not the same, the files are not the same.
+            if (file1.Length != file2.Length)
+                return false; // Return false to indicate files are different
+
+            // Open the two files.
+            using (FileStream fs1 = new FileStream(file1.FullName, FileMode.Open))
+            using (FileStream fs2 = new FileStream(file2.FullName, FileMode.Open))
+            {
+                // Read and compare a byte from each file until either a
+                // non-matching set of bytes is found or until the end of
+                // file1 is reached.
+                do
+                {
+                    // Read one byte from each file.
+                    file1Byte = fs1.ReadByte();
+                    file2Byte = fs2.ReadByte();
+                }
+                while ((file1Byte == file2Byte) && (file1Byte != -1));
+            }
+
+            // Return the success of the comparison. "file1byte" is 
+            // equal to "file2byte" at this point only if the files are 
+            // the same.
+            return ((file1Byte - file2Byte) == 0);
         }
 
         /// <summary>
@@ -341,8 +564,22 @@ namespace Summer.Batch.Extra.IO
                         Logger.Warn("no targets specified.");
                     }
                     break;
+                case FileUtilsMode.Compare:
+                    //=> we need at least 2 file resources to compare...
+                    Assert.State(Sources != null && Sources.Count == 2, "Files Compare operation requires that 2 files must be specified.");
+
+                    //=> now lets make sure resources exist and are files...
+                    foreach (IResource source in Sources)
+                    {
+                        //=> make sure source exists...
+                        Assert.State(source.Exists(), source.GetDescription() + " does not exist.");
+
+                        //=> source should be a file (NOT Directory)...
+                        Assert.State(!source.GetFileInfo().Attributes.HasFlag(FileAttributes.Directory), source.GetDescription() + " should be a file, NOT Directory.");
+                    }
+                    break;
                 default:
-                    throw new InvalidOperationException("This mode is not supported :["+Mode+"]");
+                    throw new InvalidOperationException("This mode is not supported :[" + Mode + "]");
             }
         }
 
@@ -363,4 +600,54 @@ namespace Summer.Batch.Extra.IO
             }
         }
     }
+
+    //=> string comparer for Enumerable.SequenceEqual...
+    //   we created this comparer to trap index location of the first index not equal between the 2 files...
+    internal class StringEqualityComparer : IEqualityComparer<string>
+    {
+        private int _countNotEqLines; //defaults to 0
+        private int _seqCount; //defaults to 0
+        internal protected readonly List<int> SeqNotEqIndexList = new List<int>();
+        internal protected bool SequenceEquality = true;
+
+        public bool Equals(string s1, string s2)
+        {
+            //=> compare strings...
+            bool s1EQs2 = s1.Equals(s2);
+
+            // NOTE: Enumerable.SequenceEqual will stop comparison after first NOT equal compare in the sequence...
+            //       we want equivalence with z/OS IEBCOMPR, i.e. by default 10 successive unequal comparisons will stop the IEBCOMPR  
+            if (!s1EQs2)
+            {
+                //=> return false if count of unequal lines is 10... 
+                if (++_countNotEqLines > 9)
+                {
+                    return false;
+                }
+
+                //=> get index of unequal records and increment count...
+                SeqNotEqIndexList.Add(_seqCount++);
+
+                //=> hack to know if SequenceEqual should return false BUT returns true since # of unequal lines _countNotEqLines < 10
+                //   make sure to test this parameter when Enumerable.SequenceEqual returns...
+                SequenceEquality = false;
+
+                //=> return true so we can continue till _countNotEqLines count reaches 10...
+                //   if _countNotEqLines does not reach 10, Enumerable.SequenceEqual return of true is wrong
+                //   make sure to test SequenceEquality for the right value!!!
+                return true;
+            }
+
+            //=> keep track of index sequence count...
+            _seqCount++;
+
+            return true;
+        }
+
+        public int GetHashCode(string s)
+        {
+            return s.GetHashCode();
+        }
+    }
+
 }
