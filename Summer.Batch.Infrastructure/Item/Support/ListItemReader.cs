@@ -39,7 +39,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// <summary>
     /// Simple item reader that pulls its data from a supplied list.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class ListItemReader<T> : IItemReader<T> where T : class
     {
         private readonly IList<T> _list;

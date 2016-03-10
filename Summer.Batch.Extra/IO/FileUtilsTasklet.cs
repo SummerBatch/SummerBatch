@@ -38,28 +38,29 @@ namespace Summer.Batch.Extra.IO
     /// 
     /// <list type="bullet">
     ///     <item>
-    ///         <term>COPY</term>
+    ///         <term>Copy</term>
     ///         <description>copies file to another location</description>
     ///     </item>
     ///     <item>
-    ///         <term>DELETE</term>
+    ///         <term>Delete</term>
     ///         <description>deletes a list of files</description>
     ///     </item>
     ///     <item>
-    ///         <term>MERGE</term>
+    ///         <term>Merge</term>
     ///         <description>appends the source files to the target file</description>
     ///     </item>
     ///     <item>
-    ///         <term>MERGE_COPY</term>
+    ///         <term>MergeCopy</term>
     ///         <description>merges the source files to the target file (which is overwritten if it exists)</description>
     ///     </item>
     ///     <item>
-    ///         <term>RESET</term>
+    ///         <term>Reset</term>
     ///         <description>Creates new empty files, overwriting any existing file</description>
     ///     </item>
+    ///     \since 1.1.0
     ///     <item>
-    ///         <term>COMPARE</term>
-    ///         <description>Compare two files for equality</description>
+    ///         <term>Compare</term>
+    ///         <description>Compares two files.</description>
     ///     </item>
     /// </list>
     /// 
@@ -95,12 +96,14 @@ namespace Summer.Batch.Extra.IO
             Reset,
             /// <summary>
             /// Compare 2 files for equality
+            /// \since 1.1.0
             /// </summary>
             Compare
         };
 
         /// <summary>
         /// Enumeration of the possible file types.
+        /// \since 1.1.0
         /// </summary>
         public enum FileType
         {
@@ -116,17 +119,18 @@ namespace Summer.Batch.Extra.IO
 
         /// <summary>
         /// Enumeration of the possible Sequence EqualityComparer Types...
+        /// \since 1.1.0
         /// </summary>
         public enum EqualityComparerType
         {
             /// <summary>
-            /// Use Dafault IEqualityComparer...
+            /// Use Default IEqualityComparer...
             /// </summary>
             Default,
             /// <summary>
             /// Custom SequenceEqualityComparer similar to z/OS IEBCOMPR...
             /// </summary>
-            IEBCOMPRLike
+            IebcomprLike
         }
 
         private EqualityComparerType _seqEqComparerType = EqualityComparerType.Default;
@@ -393,14 +397,13 @@ namespace Summer.Batch.Extra.IO
         /// <summary>
         /// Compare 2 files for equality
         /// </summary>
+        /// \since 1.1.0
         /// <exception cref="Exception"></exception>
         private void Compare()
         {
-
-            Stopwatch sw = Stopwatch.StartNew();
             bool filesEqual = true;
 
-            if (FileCompareMode == FileType.Text)
+            if (this.FileCompareMode == FileType.Text)
             {
                 //=> now compare text files...
                 var f0Lines = File.ReadLines(Sources[0].GetFullPath());
@@ -416,7 +419,9 @@ namespace Summer.Batch.Extra.IO
                     //=> are files equal?
                     filesEqual = f0Lines.SequenceEqual(f1Lines);
                 }
-                else if (SequenceEqualityComparerType == EqualityComparerType.IEBCOMPRLike)
+
+                else if (SequenceEqualityComparerType == EqualityComparerType.IebcomprLike)
+
                 {
                     //=> our IEBCOMPRLike comparer records sequence index of first 9 lines that are different between 2 files...
                     var strComparer = new StringEqualityComparer();
@@ -442,7 +447,8 @@ namespace Summer.Batch.Extra.IO
                         //=> lines from first file...
                         sb.AppendFormat("{0}", Sources[0].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in strComparer.SeqNotEqIndexList)
+
+                        foreach (int index in strComparer.seqNotEqIndexList)
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
                             sb.AppendFormat("{0,8:D8}: {1}", lNum, f0Lines.ElementAt(index));
@@ -452,7 +458,8 @@ namespace Summer.Batch.Extra.IO
                         //=> lines from second file...
                         sb.AppendFormat("{0}", Sources[1].GetFilename());
                         sb.Append(Environment.NewLine);
-                        foreach (int index in strComparer.SeqNotEqIndexList)
+                        foreach (int index in strComparer.seqNotEqIndexList)
+
                         {
                             var lNum = index + 1; //line numbers start with 1, List index is 0 based...
                             sb.AppendFormat("{0,8:D8}: {1}", lNum, f1Lines.ElementAt(index));
@@ -464,26 +471,23 @@ namespace Summer.Batch.Extra.IO
                     }
                 }
             }
+
             else if (FileCompareMode == FileType.Binary)
             {
                 //=> are files the same?
                 filesEqual = FileCompare(Sources[0].GetFileInfo(), Sources[1].GetFileInfo());
             }
-
-            //stopwatch stop
-            long cpTime = sw.ElapsedMilliseconds;
-            Logger.Info("Comparison took {0} ms", cpTime);
-            
             //=> if files equal...
             if (filesEqual)
             {
                 Logger.Info("===> FILES {0} and {1} ARE EQUAL <===", Sources[0].GetFilename(), Sources[1].GetFilename());
             }
             else
-            {             
+            {
                 _exitStatus = new ExitStatus("FILESNOTEQUAL", "FILES ARE NOT EQUAL.");
 
-                if (Logger.IsInfoEnabled && SequenceEqualityComparerType != EqualityComparerType.IEBCOMPRLike)
+                if (Logger.IsInfoEnabled && SequenceEqualityComparerType != EqualityComparerType.IebcomprLike)
+
                     Logger.Info("===> FILES {0} and {1} ARE NOT EQUAL <===", Sources[0].GetFilename(), Sources[1].GetFilename());
             }
         }
@@ -493,6 +497,8 @@ namespace Summer.Batch.Extra.IO
         // compare. A return value of 0 indicates that the contents of the files
         // are the same. A return value of any other value indicates that the 
         // files are not the same.
+        //\since 1.1.0
+
         private bool FileCompare(FileInfo file1, FileInfo file2)
         {
             int file1Byte;
@@ -603,11 +609,12 @@ namespace Summer.Batch.Extra.IO
 
     //=> string comparer for Enumerable.SequenceEqual...
     //   we created this comparer to trap index location of the first index not equal between the 2 files...
+    //\since 1.1.0
     internal class StringEqualityComparer : IEqualityComparer<string>
     {
-        private int _countNotEqLines; //defaults to 0
-        private int _seqCount; //defaults to 0
-        internal protected readonly List<int> SeqNotEqIndexList = new List<int>();
+        private int _countNotEqLines;//defaults to 0
+        private int _seqCount;//defaults to 0
+        internal protected List<int> seqNotEqIndexList = new List<int>();
         internal protected bool SequenceEquality = true;
 
         public bool Equals(string s1, string s2)
@@ -621,12 +628,11 @@ namespace Summer.Batch.Extra.IO
             {
                 //=> return false if count of unequal lines is 10... 
                 if (++_countNotEqLines > 9)
-                {
                     return false;
-                }
 
                 //=> get index of unequal records and increment count...
-                SeqNotEqIndexList.Add(_seqCount++);
+                seqNotEqIndexList.Add(_seqCount++);
+
 
                 //=> hack to know if SequenceEqual should return false BUT returns true since # of unequal lines _countNotEqLines < 10
                 //   make sure to test this parameter when Enumerable.SequenceEqual returns...
@@ -641,7 +647,9 @@ namespace Summer.Batch.Extra.IO
             //=> keep track of index sequence count...
             _seqCount++;
 
+
             return true;
+
         }
 
         public int GetHashCode(string s)

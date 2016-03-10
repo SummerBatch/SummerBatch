@@ -40,7 +40,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// Abstract implementation of <see cref="T:ILineAggregator"/> that uses a <see cref="T:IFieldExtractor"/>
     /// to convert the incoming object to an array of its parts.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public abstract class ExtractorLineAggregator<T> : ILineAggregator<T> where T : class
     {
         /// <summary>

@@ -44,7 +44,7 @@ namespace Summer.Batch.Core.Step.Item
     /// Simple implementation of the <see cref="T:IChunkProvider"/> interface that 
     /// does basic chunk providing from an <see cref="T:Summer.Batch.Infrastructure.Item.IItemReader"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class SimpleChunkProvider<T> : IChunkProvider<T> where T : class
     {
         /// <summary>
@@ -77,7 +77,7 @@ namespace Summer.Batch.Core.Step.Item
         /// <param name="contribution">the current step execution contribution</param>
         /// <param name="chunk">the current chunk</param>
         /// <returns>a new item for processing</returns>
-        /// <exception cref="Exception">if there is a generic issue</exception>
+        /// <exception cref="Exception">&nbsp;if there is a generic issue</exception>
         protected T Read(StepContribution contribution, Chunk<T> chunk)
         {
             return DoRead();
@@ -87,7 +87,7 @@ namespace Summer.Batch.Core.Step.Item
         /// Read delegation.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected T DoRead()
         {
             try

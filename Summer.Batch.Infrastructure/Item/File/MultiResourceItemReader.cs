@@ -44,7 +44,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// Reads items from a collection of resources sequentially. Ordering of resources is preserved between jobs runs
     /// (restartability support) using the provided comparer.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class MultiResourceItemReader<T> : ItemStreamSupport, IItemStreamReader<T> where T : class
     {
         private const string ResourceKey = "resourceIndex";

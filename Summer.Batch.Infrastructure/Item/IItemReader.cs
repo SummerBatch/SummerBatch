@@ -39,27 +39,27 @@ namespace Summer.Batch.Infrastructure.Item
     /// Strategy interface for providing the data. 
     /// Implementations are expected to be stateful and will be called multiple times
     /// for each batch, with each call to #Read() returning a different value
-    /// and finally returning <code>null</code> when all input data is exhausted.
+    /// and finally returning <c>null</c> when all input data is exhausted.
     /// Implementations need <b>not</b> be thread-safe and clients of a IItemReader
     /// need to be aware that this is the case.
     /// A richer interface (e.g. with a look ahead or peek) is not feasible because
     /// we need to support transactions in an asynchronous batch.
     /// </summary>
-    /// <typeparam name="T">The type of the read items. Must be nullable.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the read items. Must be nullable.</typeparam>
     public interface IItemReader<out T> where T : class
     {
         /// <summary>
         /// Reads a piece of input data and advance to the next one. Implementations
-        /// <strong>must</strong> return <code>null</code> at the end of the input
+        /// <strong>must</strong> return <c>null</c> at the end of the input
         /// data set. In a transactional setting, caller might get the same item
         /// twice from successive calls (or otherwise), if the first call was in a
         /// transaction that rolled back.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="UnexpectedInputException"></exception>
-        /// <exception cref="NonTransientResourceException"></exception>
-        /// <exception cref="ParseException"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
+        /// <exception cref="UnexpectedInputException">&nbsp;</exception>
+        /// <exception cref="NonTransientResourceException">&nbsp;</exception>
+        /// <exception cref="ParseException">&nbsp;</exception>
         T Read();
     }
 }

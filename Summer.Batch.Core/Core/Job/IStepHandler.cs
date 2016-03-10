@@ -50,9 +50,9 @@ namespace Summer.Batch.Core.Job
         /// <param name="step">a step</param>
         /// <param name="jobExecution">a job execution</param>
         /// <returns></returns>
-        /// <exception cref="JobInterruptedException">if there is an interruption</exception>
-        /// <exception cref="JobRestartException">if there is a problem restarting a failed step</exception>
-        /// <exception cref="StartLimitExceededException">if the step exceeds its start limit</exception>
+        /// <exception cref="JobInterruptedException">&nbsp;if there is an interruption</exception>
+        /// <exception cref="JobRestartException">&nbsp;if there is a problem restarting a failed step</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;if the step exceeds its start limit</exception>
         StepExecution HandleStep(IStep step, JobExecution jobExecution);
 
     }

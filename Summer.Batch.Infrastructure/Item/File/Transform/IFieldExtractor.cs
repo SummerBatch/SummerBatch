@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// <summary>
     /// Interface to convert an object to an array of its parts.
     /// </summary>
-    /// <typeparam name="T">the type of the object to convert</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the object to convert</typeparam>
     public interface IFieldExtractor<in T>
     {
         /// <summary>

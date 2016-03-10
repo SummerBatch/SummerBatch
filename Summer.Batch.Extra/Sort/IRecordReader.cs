@@ -20,13 +20,13 @@ namespace Summer.Batch.Extra.Sort
     /// <summary>
     /// Interface that abstracts a record reader.
     /// </summary>
-    /// <typeparam name="T">the type of the records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the records</typeparam>
     public interface IRecordReader<out T> : IDisposable
     {
         /// <summary>
         /// Reads a record.
         /// </summary>
-        /// <returns>the read record, or <code>null</code> if the end has been reached</returns>
+        /// <returns>the read record, or <c>null</c> if the end has been reached</returns>
         T Read();
 
         /// <summary>

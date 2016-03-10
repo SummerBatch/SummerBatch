@@ -22,7 +22,7 @@ namespace Summer.Batch.Extra.Sort
     /// Comparable buffer for <see cref="IRecordReader{T}"/>. It is used by <see cref="Sorter{T}"/>
     /// when merging different files. The buffers are sorted using their next record.
     /// </summary>
-    /// <typeparam name="T">the type of the records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the records</typeparam>
     [DebuggerDisplay("Cache={CacheDebuggerDisplay}")]
     public class RecordReaderBuffer<T> : IComparable<RecordReaderBuffer<T>>, IDisposable where T : class
     {
@@ -57,7 +57,7 @@ namespace Summer.Batch.Extra.Sort
             return result;
         }
 
-        /// <returns><code>true</code> if there are more items to read, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if there are more items to read, <c>false</c> otherwise</returns>
         public bool HasNext()
         {
             return _cache != null;

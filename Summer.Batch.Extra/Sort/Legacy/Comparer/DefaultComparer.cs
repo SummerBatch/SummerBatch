@@ -21,7 +21,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Comparer
     /// Default implementation of <see cref="AbstractBytesComparer"/> that relies on an <see cref="IAccessor{T}"/>
     /// to retrieve a value to compare in a byte array.
     /// </summary>
-    /// <typeparam name="T">the type of the extracted value</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the extracted value</typeparam>
     public class DefaultComparer<T> : AbstractBytesComparer where T : IComparable<T>
     {
         /// <summary>

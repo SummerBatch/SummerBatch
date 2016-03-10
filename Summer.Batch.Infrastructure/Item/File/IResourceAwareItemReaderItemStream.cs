@@ -39,7 +39,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// Interface of <see cref="T:IItemReader"/>s that implement <see cref="IItemStream"/> and read from
     /// a <see cref="T:Summer.Batch.IO.IResource"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IResourceAwareItemReaderItemStream<out T> : IItemStreamReader<T> where T : class
     {
         /// <summary>

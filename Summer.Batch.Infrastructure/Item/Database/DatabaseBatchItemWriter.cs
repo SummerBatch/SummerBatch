@@ -28,7 +28,7 @@ namespace Summer.Batch.Infrastructure.Item.Database
     /// Implementation of <see cref="T:IItemWriter"/> that writes items in a database using a
     /// <see cref="T:IQueryParameterSourceProvider"/> to retrieve the parameter values for each update/insert.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class DatabaseBatchItemWriter<T> : IItemWriter<T>, IInitializationPostOperations where T:class
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();

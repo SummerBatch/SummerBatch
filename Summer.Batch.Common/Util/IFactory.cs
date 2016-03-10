@@ -17,7 +17,7 @@ namespace Summer.Batch.Common.Util
     /// <summary>
     /// Base interface for factories.
     /// </summary>
-    /// <typeparam name="T">The type of the objects created by the factory.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the objects created by the factory.</typeparam>
     public interface IFactory<out T>
     {
         /// <summary>

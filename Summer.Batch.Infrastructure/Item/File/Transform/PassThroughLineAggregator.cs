@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// <summary>
     /// Implementation of <see cref="T:ILineAggregator"/> that simply calls <see cref="object.ToString"/>.
     /// </summary>
-    /// <typeparam name="T">the type of the aggregated instances</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the aggregated instances</typeparam>
     public class PassThroughLineAggregator<T> : ILineAggregator<T>
     {
         /// <summary>

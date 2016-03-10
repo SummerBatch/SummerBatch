@@ -131,7 +131,7 @@ namespace Summer.Batch.Core.Converter
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">&nbsp;</exception>
         private long ParseLong(string value)
         {
             long result;
@@ -164,7 +164,7 @@ namespace Summer.Batch.Core.Converter
         /// </summary>
         /// <param name="props"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"> if a number or date is passed in that cannot be parsed, or cast to the correct type.</exception>
+        /// <exception cref="ArgumentException">&nbsp; if a number or date is passed in that cannot be parsed, or cast to the correct type.</exception>
         public JobParameters GetJobParameters(NameValueCollection props)
         {
             if (props == null || props.Count == 0)
@@ -226,9 +226,9 @@ namespace Summer.Batch.Core.Converter
         /// <summary>
         /// Use the same suffixes to create properties (omitting the string suffix
         /// because it is the default).  Non-identifying parameters will be prefixed
-        /// with the #NonIdentifyingFlag.  However, since parameters are
+        /// with the <see cref="NonIdentifyingFlag"/>.  However, since parameters are
         /// identifying by default, they will <em>not</em> be prefixed with the
-        /// #IdentifyingFlag.
+        /// <see cref="IdentifyingFlag"/>.
         /// </summary>
         /// <param name="parms"></param>
         /// <returns></returns>

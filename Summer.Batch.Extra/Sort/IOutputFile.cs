@@ -23,7 +23,7 @@ namespace Summer.Batch.Extra.Sort
     /// <summary>
     /// Class that represents an output file and its associated options (e.g., filter, formatter).
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IOutputFile<T> : IDisposable where T : class
     {
         /// <summary>

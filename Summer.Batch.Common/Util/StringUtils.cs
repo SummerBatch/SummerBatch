@@ -113,7 +113,7 @@ namespace Summer.Batch.Common.Util
         /// <summary>
         /// Aggregates elements into a string using a delimiter.
         /// </summary>
-        /// <typeparam name="T">the type of the elements to aggregate</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the elements to aggregate</typeparam>
         /// <param name="enumerable">the enumerable containing the elements to aggregate</param>
         /// <param name="delimiter">the delimiter to use</param>
         /// <returns>a string containing the elements of enumerable separated by the delimiter</returns>

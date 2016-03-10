@@ -8,7 +8,7 @@ namespace Summer.Batch.Common.Collections
     /// <summary>
     /// Priority Blocking Queue; inherits from AbstractPriorityQueue
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the queue.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the elements in the queue.</typeparam>
     public class PriorityBlockingQueue<T> : AbstractPriorityQueue<T>, ICollection
     {
         private readonly object _lock = new object();
@@ -31,7 +31,7 @@ namespace Summer.Batch.Common.Collections
         /// Constructs a new priority queue with a default capacity and no elements.
         /// </summary>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityBlockingQueue(IComparer<T> comparer = null) : base(comparer) { }
@@ -41,7 +41,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="capacity">the initial capacity</param>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityBlockingQueue(int capacity, IComparer<T> comparer = null) : base(capacity, comparer) { }
@@ -51,7 +51,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="enumerable">an enumerable containing the initial elements</param>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityBlockingQueue(IEnumerable<T> enumerable, IComparer<T> comparer = null) : base(enumerable, comparer) { }
@@ -142,7 +142,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="array">the array to copy the elements to</param>
         /// <param name="arrayIndex">the index where to start copying</param>
-        /// <exception cref="ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;
         /// if the size of <paramref name="array"/> is lower than
         /// <paramref name="arrayIndex"/> + <see cref="AbstractPriorityQueue{T}.Count"/>.
         /// </exception>

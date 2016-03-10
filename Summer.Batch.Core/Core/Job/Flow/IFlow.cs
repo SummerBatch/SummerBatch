@@ -59,7 +59,7 @@ namespace Summer.Batch.Core.Job.Flow
         /// </summary>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="FlowExecutionException"></exception>
+        /// <exception cref="FlowExecutionException">&nbsp;</exception>
         FlowExecution Start(IFlowExecutor executor);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Summer.Batch.Core.Job.Flow
         /// <param name="currentStateName"> the name of the state to resume on</param>
         /// <param name="executor">the context to be passed into each state executed</param>
         /// <returns>a FlowExecution containing the exit status of the flow</returns>
-        /// <exception cref="FlowExecutionException"></exception>
+        /// <exception cref="FlowExecutionException">&nbsp;</exception>
         FlowExecution Resume(string currentStateName, IFlowExecutor executor);
 
         /// <summary>

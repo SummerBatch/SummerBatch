@@ -68,8 +68,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <param name="fields">the list of field values to encode. If there are multiple
         /// record formats, the first item is expected to be the
         /// discriminator value.</param>
-        /// <exception cref="IOException">if there are issues writing the data</exception>
-        /// <exception cref="EbcdicException">if field values do not conform to the copybook</exception>
+        /// <exception cref="IOException">&nbsp;if there are issues writing the data</exception>
+        /// <exception cref="EbcdicException">&nbsp;if field values do not conform to the copybook</exception>
         public void WriteRecord(List<object> fields)
         {
             RecordFormat format;
@@ -100,8 +100,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="recordKey">the key corresponding to the record format</param>
         /// <param name="fields">the list of field values to encode</param>
-        /// <exception cref="IOException">if there are issues writing the data</exception>
-        /// <exception cref="EbcdicException">if field values do not conform to the copybook</exception>
+        /// <exception cref="IOException">&nbsp;if there are issues writing the data</exception>
+        /// <exception cref="EbcdicException">&nbsp;if field values do not conform to the copybook</exception>
         public void WriteRecord(string recordKey, List<object> fields)
         {
             RecordFormat format = RecordFormatMap.GetFromId(recordKey);
@@ -116,8 +116,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="field"></param>
         /// <param name="fieldsGroup"></param>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private void WriteFieldsGroup(object field, FieldsGroup fieldsGroup)
         {
             if (fieldsGroup.HasDependencies() || fieldsGroup.Occurs > 1)
@@ -139,8 +139,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="fields"></param>
         /// <param name="fieldsList"></param>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private void WriteFields(List<object> fields, IFieldsList fieldsList)
         {
             for (int i = 0; i < fields.Count; i++)
@@ -163,8 +163,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private void WriteField(object field, FieldFormat fieldFormat)
         {
             _stream.Write(_encoder.Encode(field, fieldFormat));
@@ -174,7 +174,7 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <summary>
         /// write a fied that is a collection
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         private void WriteField<T>(List<T> field, FieldFormat fieldFormat)
@@ -190,7 +190,7 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="fields"></param>
         /// <param name="fieldsList"></param>
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
         private void WriteRdw(List<object> fields, IFieldsList fieldsList)
         {
             if (_writeRdw)

@@ -55,7 +55,7 @@ namespace Summer.Batch.Infrastructure.Support
         /// </summary>
         /// <param name="stringToParse">String to parse</param>
         /// <returns>NameValueCollection parsed from each string.</returns>
-        /// <exception cref="IOException">in case of I/O errors</exception>
+        /// <exception cref="IOException">&nbsp;in case of I/O errors</exception>
         public static NameValueCollection StringToProperties(string stringToParse)
         {
             if (stringToParse == null)
@@ -87,7 +87,7 @@ namespace Summer.Batch.Infrastructure.Support
         /// </summary>
         /// <param name="propertiesToParse">the NameValueCollection to load into</param>
         /// <returns>String representation of NameValueCollection object</returns>
-        /// <exception cref="IOException">in case of I/O errors</exception>
+        /// <exception cref="IOException">&nbsp;in case of I/O errors</exception>
         public static string PropertiesToString(NameValueCollection propertiesToParse)
         {
             // If properties is empty, return a blank string.

@@ -40,7 +40,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Mapping
     /// first the line is separated in fields using a <see cref="ILineTokenizer"/>, then
     /// the resulting <see cref="IFieldSet"/> is mapped to an entity using a <see cref="T:IFieldSetMapper"/>.
     /// </summary>
-    /// <typeparam name="T">the type of the mapped entities</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the mapped entities</typeparam>
     public class DefaultLineMapper<T> : ILineMapper<T>
     {
         /// <summary>

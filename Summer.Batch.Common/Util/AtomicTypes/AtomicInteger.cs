@@ -44,15 +44,14 @@ namespace Summer.Batch.Common.Util.AtomicTypes
     /// <summary> 
     /// An <see cref="int"/> value that may be updated atomically.
     /// An <see cref="AtomicInteger"/> is used in applications such as atomically
-    /// incremented counters, and cannot be used as a replacement for an
-    /// <see cref="int"/>. 
-    /// <p/>
+    /// incremented counters, and cannot be used as a replacement for an <see cref="int"/>. 
+    /// 
     /// Based on the on the back port of JCP JSR-166.
     /// </summary>
-    /// <author>Doug Lea</author>
-    /// <author>Griffin Caprio (.NET)</author>
-    /// <author>Andreas Doehring (.NET)</author>
-    /// <author>Kenneth Xu (Interlocked)</author>
+    /// \author Doug Lea
+    /// \author Griffin Caprio (.NET)
+    /// \author Andreas Doehring (.NET)
+    /// \author Kenneth Xu (Interlocked)
     [Serializable]
     public class AtomicInteger : IAtomic<int> //JDK_1_6
     {

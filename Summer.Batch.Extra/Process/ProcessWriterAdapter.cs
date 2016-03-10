@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Process
     /// <summary>
     /// This class allows an IItemWriter to be used in a process.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class ProcessWriterAdapter<T> : AbstractProcessAdapter<T>, IProcessWriter<T> where T : class
     {
         /// <summary>

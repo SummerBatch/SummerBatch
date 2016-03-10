@@ -137,7 +137,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="chars">the character array to search</param>
         /// <param name="i">the current index</param>
         /// <param name="endIndexLastDelimiter">the index of the last encountered delimiter</param>
-        /// <returns><code>true</code>if the delimiter string has been encountered</returns>
+        /// <returns><c>true</c>if the delimiter string has been encountered</returns>
         private bool IsDelimiter(char[] chars, int i, int endIndexLastDelimiter)
         {
             if (i - endIndexLastDelimiter >= Delimiter.Length && i >= Delimiter.Length - 1)

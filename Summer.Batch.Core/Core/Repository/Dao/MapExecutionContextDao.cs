@@ -152,6 +152,9 @@ namespace Summer.Batch.Core.Repository.Dao
     [Serializable]
     class ContextKey : IComparable<ContextKey>
     {
+        /// <summary>
+        /// Possible contexts enumeration
+        /// </summary>
         public enum Type { Step, Job }
 
         private readonly Type _type;
@@ -220,11 +223,21 @@ namespace Summer.Batch.Core.Repository.Dao
     /// </summary>
     static class ContextKeyExtension
     {
+        /// <summary>
+        /// Returns the context key for the given job execution.
+        /// </summary>
+        /// <param name="jobExecution"></param>
+        /// <returns></returns>
         public static ContextKey GetContextKey(this JobExecution jobExecution)
         {
             return new ContextKey(ContextKey.Type.Job, jobExecution.Id);
         }
 
+        /// <summary>
+        /// Returns the context key for the given step execution.
+        /// </summary>
+        /// <param name="stepExecution"></param>
+        /// <returns></returns>
         public static ContextKey GetContextKey(this StepExecution stepExecution)
         {
             return new ContextKey(ContextKey.Type.Step, stepExecution.Id);

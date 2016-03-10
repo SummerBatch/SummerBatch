@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item
     /// <summary>
     /// Convenience interface that combines <see cref="IItemStream"/> and <see cref="T:IItemWriter"/>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IItemStreamWriter<T> : IItemStream, IItemWriter<T> where T:class
     {
          

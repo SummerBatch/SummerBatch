@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Accessor
     /// <summary>
     /// Base class for <see cref="IAccessor{T}"/>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public abstract class AbstractAccessor<T> : IAccessor<T>
     {
         /// <summary>

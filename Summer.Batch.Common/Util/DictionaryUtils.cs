@@ -19,8 +19,8 @@ namespace Summer.Batch.Common.Util
     /// <summary>
     /// Dictionary Helper.
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
+    /// <typeparam name="TKey">&nbsp;</typeparam>
+    /// <typeparam name="TValue">&nbsp;</typeparam>
     public static class DictionaryUtils<TKey,TValue>
     {
         /// <summary>

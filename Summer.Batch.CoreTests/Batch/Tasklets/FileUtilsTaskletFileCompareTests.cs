@@ -119,7 +119,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                     new InjectionProperty("Strict", true),
                     new InjectionProperty("Mode", FileUtilsTasklet.FileUtilsMode.Compare),
                     new InjectionProperty("FileCompareMode", FileUtilsTasklet.FileType.Text),
-                    new InjectionProperty("SequenceEqualityComparerType", FileUtilsTasklet.EqualityComparerType.IEBCOMPRLike),
+                    new InjectionProperty("SequenceEqualityComparerType", FileUtilsTasklet.EqualityComparerType.IebcomprLike),
                     new InjectionProperty("Sources",
                         new List<IResource> 
                         { 

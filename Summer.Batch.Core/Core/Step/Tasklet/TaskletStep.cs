@@ -206,7 +206,7 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// Actual taskletstep execution.
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected override void DoExecute(StepExecution stepExecution)
         {
             stepExecution.ExecutionContext.Put(TaskletTypeKey, _tasklet.GetType().Name);

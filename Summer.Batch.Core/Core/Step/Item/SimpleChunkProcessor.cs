@@ -46,8 +46,8 @@ namespace Summer.Batch.Core.Step.Item
     /// basic item writing and processing. Any exceptions encountered will be
     /// rethrown.
     /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
+    /// <typeparam name="TIn">&nbsp;</typeparam>
+    /// <typeparam name="TOut">&nbsp;</typeparam>
     public class SimpleChunkProcessor<TIn, TOut> : IChunkProcessor<TIn>, IInitializationPostOperations
         where TIn : class
         where TOut : class
@@ -107,8 +107,8 @@ namespace Summer.Batch.Core.Step.Item
         /// the inputs, in case they are needed for accounting purposes later. The
         /// default implementation sets up some user data to remember the original
         /// size of the inputs. If this method is overridden then some or all of
-        /// #IsComplete(Chunk), #GetFilterCount(Chunk, Chunk)} and
-        /// #GetAdjustedOutputs(Chunk, Chunk)} might also need to be, to
+        /// <see cref="IsComplete"/>, <see cref="GetFilterCount"/> and
+        /// <see cref="GetAdjustedOutputs"/> might also need to be, to
         /// ensure that the user data is handled consistently.
         /// </summary>
         /// <param name="inputs">the inputs for the process</param>
@@ -212,7 +212,7 @@ namespace Summer.Batch.Core.Step.Item
         }
 
         /// <summary>
-        /// Simple implementation delegates to the #DoWrite(List) method and
+        /// Simple implementation delegates to the <see cref="DoWrite"/> method and
         /// increments the write count in the contribution. Subclasses can handle
         /// more complicated scenarios, e.g.with fault tolerance. If output items are
         /// skipped they should be removed from the inputs as well.
@@ -220,7 +220,7 @@ namespace Summer.Batch.Core.Step.Item
         /// <param name="contribution"></param>
         /// <param name="inputs"></param>
         /// <param name="outputs"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected void Write(StepContribution contribution, Chunk<TIn> inputs, Chunk<TOut> outputs)
         {
             try
@@ -241,7 +241,7 @@ namespace Summer.Batch.Core.Step.Item
         /// Actual write operation. Delegates to WriteItems.
         /// </summary>
         /// <param name="items"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected void DoWrite(IList<TOut> items)
         {
             if (ItemWriter == null)

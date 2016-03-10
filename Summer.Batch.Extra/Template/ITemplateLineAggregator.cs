@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Template
     /// Interface for template line aggregators. It exposes the <see cref="TemplateId"/> property
     /// that holds the id of the template line to use.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface ITemplateLineAggregator<in T> : ILineAggregator<T>
     {
         /// <summary>

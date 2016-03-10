@@ -38,55 +38,53 @@ using System.Text;
 namespace Summer.Batch.Core
 {
     /// <summary>
-    ///  Value object used to carry information about the status of a
+    /// Value object used to carry information about the status of a
     /// job or step execution.
-    /// ExitStatus is immutable and therefore thread-safe.
+    /// <see cref="ExitStatus"/> is immutable and therefore thread-safe.
     /// </summary>
 
     [Serializable]
     public sealed class ExitStatus : IComparable<ExitStatus>
     {
-        ///<summary>
-        ///Convenient constant value representing unknown state - assumed not
-        ///continuable.
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing unknown state - assumed not continuable.
+        /// </summary>
         public static readonly ExitStatus Unknown = new ExitStatus("UNKNOWN");
 
-        ///<summary>
-        ///Convenient constant value representing continuable state where processing
-        ///is still taking place, so no further action is required. Used for
-        ///asynchronous execution scenarios where the processing is happening in
-        ///another thread or process and the caller is not required to wait for the
-        ///result.
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing continuable state where processing
+        /// is still taking place, so no further action is required. Used for
+        /// asynchronous execution scenarios where the processing is happening in
+        /// another thread or process and the caller is not required to wait for the
+        /// result.
+        /// </summary>
         public static readonly ExitStatus Executing = new ExitStatus("EXECUTING");
 
-        ///<summary>
-        ///Convenient constant value representing finished processing.
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing finished processing.
+        /// </summary>
         public static readonly ExitStatus Completed = new ExitStatus("COMPLETED");
 
-        ///<summary>
-        ///Convenient constant value representing job that did no processing (e.g.
-        ///because it was already complete).
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing job that did no processing (e.g.
+        /// because it was already complete).
+        /// </summary>
         public static readonly ExitStatus Noop = new ExitStatus("NOOP");
 
-        ///<summary>
-        ///Convenient constant value representing finished processing with an error.
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing finished processing with an error.
+        /// </summary>
         public static readonly ExitStatus Failed = new ExitStatus("FAILED");
 
-        ///<summary>
-        ///Convenient constant value representing finished processing with
-        ///interrupted status.
-        ///</summary>
+        /// <summary>
+        /// Convenient constant value representing finished processing with interrupted status.
+        /// </summary>
         public static readonly ExitStatus Stopped = new ExitStatus("STOPPED");
 
         private readonly string _exitCode;
 
         /// <summary>
-        /// Exit code/
+        /// Exit code
         /// </summary>
         public string ExitCode
         {
@@ -114,29 +112,27 @@ namespace Summer.Batch.Core
             _exitDescription = exitDescription ?? "";
         }
 
-
-        ///<summary>
-        ///Create a new ExistStatus with a logical combination of the exit
-        ///code, and a concatenation of the descriptions. If either value has a
-        ///higher severity then its exit code will be used in the result. In the
-        ///case of equal severity, the exit code is replaced if the new value is
-        ///alphabetically greater.
+        /// <summary>
+        /// Creates a new ExistStatus with a logical combination of the exit
+        /// code, and a concatenation of the descriptions. If either value has a
+        /// higher severity then its exit code will be used in the result. In the
+        /// case of equal severity, the exit code is replaced if the new value is
+        /// alphabetically greater.
         ///
-        ///Severity is defined by the exit code:
-        ///<ul>
-        ///<li>Codes beginning with EXECUTING have severity 1</li>
-        ///<li>Codes beginning with COMPLETED have severity 2</li>
-        ///<li>Codes beginning with NOOP have severity 3</li>
-        ///<li>Codes beginning with STOPPED have severity 4</li>
-        ///<li>Codes beginning with FAILED have severity 5</li>
-        ///<li>Codes beginning with UNKNOWN have severity 6</li>
-        ///</ul>
-        ///Others have severity 7, so custom exit codes always win.
-        ///If the input is null just return this.
-        ///<param name="status">an ExitStatus to combine with this one.</param> 
-        ///<returns>a new ExitStatus combining the current value and the
-        /// argument provided.</returns> 
-        ///</summary>
+        /// Severity is defined by the exit code:
+        /// <ul>
+        /// <li>Codes beginning with EXECUTING have severity 1</li>
+        /// <li>Codes beginning with COMPLETED have severity 2</li>
+        /// <li>Codes beginning with NOOP have severity 3</li>
+        /// <li>Codes beginning with STOPPED have severity 4</li>
+        /// <li>Codes beginning with FAILED have severity 5</li>
+        /// <li>Codes beginning with UNKNOWN have severity 6</li>
+        /// </ul>
+        /// Others have severity 7, so custom exit codes always win.
+        /// If the input is null just return this.
+        /// </summary>
+        /// <param name="status">an ExitStatus to combine with this one.</param>
+        /// <returns> a new ExitStatus combining the current value and the argument provided.</returns>
         public ExitStatus And(ExitStatus status)
         {
             if (status == null)
@@ -151,11 +147,11 @@ namespace Summer.Batch.Core
             return result;
         }
 
-        ///<summary>
-        ///<param name="status"> an ExitStatus to compare </param>
-        ///<returns> greater than zero, 0, less than zero according to the severity and exit code</returns>
-        /// see IComparable
-        ///</summary>
+        /// <summary>
+        /// see <see cref="IComparable"/>
+        /// </summary>
+        /// <param name="status"> an ExitStatus to compare</param>
+        /// <returns>greater than zero, 0, less than zero according to the severity and exit code</returns>
         public int CompareTo(ExitStatus status)
         {
             if (Severity(status) > Severity(this))
@@ -171,10 +167,10 @@ namespace Summer.Batch.Core
 
 
         /// <summary>
-        /// 
+        /// Convert an ExitStatus to a Severity int value.
         /// </summary>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="status"> the given ExitStatus</param>
+        /// <returns>the corresponding Severity.</returns>
         private int Severity(ExitStatus status)
         {
             int result = 7;//default result
@@ -239,13 +235,12 @@ namespace Summer.Batch.Core
             return ToString().GetHashCode();
         }
 
-        ///<summary>
-        ///Add an exit code to an existing ExistStatus. If there is already a
-        ///code present, it will be replaced.	
-        ///<param name="code">code</param>
-        ///<returns> a new ExistStatus with the same properties but a new exit </returns>
-        ///code.
-        ///</summary>
+        /// <summary>
+        /// Adds an exit code to an existing ExistStatus. If there is already a
+        /// code present, it will be replaced.
+        /// </summary>
+        /// <param name="code">code</param>
+        /// <returns> a new ExistStatus with the same properties but a new exit code</returns>
         public ExitStatus ReplaceExitCode(string code)
         {
             return new ExitStatus(code, _exitDescription);
@@ -254,21 +249,20 @@ namespace Summer.Batch.Core
 
         /// <summary>
         /// Check if this status represents a running process.
-        /// <returns>true if the exit code is "EXECUTING" or "UNKNOWN"</returns>
         /// </summary>
+        /// <returns> <c>true</c> if the exit code is "EXECUTING" or "UNKNOWN"</returns>
         public bool IsRunning()
         {
             return "EXECUTING".Equals(_exitCode) || "UNKNOWN".Equals(_exitCode);
         }
 
         /// <summary>
-        ///Add an exit description to an existing ExistStatus. If there is
-        ///already a description present the two will be concatenated with a
-        ///semicolon.
-        ///<param name="description">the description to add</param> 
-        ///<returns> a new ExitStatus with the same properties but a new exit </returns>
-        ///description
+        /// Add an exit description to an existing ExistStatus. If there is
+        /// already a description present the two will be concatenated with a
+        /// semicolon.
         /// </summary>
+        /// <param name="description"> the description to add</param> 
+        /// <returns> a new ExitStatus with the same properties but a new exit description </returns>        
         public ExitStatus AddExitDescription(string description)
         {
             StringBuilder buffer = new StringBuilder();
@@ -287,22 +281,23 @@ namespace Summer.Batch.Core
             }
             return new ExitStatus(_exitCode, buffer.ToString());
         }
-
-        ///<summary>
-        ///Extract the stack trace from the throwable provided and append it to
-        ///the exist description.	
-        ///<param name="exception">the given exception</param> 
-        ///<returns> a new ExitStatus with the stack trace appended</returns>
-        ///</summary>
+        
+        /// <summary>
+        /// Extract the stack trace from the throwable provided and append it to
+        /// the exist description.
+        /// </summary>
+        /// <param name="exception">the given exception</param>
+        /// <returns> a new ExitStatus with the stack trace appended</returns>
         public ExitStatus AddExitDescription(Exception exception)
         {
             return AddExitDescription(exception.StackTrace);
         }
 
-        ///<summary>
-        ///<param name="status"> the exit code to be evaluated</param>
-        ///<returns> true if the value matches a known exit code </returns>
-        ///</summary>
+        /// <summary>
+        /// Checks whether the given ExitStatus is a known exit code.
+        /// </summary>
+        /// <param name="status">the exit code to be evaluated</param>
+        /// <returns> true if the value matches a known exit code</returns>         
         public static bool IsNonDefaultExitStatus(ExitStatus status)
         {
             return status == null || status._exitCode == null ||

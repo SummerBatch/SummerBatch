@@ -39,7 +39,7 @@ namespace Summer.Batch.Core.Step.Item
     /// <summary>
     /// Interface for providing Chunks to be processed, used by the <see cref="T:ChunkOrientedTasklet"/>.
     /// </summary>
-    /// <typeparam name="TT"></typeparam>
+    /// <typeparam name="TT">&nbsp;</typeparam>
     public interface IChunkProvider<TT>
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace Summer.Batch.Core.Step.Item
         /// </summary>
         /// <param name="contribution"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         Chunk<TT> Provide(StepContribution contribution); 
     
         /// <summary>

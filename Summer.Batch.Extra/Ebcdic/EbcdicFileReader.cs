@@ -30,7 +30,7 @@ namespace Summer.Batch.Extra.Ebcdic
     /// returns the records in the file. An IEbcdicReaderMapper is also
     /// required to match records to actual business objects
     /// </summary>
-    /// <typeparam name="T">the type of the business objects to read</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the business objects to read</typeparam>
     public class EbcdicFileReader<T> : AbstractItemCountingItemStreamItemReader<T>,
         IResourceAwareItemReaderItemStream<T>, IInitializationPostOperations where T : class
     {

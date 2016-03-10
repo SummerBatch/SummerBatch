@@ -63,7 +63,7 @@ namespace Summer.Batch.Core.Job.Flow
         /// @see AbstractJob#DoExecute .
         /// </summary>
         /// <param name="execution"></param>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         protected override void DoExecute(JobExecution execution)
         {
             try

@@ -39,7 +39,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Comparer
 
         /// <summary>
         /// The encoding to use for the comparison. It is used when emulating comparison in legacy systems.
-        /// Default is <code>null</code>.
+        /// Default is <c>null</c>.
         /// </summary>
         public Encoding SortEncoding { get; set; }
 

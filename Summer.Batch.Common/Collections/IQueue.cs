@@ -20,7 +20,7 @@ namespace Summer.Batch.Common.Collections
     /// A collection designed for holding elements prior to processing.
     /// The order in which elements are retrieved depends on the implementation.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IQueue<T> : ICollection<T>
     {
         /// <summary>

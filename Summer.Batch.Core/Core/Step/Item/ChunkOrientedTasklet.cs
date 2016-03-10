@@ -42,7 +42,7 @@ namespace Summer.Batch.Core.Step.Item
     /// <summary>
     ///  An <see cref="ITasklet"/> implementing variations on read-process-write item handling.
     /// </summary>
-    /// <typeparam name="TI"></typeparam>
+    /// <typeparam name="TI">&nbsp;</typeparam>
     public class ChunkOrientedTasklet<TI> : ITasklet where TI:class
     {
         private const string InputsKey = "INPUTS";

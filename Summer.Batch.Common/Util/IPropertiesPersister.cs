@@ -33,7 +33,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="properties">The <see cref="NameValueCollection"/> where to store the properties.</param>
         /// <param name="reader">The <see cref="TextReader"/> to read the properties from.</param>
-        /// <exception cref="IOException">in case of I/O errors</exception>
+        /// <exception cref="IOException">&nbsp;in case of I/O errors</exception>
         void Load(NameValueCollection properties, TextReader reader);
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="properties">The properties to write.</param>
         /// <param name="writer">The <see cref="TextWriter"/> to write the properties to.</param>
-        /// <exception cref="IOException">in case of I/O errors</exception>
+        /// <exception cref="IOException">&nbsp;in case of I/O errors</exception>
         void Store(NameValueCollection properties, TextWriter writer);
     }
 }

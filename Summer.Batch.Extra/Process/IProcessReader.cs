@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra.Process
     /// <summary>
     /// Interface for readers in a process.
     /// </summary>
-    /// <typeparam name="TT"></typeparam>
+    /// <typeparam name="TT">&nbsp;</typeparam>
     public interface IProcessReader <out TT> : IProcessAdapter
     {
         /// <summary>

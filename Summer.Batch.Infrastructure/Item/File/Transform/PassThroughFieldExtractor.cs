@@ -43,8 +43,8 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// 
     /// This implementation relies on the contravariance of the type parameter of <see cref="T:IFieldExtractor"/>,
     /// thus it can be used at any place where an <see cref="T:IFieldExtractor"/> is expected as long
-    /// as the type parameter is a reference type (i.e., if <code>T</code> is the type parameter you should have
-    /// the following constraint : "<code>where T : class</code>").
+    /// as the type parameter is a reference type (i.e., if <c>T</c> is the type parameter you should have
+    /// the following constraint : "<c>where T : class</c>").
     /// </summary>
     public class PassThroughFieldExtractor : IFieldExtractor<object>
     {
@@ -62,8 +62,8 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <summary>
         /// Extracts a dictionary to an array of objects.
         /// </summary>
-        /// <typeparam name="TKey">the type of the dictionary keys</typeparam>
-        /// <typeparam name="TValue">the type of the dictionary values</typeparam>
+        /// <typeparam name="TKey">&nbsp;the type of the dictionary keys</typeparam>
+        /// <typeparam name="TValue">&nbsp;the type of the dictionary values</typeparam>
         /// <param name="dictionary">the dictionary to extract</param>
         /// <returns>an array of objects containing the values of the dictionary</returns>
         private static object[] DoExtract<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
@@ -74,7 +74,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <summary>
         /// Extracts an enumerable to an array of objects.
         /// </summary>
-        /// <typeparam name="T">The type of the elements of the enumerable</typeparam>
+        /// <typeparam name="T">&nbsp;The type of the elements of the enumerable</typeparam>
         /// <param name="enumerable">an enumerable</param>
         /// <returns>an array of objects containing the elements of the enumerable</returns>
         private static object[] DoExtract<T>(IEnumerable<T> enumerable)

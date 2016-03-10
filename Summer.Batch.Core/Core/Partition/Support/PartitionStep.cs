@@ -85,7 +85,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// partitionHandler) and delegate to superclass.
         /// @see IInitializationPostOperations#AfterPropertiesSet
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public override void AfterPropertiesSet()
         {
             Assert.NotNull(StepExecutionSplitter, "StepExecutionSplitter must be provided");
@@ -104,7 +104,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// StepExecutionSplitter.
         /// </summary>
         /// <param name="stepExecution">the master step execution for the partition</param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected override void DoExecute(StepExecution stepExecution)
         {
             stepExecution.ExecutionContext.Put(StepConstants.StepTypeKey, GetType().Name);

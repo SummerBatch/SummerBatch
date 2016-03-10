@@ -70,8 +70,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// multiple record formats, the first item in the list is the
         /// discriminator value. Returns null if there are no
         /// more records.</returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         public List<object> NextRecord()
         {
             List<object> result = new List<object>();
@@ -118,8 +118,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="fieldsList"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private List<object> ReadFields(IFieldsList fieldsList)
         {
             List<object> values = new List<object>();
@@ -192,8 +192,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <param name="fieldsGroup"></param>
         /// <param name="readNumericValues"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private List<object> ReadFieldsGroup(FieldsGroup fieldsGroup, IDictionary<string, decimal> readNumericValues)
         {
             List<object> values = new List<object>();
@@ -238,8 +238,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// read the discriminator value
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private string ReadDiscriminatorValue()
         {
             var position = _stream.Position;//mark
@@ -254,8 +254,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <param name="length"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private byte[] Read(int length, FieldFormat fieldFormat)
         {
             byte[] bytes = new byte[length];
@@ -276,8 +276,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="EbcdicException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
+        /// <exception cref="EbcdicException">&nbsp;</exception>
         private RecordFormat RetrieveRecordFormat(ICollection<object> values)
         {
             RecordFormat recordFormat;

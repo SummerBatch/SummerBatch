@@ -27,7 +27,7 @@ namespace Summer.Batch.CoreTests.Batch.Flat
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public Person Process(Person entity)
         {
             if (entity.Firstname.Equals("Wesley") && entity.Name.Equals("Snipes"))

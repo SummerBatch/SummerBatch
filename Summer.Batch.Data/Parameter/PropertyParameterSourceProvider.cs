@@ -18,7 +18,7 @@ namespace Summer.Batch.Data.Parameter
     /// Implementation of <see cref="T:IQueryParameterSourceProvider"/> that creates a new <see cref="PropertyParameterSource"/>
     /// for each item.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class PropertyParameterSourceProvider<T> : IQueryParameterSourceProvider<T>
     {
         /// <summary>

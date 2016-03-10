@@ -51,8 +51,8 @@ namespace Summer.Batch.Common.TaskExecution
         /// <param name="startTimeout">The time duration ( inmilliseconds) within which the task is
         /// supposed to start. This is intended as a hint to the executor, allowing for
         /// preferred handling of immediate tasks.</param>
-        /// <exception cref="TaskRejectedException">If the given task was not accepted.</exception>
-        /// <exception cref="TaskTimeoutException">If the task being rejected because
+        /// <exception cref="TaskRejectedException">&nbsp;If the given task was not accepted.</exception>
+        /// <exception cref="TaskTimeoutException">&nbsp;If the task being rejected because
         /// of the timeout (i.e., it cannot be started in time).</exception>
         /// <seealso cref="AsyncTaskExecutorConstants.TimeoutImmediate"/>
         /// <seealso cref="AsyncTaskExecutorConstants.TimeoutIndefinite"/>
@@ -62,7 +62,7 @@ namespace Summer.Batch.Common.TaskExecution
         /// Submits a task for execution.
         /// </summary>
         /// <param name="task">The task to execute.</param>
-        /// <exception cref="TaskRejectedException">If the given task was not accepted.</exception>
+        /// <exception cref="TaskRejectedException">&nbsp;If the given task was not accepted.</exception>
         void Submit(Task task);
     }
 }

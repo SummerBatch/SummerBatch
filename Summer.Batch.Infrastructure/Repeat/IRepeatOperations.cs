@@ -51,7 +51,7 @@ namespace Summer.Batch.Infrastructure.Repeat
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
-        /// <exception cref="RepeatException"></exception>
+        /// <exception cref="RepeatException">&nbsp;</exception>
         RepeatStatus Iterate(RepeatCallback callback);
     }
 }

@@ -46,7 +46,7 @@ namespace Summer.Batch.Infrastructure.Item
     /// for a dictionary that allows optionally for type safety on reads. It also allows for
     /// dirty checking by setting a 'dirty' flag whenever any put is called.
     ///
-    /// Note that putting <code>null</code> value is equivalent to removing the entry
+    /// Note that putting <c>null</c> value is equivalent to removing the entry
     /// for the given key.
     /// </summary>
     [Serializable]

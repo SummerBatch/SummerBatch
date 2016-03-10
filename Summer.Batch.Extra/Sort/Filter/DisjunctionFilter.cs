@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Sort.Filter
     /// <summary>
     /// A filter that does the logical disjunction of several filters.
     /// </summary>
-    /// <typeparam name="T">the type of the filtered records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the filtered records</typeparam>
     public class DisjunctionFilter<T> : IFilter<T>
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace Summer.Batch.Extra.Sort.Filter
         /// Determines if a record should be selected.
         /// </summary>
         /// <param name="record">a record in a file being sorted</param>
-        /// <returns><code>true</code> if the record is selected, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the record is selected, <c>false</c> otherwise</returns>
         public bool Select(T record)
         {
             return Filters.Any(f => f.Select(record));

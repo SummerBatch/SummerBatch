@@ -55,7 +55,7 @@ namespace Summer.Batch.Extra.Sort.Legacy
         /// <summary>
         /// Reads a record.
         /// </summary>
-        /// <returns>the read record, or <code>null</code> if the end has been reached</returns>
+        /// <returns>the read record, or <c>null</c> if the end has been reached</returns>
         public byte[] Read()
         {
             var separatorIndex = 0;

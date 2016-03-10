@@ -21,7 +21,7 @@ namespace Summer.Batch.Extra.Sort.Comparer
     /// The result of the comparison is the result of the first sub-comparers that has a result different than zero,
     /// or zero if all comparers return zero.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class ComparerChain<T> : IComparer<T>
     {
         /// <summary>

@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Sort
     /// <summary>
     /// Interface that abstracts a record writer.
     /// </summary>
-    /// <typeparam name="T">the type of the records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the records</typeparam>
     public interface IRecordWriter<in T> : IDisposable
     {
         /// <summary>

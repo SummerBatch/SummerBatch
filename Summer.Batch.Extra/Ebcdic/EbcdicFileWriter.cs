@@ -35,7 +35,7 @@ namespace Summer.Batch.Extra.Ebcdic
     /// A Spring Batch writer for a EBCDIC files. It writes business object as EBCDIC
     /// records, according to a copybook and a mapper.
     /// </summary>
-    /// <typeparam name="T">the type of the business objects to read</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the business objects to read</typeparam>
     public class EbcdicFileWriter<T> : AbstractItemStreamItemWriter<T>, ICopybookIo
         , IResourceAwareItemWriterItemStream<T>, IInitializationPostOperations where T : class
     {
@@ -64,19 +64,19 @@ namespace Summer.Batch.Extra.Ebcdic
 
         /// <summary>
         /// Indicates that the target resource should be appended if it already exists.
-        /// Default is <code>false</code>.
+        /// Default is <c>false</c>.
         /// </summary>
         public bool AppendAllowed { private get; set; }
 
         /// <summary>
-        /// Indicates that the target resource should be deleted if it exists. Ignored if <see cref="P:AppendAllowed"/> is <code>true</code>.
-        /// Default is <code>false</code>. 
+        /// Indicates that the target resource should be deleted if it exists. Ignored if <see cref="P:AppendAllowed"/> is <c>true</c>.
+        /// Default is <c>false</c>. 
         /// </summary>
         public bool DeleteIfExist { private get; set; }
 
         /// <summary>
         /// Indicates that the target resource should be deleted if no lines were written.
-        /// Default is <code>false</code>.
+        /// Default is <c>false</c>.
         /// </summary>
         public bool DeleteIfEmpty { private get; set; }
 
@@ -293,8 +293,8 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <summary>
         /// Load the copybooks
         /// </summary>
-        /// <exception cref="CopybookParsingException"></exception>
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="CopybookParsingException">&nbsp;</exception>
+        /// <exception cref="IOException">&nbsp;</exception>
         private void LoadCopyBooks()
         {
             foreach (IResource copybook in Copybooks)

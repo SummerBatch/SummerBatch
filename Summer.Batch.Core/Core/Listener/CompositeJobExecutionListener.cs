@@ -48,7 +48,7 @@ namespace Summer.Batch.Core.Listener
         /// <summary>
         /// Sets the listeners.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="listeners"></param>
         public void SetListeners<T>(List<T> listeners) where T : IJobExecutionListener
         {

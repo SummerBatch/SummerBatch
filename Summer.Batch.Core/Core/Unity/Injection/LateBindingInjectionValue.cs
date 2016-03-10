@@ -22,7 +22,7 @@ namespace Summer.Batch.Core.Unity.Injection
     /// <summary>
     /// Implementation of <see cref="InjectionParameterValue"/> for late binding expressions.
     /// </summary>
-    /// <typeparam name="T">the expected type</typeparam>
+    /// <typeparam name="T">&nbsp;the expected type</typeparam>
     public class LateBindingInjectionValue<T> : TypedInjectionValue
     {
         private readonly LateBindingNode _node;

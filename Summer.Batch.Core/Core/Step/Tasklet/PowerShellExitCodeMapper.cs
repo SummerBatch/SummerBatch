@@ -20,6 +20,8 @@ namespace Summer.Batch.Core.Step.Tasklet
     /// Simple ISystemProcessExitCodeMapper implementation that performs following mapping:
     /// 0 	-&gt; ExitStatus.Completed
     /// else	-&gt; ExitStatus.Failed
+    /// 
+    /// \since 1.1.0
     /// </summary>
     public class PowerShellExitCodeMapper : IPowerShellExitCodeMapper
     {

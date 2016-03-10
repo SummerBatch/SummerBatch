@@ -21,7 +21,7 @@ namespace Summer.Batch.Extra.Ebcdic
     /// An EbcdicReaderMapper maps a list of fields, corresponding to an EBCDIC
     /// record, to a business object.
     /// </summary>
-    /// <typeparam name="TT"></typeparam>
+    /// <typeparam name="TT">&nbsp;</typeparam>
     public interface IEbcdicReaderMapper<out TT>
     {
         /// <summary>

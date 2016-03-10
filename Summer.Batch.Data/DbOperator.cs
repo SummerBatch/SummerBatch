@@ -32,7 +32,7 @@ namespace Summer.Batch.Data
     /// <summary>
     /// A function for mapping a row to an element.
     /// </summary>
-    /// <typeparam name="T">The type of the mapped element</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the mapped element</typeparam>
     /// <param name="dataRecord">a data record representing a row</param>
     /// <param name="rowNumber">the current row number</param>
     /// <returns>the mapped element</returns>
@@ -41,7 +41,7 @@ namespace Summer.Batch.Data
     /// <summary>
     /// A function that extracts an element from a data reader.
     /// </summary>
-    /// <typeparam name="T">the type of the extracted element</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the extracted element</typeparam>
     /// <param name="dataReader">a datareader to extract the element from</param>
     /// <returns>the extracted element</returns>
     public delegate T DataReaderExtractor<out T>(IDataReader dataReader);
@@ -62,7 +62,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Execute a query expected to return a single result.
         /// </summary>
-        /// <typeparam name="T">the type of the result</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the result</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="parameters">the parameters of the query</param>
         /// <returns>the result of the query</returns>
@@ -75,7 +75,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Execute a query expected to return a single result.
         /// </summary>
-        /// <typeparam name="T">the type of the result</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the result</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="parameterSource">a parameter source that holds the parameter values for the query</param>
         /// <returns>the result of the query</returns>
@@ -87,7 +87,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Execute a query exepcted to return a single result.
         /// </summary>
-        /// <typeparam name="T">the type of the result</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the result</typeparam>
         /// <param name="query">the parsed query</param>
         /// <param name="parameterSource">a parameter source that holds the parameter values for the query</param>
         /// <returns>the result of the query</returns>
@@ -118,7 +118,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Executes a select query using a DataAdapter and returns a list of objects using the provided row mapper.
         /// </summary>
-        /// <typeparam name="T">the type of the elements to return</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the elements to return</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="mapper">the row mapper responsible for creating the returned elements</param>
         /// <param name="parameters">the parameters of the query</param>
@@ -131,7 +131,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Executes a select query using a DataAdapter and returns data using the provided data reader extractor.
         /// </summary>
-        /// <typeparam name="T">the type of the elements to return</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the elements to return</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="mapper">the row mapper responsible for creating the returned elements</param>
         /// <param name="parameterSource">a parameter source that holds the parameter values for the query</param>
@@ -144,7 +144,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Executes a select query using a DataAdapter and returns data using the provided data reader extractor.
         /// </summary>
-        /// <typeparam name="T">the type of the data to return</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the data to return</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="extractor">the data reader mapper used to extract data</param>
         /// <param name="parameters">the parameters of the query</param>
@@ -157,7 +157,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Executes a select query using a DataAdapter and returns data using the provided data reader extractor.
         /// </summary>
-        /// <typeparam name="T">the type of the data to return</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the data to return</typeparam>
         /// <param name="query">the SQL query</param>
         /// <param name="extractor">the data reader mapper used to extract data</param>
         /// <param name="parameterSource">a parameter source that holds the parameter values for the query</param>
@@ -171,7 +171,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Executes a select query using a DataAdapter and returns data using the provided data reader extractor.
         /// </summary>
-        /// <typeparam name="T">the type of the data to return</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the data to return</typeparam>
         /// <param name="query">the parsed query</param>
         /// <param name="extractor">the data reader mapper used to extract data</param>
         /// <param name="parameterSource">a parameter source that holds the parameter values for the query</param>
@@ -376,7 +376,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Creates a data reader mapper that extracts a list of elements, one for each row, using a row mapper.
         /// </summary>
-        /// <typeparam name="T">the type of the elements returned</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the elements returned</typeparam>
         /// <param name="rowMapper">the mapper creating the elements</param>
         /// <returns>a data reader extractor</returns>
         private static DataReaderExtractor<IList<T>> GetDataReaderExtractor<T>(RowMapper<T> rowMapper)

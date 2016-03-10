@@ -28,7 +28,7 @@ namespace Summer.Batch.Extra.Template
     /// <summary>
     /// Abstract base class for implementations of <see cref="ITemplateLineAggregator{T}"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public abstract class AbstractTemplateLineAggregator<T> : ITemplateLineAggregator<T>, IInitializationPostOperations, IHeaderWriter, IFooterWriter
     {
         private readonly IDictionary<string, string> _templateLines = new Dictionary<string, string>();

@@ -39,7 +39,7 @@ namespace Summer.Batch.Core.Partition.Support
 {
     /// <summary>
     /// Base <see cref="IPartitionHandler"/> implementation providing common base
-    /// features. Subclasses are expected to implement only the #DoHandle(StepExecution, ICollection)
+    /// features. Subclasses are expected to implement only the <see cref="DoHandle"/>
     /// method which returns with the result of the execution(s) or an exception if
     /// the step failed to process.
     /// </summary>
@@ -60,7 +60,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// <param name="masterStepExecution">the whole partition execution</param>
         /// <param name="partitionStepExecutions"> the StepExecution instances to execute</param>
         /// <returns>an updated view of these completed StepExecution instances</returns>
-        /// <exception cref="Exception">if anything goes wrong. This allows implementations to
+        /// <exception cref="Exception">&nbsp;if anything goes wrong. This allows implementations to
         /// be liberal and rely on the caller to translate an exception into a step
         /// failure as necessary.</exception>
         protected abstract ICollection<StepExecution> DoHandle(StepExecution masterStepExecution,
@@ -72,7 +72,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// <param name="stepSplitter"></param>
         /// <param name="masterStepExecution"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public ICollection<StepExecution> Handle(IStepExecutionSplitter stepSplitter, StepExecution masterStepExecution)
         {
             HashSet<StepExecution> stepExecutions = stepSplitter.Split(masterStepExecution, _gridSize);

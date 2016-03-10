@@ -48,9 +48,9 @@ namespace Summer.Batch.Core.Job.Flow
         /// </summary>
         /// <param name="step">an IStep to execute</param>
         /// <returns>the exit status that drives the surrounding Flow</returns>
-        /// <exception cref="JobInterruptedException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="StartLimitExceededException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;</exception>
         string ExecuteStep(IStep step);
 
         /// <summary>

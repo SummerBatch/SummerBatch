@@ -53,7 +53,7 @@ namespace Summer.Batch.Core.Scope.Context
     /// </summary>
     /// <param name="context"></param>
     /// <param name="chunkContext"></param>
-    /// <exception cref="Exception"></exception>
+    /// <exception cref="Exception">&nbsp;</exception>
     /// <returns></returns>
     public delegate RepeatStatus DoInChunkContext(IRepeatContext context, ChunkContext chunkContext);
 
@@ -64,7 +64,7 @@ namespace Summer.Batch.Core.Scope.Context
     {
         /// <summary>
         /// Manage the StepContext lifecycle. Business processing should be
-        /// delegated to #DoInChunkContext(RepeatContext, ChunkContext). This
+        /// delegated to <see cref="DoInChunkContext"/>. This
         /// is to ensure that the current thread has a reference to the context, even
         /// if the callback is executed in a pooled thread. Handles the registration
         /// and unregistration of the step context, so clients should not duplicate

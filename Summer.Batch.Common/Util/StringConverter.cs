@@ -27,7 +27,7 @@ namespace Summer.Batch.Common.Util
         /// Supported types are types defined in <see cref="TypeCode"/> and
         /// single dimension arrays of these types.
         /// </summary>
-        /// <typeparam name="T">the type to convert to</typeparam>
+        /// <typeparam name="T">&nbsp;the type to convert to</typeparam>
         /// <param name="toConvert">the string to convert</param>
         /// <returns>the converted object</returns>
         public static T Convert<T>(string toConvert)

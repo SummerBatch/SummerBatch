@@ -43,7 +43,7 @@ namespace Summer.Batch.Extra.Sort.Legacy
         /// <summary>
         /// Reads a record.
         /// </summary>
-        /// <returns>the read record, or <code>null</code> if the end has been reached</returns>
+        /// <returns>the read record, or <c>null</c> if the end has been reached</returns>
         public byte[] Read()
         {
             var size = GetSize();            
@@ -95,7 +95,7 @@ namespace Summer.Batch.Extra.Sort.Legacy
         /// Headers are not supported on block records.
         /// </summary>
         /// <param name="headerSize">the size of the header</param>
-        /// <returns><code>null</code></returns>
+        /// <returns><c>null</c></returns>
         public IEnumerable<byte[]> ReadHeader(int headerSize)
         {
             return null;

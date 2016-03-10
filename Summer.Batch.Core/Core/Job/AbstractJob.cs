@@ -135,7 +135,7 @@ namespace Summer.Batch.Core.Job
         /// To be implemented by sub-classes.
         /// </summary>
         /// <param name="execution"></param>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         protected abstract void DoExecute(JobExecution execution);
 
 
@@ -149,9 +149,9 @@ namespace Summer.Batch.Core.Job
         /// <param name="step">the step to execute</param>
         /// <param name="execution">the current job execution</param>
         /// <returns></returns>
-        /// <exception cref="JobInterruptedException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="StartLimitExceededException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;</exception>
         protected StepExecution HandleStep(IStep step, JobExecution execution)
         {
             return _stepHandler.HandleStep(step, execution);

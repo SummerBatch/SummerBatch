@@ -40,7 +40,7 @@ using Summer.Batch.Common.Util;
 namespace Summer.Batch.Core.Job
 {
     /// <summary>
-    /// Default implementation of IJobParametersValidator.
+    /// Default implementation of <see cref="IJobParametersValidator"/>.
     /// </summary>
     public class DefaultJobParametersValidator : IJobParametersValidator, IInitializationPostOperations
     {
@@ -90,7 +90,7 @@ namespace Summer.Batch.Core.Job
         /// present.
         /// </summary>
         /// <param name="parameters"></param>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         public void Validate(JobParameters parameters)
         {
             if (parameters == null)
@@ -140,7 +140,7 @@ namespace Summer.Batch.Core.Job
 
         /// <summary>
         /// Check that there are no overlaps between required and optional keys.
-        /// #see IInitializationPostOperations#AfterPropertiesSet
+        ///  <see cref="IInitializationPostOperations.AfterPropertiesSet"/>
         /// </summary>
         public void AfterPropertiesSet()
         {

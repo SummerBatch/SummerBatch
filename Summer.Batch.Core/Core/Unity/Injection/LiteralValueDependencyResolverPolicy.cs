@@ -7,7 +7,7 @@ namespace Summer.Batch.Core.Unity.Injection
     /// Implementation of <see cref="IDependencyResolverPolicy"/> that converts a string to the
     /// specified type using <see cref="StringConverter"/>.
     /// </summary>
-    /// <typeparam name="T">the type to convert the string to.</typeparam>
+    /// <typeparam name="T">&nbsp;the type to convert the string to.</typeparam>
     public class LiteralValueDependencyResolverPolicy<T> : IDependencyResolverPolicy
     {
         private readonly object _value;

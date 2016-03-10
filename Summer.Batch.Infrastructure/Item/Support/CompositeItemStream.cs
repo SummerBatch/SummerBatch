@@ -75,7 +75,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
         /// Broadcast the call to open.
         /// </summary>
         /// <param name="executionContext"></param>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Open(ExecutionContext executionContext)
         {
             foreach (var itemStream in _streams)
@@ -89,7 +89,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
         /// registered under the given key.
         /// </summary>
         /// <param name="executionContext"></param>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Update(ExecutionContext executionContext)
         {
             foreach (var itemStream in _streams)
@@ -112,7 +112,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
         /// <summary>
         /// Brodcast the call to close
         /// </summary>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Close()
         {
             foreach (var itemStream in _streams)

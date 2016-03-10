@@ -87,10 +87,10 @@ namespace Summer.Batch.Core.Launch.Support
         /// <param name="job"></param>
         /// <param name="jobParameters"></param>
         /// <returns></returns>
-        /// <exception cref="JobRestartException"> if the execution would be a re-start, but a re-start is either not allowed or not needed.</exception>
-        /// <exception cref="JobExecutionAlreadyRunningException">if the JobInstance already exists and has an execution already running</exception>
-        /// <exception cref="JobInstanceAlreadyCompleteException"> if this instance has already completed successfully</exception>
-        /// <exception cref="JobParametersInvalidException">if given parameters do not pass validation process</exception>
+        /// <exception cref="JobRestartException">&nbsp; if the execution would be a re-start, but a re-start is either not allowed or not needed.</exception>
+        /// <exception cref="JobExecutionAlreadyRunningException">&nbsp;if the JobInstance already exists and has an execution already running</exception>
+        /// <exception cref="JobInstanceAlreadyCompleteException">&nbsp; if this instance has already completed successfully</exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;if given parameters do not pass validation process</exception>
         public JobExecution Run(IJob job, JobParameters jobParameters)
         {
             Assert.NotNull(job, "The job must be not null");
@@ -165,7 +165,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="job"></param>
         /// <param name="lastExecution"></param>
-        /// <exception cref="JobRestartException"></exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
         private static void HandleLastExecution(IJob job, JobExecution lastExecution)
         {
             //Last Execution handling

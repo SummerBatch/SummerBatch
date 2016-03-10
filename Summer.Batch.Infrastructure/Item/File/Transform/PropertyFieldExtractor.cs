@@ -22,7 +22,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// <summary>
     /// Implementation of <see cref="T:IFieldExtractor"/> that retrieve values from property names.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class PropertyFieldExtractor<T> : IFieldExtractor<T>
     {
         /// <summary>

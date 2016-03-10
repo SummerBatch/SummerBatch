@@ -29,8 +29,8 @@ namespace Summer.Batch.Core.Unity
         /// Extension method automating the new ContainerControlledLifetimeManager() argument;
         /// Register a singleton, no name.
         /// </summary>
-        /// <typeparam name="TFrom"></typeparam>
-        /// <typeparam name="TTo"></typeparam>
+        /// <typeparam name="TFrom">&nbsp;</typeparam>
+        /// <typeparam name="TTo">&nbsp;</typeparam>
         /// <param name="unityContainer"></param>
         /// <param name="injectionMembers"></param>
         /// <returns></returns>
@@ -44,8 +44,8 @@ namespace Summer.Batch.Core.Unity
         /// Extension method automating the new ContainerControlledLifetimeManager() argument.
         /// Register a named singleton.
         /// </summary>
-        /// <typeparam name="TFrom"></typeparam>
-        /// <typeparam name="TTo"></typeparam>
+        /// <typeparam name="TFrom">&nbsp;</typeparam>
+        /// <typeparam name="TTo">&nbsp;</typeparam>
         /// <param name="unityContainer"></param>
         /// <param name="name"></param>
         /// <param name="injectionMembers"></param>
@@ -61,7 +61,7 @@ namespace Summer.Batch.Core.Unity
         /// Extension method automating the new ContainerControlledLifetimeManager() argument.
         /// Register a singleton, no name.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="unityContainer"></param>
         /// <param name="injectionMembers"></param>
         /// <returns></returns>
@@ -75,7 +75,7 @@ namespace Summer.Batch.Core.Unity
         /// Extension method automating the new ContainerControlledLifetimeManager() argument.
         /// Register a named singleton.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="unityContainer"></param>
         /// <param name="name"></param>
         /// <param name="injectionMembers"></param>
@@ -122,8 +122,8 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Registers a new depency in the step scope.
         /// </summary>
-        /// <typeparam name="TFrom">the type that will be requested</typeparam>
-        /// <typeparam name="TTo">the actual type that will be returned</typeparam>
+        /// <typeparam name="TFrom">&nbsp;the type that will be requested</typeparam>
+        /// <typeparam name="TTo">&nbsp;the actual type that will be returned</typeparam>
         /// <param name="unityContainer">the container to configure</param>
         /// <param name="injectionMembers">the injection configuration objects</param>
         /// <returns>the configured container (<paramref name="unityContainer"/>)</returns>
@@ -136,8 +136,8 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Registers a new depency in the step scope.
         /// </summary>
-        /// <typeparam name="TFrom">the type that will be requested</typeparam>
-        /// <typeparam name="TTo">the actual type that will be returned</typeparam>
+        /// <typeparam name="TFrom">&nbsp;the type that will be requested</typeparam>
+        /// <typeparam name="TTo">&nbsp;the actual type that will be returned</typeparam>
         /// <param name="unityContainer">the container to configure</param>
         /// <param name="name">the name to use for registration</param>
         /// <param name="injectionMembers">the injection configuration objects</param>
@@ -151,7 +151,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Registers a new depency in the step scope.
         /// </summary>
-        /// <typeparam name="T">the actual type of the dependency</typeparam>
+        /// <typeparam name="T">&nbsp;the actual type of the dependency</typeparam>
         /// <param name="unityContainer">the container to configure</param>
         /// <param name="injectionMembers">the injection configuration objects</param>
         /// <returns>the configured container (<paramref name="unityContainer"/>)</returns>
@@ -164,7 +164,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Registers a new depency in the step scope.
         /// </summary>
-        /// <typeparam name="T">the actual type of the dependency</typeparam>
+        /// <typeparam name="T">&nbsp;the actual type of the dependency</typeparam>
         /// <param name="unityContainer">the container to configure</param>
         /// <param name="name">the name to use for registration</param>
         /// <param name="injectionMembers">the injection configuration objects</param>

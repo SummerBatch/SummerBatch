@@ -59,8 +59,8 @@ namespace Summer.Batch.Core.Step.Job
         /// they exist. If a key doesn't exist in the execution context then the job
         /// parameters from the enclosing job execution are tried, and if there is
         /// nothing there either then no parameter is extracted. Key names ending
-        /// with <code>(long)</code>, <code>(int)</code>, <code>(double)</code>,
-        /// <code>(date)</code> or <code>(string)</code> will be assumed to refer to
+        /// with <c>(long)</c>, <c>(int)</c>, <c>(double)</c>,
+        /// <c>(date)</c> or <c>(string)</c> will be assumed to refer to
         /// values of the respective type and assigned to job parameters accordingly
         /// (there will be an error if they are not of the right type). Without a
         ///special suffix in that form a parameter is assumed to be of type String.

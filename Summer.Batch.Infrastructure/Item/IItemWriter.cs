@@ -47,14 +47,14 @@ namespace Summer.Batch.Infrastructure.Item
     /// discard the output on a subsequent rollback. The resource to which the writer
     /// is sending data should normally be able to handle this itself.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IItemWriter<T> where T:class
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="items"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         void Write(IList<T> items);
     }
 }

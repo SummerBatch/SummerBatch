@@ -17,14 +17,14 @@ namespace Summer.Batch.Extra.Sort.Filter
     /// <summary>
     /// Interface for selecting records. Correspond to omit or include in legacy.
     /// </summary>
-    /// <typeparam name="T">the type of the records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the records</typeparam>
     public interface IFilter<in T>
     {
         /// <summary>
         /// Determines if a record should be selected.
         /// </summary>
         /// <param name="record">a record in a file being sorted</param>
-        /// <returns><code>true</code> if the record is selected, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the record is selected, <c>false</c> otherwise</returns>
         bool Select(T record);
     }
 }

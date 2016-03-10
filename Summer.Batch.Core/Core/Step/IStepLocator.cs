@@ -53,7 +53,7 @@ namespace Summer.Batch.Core.Step
         /// </summary>
         /// <param name="stepName"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchStepException"></exception>
+        /// <exception cref="NoSuchStepException">&nbsp;</exception>
         IStep GetStep(string stepName);
     }
 }

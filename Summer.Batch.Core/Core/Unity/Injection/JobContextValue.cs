@@ -21,7 +21,7 @@ namespace Summer.Batch.Core.Unity.Injection
     /// <summary>
     /// Implementation of <see cref="InjectionParameterValue"/> that reads a property from the job context.
     /// </summary>
-    /// <typeparam name="T">the type of the resource to get</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the resource to get</typeparam>
     public class JobContextValue<T> : TypedInjectionValue
     {
         private readonly string _propertyName;

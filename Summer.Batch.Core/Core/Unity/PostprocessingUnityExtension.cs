@@ -34,8 +34,16 @@ namespace Summer.Batch.Core.Unity
         }
     }
 
+    /// <summary>
+    /// the <see cref="BuilderStrategy"/> used for this extension.
+    /// </summary>
     class PostOperationsStrategy : BuilderStrategy
     {
+        /// <summary>
+        /// Used to invoke <see cref="IInitializationPostOperations#AfterPropertiesSet()"/> after
+        /// initialization.
+        /// </summary>
+        /// <param name="context"></param>
         public override void PostBuildUp(IBuilderContext context)
         {
             IInitializationPostOperations toValidate = context.Existing as IInitializationPostOperations;

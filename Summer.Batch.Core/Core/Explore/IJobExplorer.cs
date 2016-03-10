@@ -74,7 +74,7 @@ namespace Summer.Batch.Core.Explore
         /// <returns>the StepExecution with this id, or null if not found</returns>
         StepExecution GetStepExecution(long jobExecutionId, long stepExecutionId);
 
-        ///<summary>
+        /// <summary>
         /// Gets the Job Instance given its instance id
         /// </summary>
         /// <param name="instanceId"></param>
@@ -113,7 +113,7 @@ namespace Summer.Batch.Core.Explore
         /// </summary>
         /// <param name="jobName">the name of the job to query for</param>
         /// <returns>the number of JobInstances that exist within the associated job repository</returns>
-        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException"/>
+        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException">If no jobInstance could be located for the given name</exception>
         int GetJobInstanceCount(string jobName);
     }
 }

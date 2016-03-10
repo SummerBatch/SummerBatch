@@ -45,7 +45,7 @@ namespace Summer.Batch.Core.Job.Builder
     /// A builder for a flow of steps that can be executed as a job or as part of a job. Steps can be linked together with
     /// conditional transitions that depend on the exit status of the previous step.
     /// </summary>
-    /// <typeparam name="T">The type of object returned by the builder (by default a Flow).</typeparam>
+    /// <typeparam name="T">&nbsp;The type of object returned by the builder (by default a Flow).</typeparam>
     public class FlowBuilder<T>
     {
         private readonly string _name;

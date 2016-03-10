@@ -102,9 +102,9 @@ namespace Summer.Batch.Core.Job
         /// <param name="step"></param>
         /// <param name="execution"></param>
         /// <returns></returns>
-        /// <exception cref="JobInterruptedException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="StartLimitExceededException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;</exception>
         public StepExecution HandleStep(IStep step, JobExecution execution)
         {
             if (execution.IsStopping())
@@ -212,8 +212,8 @@ namespace Summer.Batch.Core.Job
         /// <param name="jobExecution"></param>
         /// <param name="step"></param>
         /// <returns></returns>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="StartLimitExceededException"></exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;</exception>
         protected bool ShouldStart(StepExecution lastStepExecution, JobExecution jobExecution, IStep step)
         {
             var stepStatus = lastStepExecution == null ? BatchStatus.Starting : lastStepExecution.BatchStatus;

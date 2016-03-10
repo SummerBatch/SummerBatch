@@ -45,7 +45,7 @@ namespace Summer.Batch.Core.Step
         /// JobInterruptedException.
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="JobInterruptedException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
         void CheckInterrupted(StepExecution stepExecution);
 
     }

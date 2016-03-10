@@ -76,7 +76,7 @@ namespace Summer.Batch.Core.Job.Flow.Support.State
         /// </summary>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public abstract FlowExecutionStatus Handle(IFlowExecutor executor);
 
         /// <summary>

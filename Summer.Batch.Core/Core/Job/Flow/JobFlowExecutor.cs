@@ -85,9 +85,9 @@ namespace Summer.Batch.Core.Job.Flow
         /// </summary>
         /// <param name="step"></param>
         /// <returns></returns>
-        /// <exception cref="JobInterruptedException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="StartLimitExceededException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="StartLimitExceededException">&nbsp;</exception>
         public string ExecuteStep(IStep step)
         {
             bool isRerun = IsStepRestart(step);

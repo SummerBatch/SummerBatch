@@ -52,20 +52,20 @@ namespace Summer.Batch.Extra.Sort.Legacy.Format
         /// <summary>
         /// The character(s) for the positive sign.
         /// There should be exactly one or two characters. If there is one character, it is used every time
-        /// <see cref="Edit"/> specifies a sign (<code>"S"</code>). If there is two characters, the first
-        /// one is used before the number and the second one is used after (e.g., to produce <code>"(123)"</code>,
-        /// use <code>"()"</code> as sign).
-        /// Default is <code>" "</code>.
+        /// <see cref="Edit"/> specifies a sign (<c>"S"</c>). If there is two characters, the first
+        /// one is used before the number and the second one is used after (e.g., to produce <c>"(123)"</c>,
+        /// use <c>"()"</c> as sign).
+        /// Default is <c>" "</c>.
         /// </summary>
         public string PositiveSign { get; set; }
 
         /// <summary>
         /// The character(s) for the negative sign.
         /// There should be exactly one or two characters. If there is one character, it is used every time
-        /// <see cref="Edit"/> specifies a sign (<code>"S"</code>). If there is two characters, the first
-        /// one is used before the number and the second one is used after (e.g., to produce <code>"(123)"</code>,
-        /// use <code>"()"</code> as sign).
-        /// Default is <code>"-"</code>.
+        /// <see cref="Edit"/> specifies a sign (<c>"S"</c>). If there is two characters, the first
+        /// one is used before the number and the second one is used after (e.g., to produce <c>"(123)"</c>,
+        /// use <c>"()"</c> as sign).
+        /// Default is <c>"-"</c>.
         /// </summary>
         public string NegativeSign { get; set; }
 
@@ -135,7 +135,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Format
         }
 
         /// <param name="index">the index of the current character in the <see cref="Edit"/> string.</param>
-        /// <returns><code>true</code> if there are more significant digits to print (i.e., before the current position).</returns>
+        /// <returns><c>true</c> if there are more significant digits to print (i.e., before the current position).</returns>
         private bool HasMoreSignificantDigits(int index)
         {
             for (var i = index; i >= 0; i--)

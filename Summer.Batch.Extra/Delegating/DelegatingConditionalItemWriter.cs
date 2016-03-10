@@ -24,7 +24,7 @@ namespace Summer.Batch.Extra.Delegating
     /// through the supplied ItemCondition for each element to decide if
     /// it must be written.
     /// </summary>
-    /// <typeparam name="TT"> The type of objects written by the writer</typeparam>
+    /// <typeparam name="TT">&nbsp; The type of objects written by the writer</typeparam>
     public class DelegatingConditionalItemWriter<TT> : IItemStreamWriter<TT> where TT:class
     {
         /// <summary>
@@ -91,7 +91,7 @@ namespace Summer.Batch.Extra.Delegating
         /// Writes through the inner writer, effectively writing only if condition is satisfied.
         /// </summary>
         /// <param name="items">the chunk to write</param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public void Write(IList<TT> items)
         {
             List<TT> toWrite = items.Where(element => Condition.Check(element)).ToList();

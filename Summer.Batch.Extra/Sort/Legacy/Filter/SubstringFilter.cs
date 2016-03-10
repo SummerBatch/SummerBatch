@@ -36,7 +36,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Filter
         /// Determines if a record should be selected.
         /// </summary>
         /// <param name="record">a record in a file being sorted</param>
-        /// <returns><code>true</code> if the record is selected, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the record is selected, <c>false</c> otherwise</returns>
         public bool Select(byte[] record)
         {
             var leftString = Left.Get(record);

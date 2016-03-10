@@ -179,7 +179,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="bytes"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="UnexpectedFieldTypeException"></exception>
+        /// <exception cref="UnexpectedFieldTypeException">&nbsp;</exception>
         public object Decode(byte[] bytes, FieldFormat fieldFormat)
         {
             char type = fieldFormat.Type[0];

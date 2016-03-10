@@ -62,7 +62,7 @@ namespace Summer.Batch.Core
         /// Executes the step.
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         void Execute(StepExecution stepExecution);
     }
 }

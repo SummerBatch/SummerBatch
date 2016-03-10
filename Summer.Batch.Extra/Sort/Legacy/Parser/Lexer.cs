@@ -40,6 +40,12 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         /// </summary>
         public int Index { get { return _index; } }
 
+        /// <summary>
+        /// Substring facility 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public string SubString(int start, int length)
         {
             var subArray = new char[length];

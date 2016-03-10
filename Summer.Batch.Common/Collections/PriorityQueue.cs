@@ -29,7 +29,7 @@ namespace Summer.Batch.Common.Collections
     /// 
     /// <p>This implementation is NOT thread-safe.</p>
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the queue.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the elements in the queue.</typeparam>
     [DebuggerDisplay("InternalCount={Count}")]
     public class PriorityQueue<T> : AbstractPriorityQueue<T>
     {
@@ -37,7 +37,7 @@ namespace Summer.Batch.Common.Collections
         /// Constructs a new priority queue with a default capacity and no elements.
         /// </summary>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityQueue(IComparer<T> comparer = null) : base(comparer) { }
@@ -47,7 +47,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="capacity">the initial capacity</param>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityQueue(int capacity, IComparer<T> comparer = null) : base(capacity, comparer) { }
@@ -57,7 +57,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="enumerable">an enumerable containing the initial elements</param>
         /// <param name="comparer">the comparer to use for ordering elements</param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <typeparamref name="T"/> does not implement <see cref="IComparable{T}"/> and comparer is null.
         /// </exception>
         public PriorityQueue(IEnumerable<T> enumerable, IComparer<T> comparer = null) : base(enumerable, comparer) { }

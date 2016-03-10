@@ -39,7 +39,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// <summary>
     /// Base class for ItemWriter implementations.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public abstract class AbstractItemStreamItemWriter<T> : ItemStreamSupport, IItemStreamWriter<T> where T:class
     {
         /// <summary>

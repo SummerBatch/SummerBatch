@@ -212,7 +212,7 @@ namespace Summer.Batch.Core.Repository.Dao
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Returns the last job execution for a given job instance.
         /// </summary>
         /// <param name="jobInstance">a job instance</param>
@@ -232,7 +232,7 @@ namespace Summer.Batch.Core.Repository.Dao
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Returns all running job executions for the given job name.
         /// </summary>
         /// <param name="jobName">a job name</param>
@@ -252,7 +252,7 @@ namespace Summer.Batch.Core.Repository.Dao
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Returns the job execution for the given execution id.
         /// </summary>
         /// <param name="executionId">an id for an existing job execution</param>

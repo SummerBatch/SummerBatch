@@ -39,7 +39,7 @@ namespace Summer.Batch.Core.Step.Item
     /// <summary>
     /// Interface defined for processing Chunks.
     /// </summary>
-    /// <typeparam name="TI"></typeparam>
+    /// <typeparam name="TI">&nbsp;</typeparam>
     public interface IChunkProcessor<TI> where TI:class
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace Summer.Batch.Core.Step.Item
         /// </summary>
         /// <param name="contribution"></param>
         /// <param name="chunk"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         void Process(StepContribution contribution, Chunk<TI> chunk);
     }
 }

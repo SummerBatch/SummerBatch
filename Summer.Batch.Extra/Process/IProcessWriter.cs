@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra.Process
     /// <summary>
     /// Interface for writers in process
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IProcessWriter <in T> : IProcessAdapter
     {
         /// <summary>

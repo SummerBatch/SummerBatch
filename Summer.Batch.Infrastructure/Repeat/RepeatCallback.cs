@@ -44,6 +44,6 @@ namespace Summer.Batch.Infrastructure.Repeat
     /// </summary>
     /// <param name="context">the current context passed in by the caller.</param>
     /// <returns>an RepeatStatus which is continuable if there is (or may be) more data to process.</returns>
-    /// <exception cref="Exception"></exception>
+    /// <exception cref="Exception">&nbsp;</exception>
     public delegate RepeatStatus RepeatCallback(IRepeatContext context);
 }

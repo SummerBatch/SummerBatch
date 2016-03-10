@@ -29,7 +29,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="expression">a boolean expression</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the expression is evaluated to <code>false</code></exception>
+        /// <exception cref="ArgumentException">&nbsp;if the expression is evaluated to <c>false</c></exception>
         public static void IsTrue(bool expression, string message = null)
         {
             if (!expression)
@@ -43,7 +43,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="obj">the object to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the object is not null</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the object is not null</exception>
         public static void IsNull(object obj, string message = null)
         {
             if (obj != null)
@@ -57,7 +57,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="obj">the object to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentNullException">if the object is null</exception>
+        /// <exception cref="ArgumentNullException">&nbsp;if the object is null</exception>
         public static void NotNull(object obj, string message = null)
         {
             if (obj == null)
@@ -71,7 +71,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="text">the string to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the string is null or empty</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the string is null or empty</exception>
         public static void HasLength(string text, string message = null)
         {
             if (string.IsNullOrEmpty(text))
@@ -85,7 +85,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="text">the string to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the string is null or does not contain text</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the string is null or does not contain text</exception>
         public static void HasText(string text, string message = null)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -100,7 +100,7 @@ namespace Summer.Batch.Common.Util
         /// <param name="textToSearch">the string to search</param>
         /// <param name="substring">the substring to find</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the substring is found in text</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the substring is found in text</exception>
         public static void DoesNotContain(string textToSearch, string substring, string message = null)
         {
             if (!string.IsNullOrEmpty(textToSearch) && !string.IsNullOrEmpty(substring) &&
@@ -117,7 +117,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="array">the array to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the array is null or empty</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the array is null or empty</exception>
         public static void NotEmpty(object[] array, string message = null)
         {
             if (array == null || array.Length == 0)
@@ -131,7 +131,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="array">the array to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the array is null or contains a null element</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the array is null or contains a null element</exception>
         public static void NoNullElements(object[] array, string message = null)
         {
             if (null != array && array.Any(element => element == null))
@@ -143,10 +143,10 @@ namespace Summer.Batch.Common.Util
         /// <summary>
         /// Asserts that a dictionary is not empty.
         /// </summary>
-        /// <typeparam name="T">The type of the elements in the dictionary</typeparam>
+        /// <typeparam name="T">&nbsp;The type of the elements in the dictionary</typeparam>
         /// <param name="collection">the dictionary to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the collection is null or empty</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the collection is null or empty</exception>
         public static void NotEmpty<T>(ICollection<T> collection, string message = null)
         {
             if (collection == null || collection.Count == 0)
@@ -158,11 +158,11 @@ namespace Summer.Batch.Common.Util
         /// <summary>
         /// Asserts that a dictionary is not empty.
         /// </summary>
-        /// <typeparam name="TKey">the type of the keys</typeparam>
-        /// <typeparam name="TValue">the type of the values</typeparam>
+        /// <typeparam name="TKey">&nbsp;the type of the keys</typeparam>
+        /// <typeparam name="TValue">&nbsp;the type of the values</typeparam>
         /// <param name="dictionary">the dictionary to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the dictionary is null or empty</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the dictionary is null or empty</exception>
         public static void NotEmpty<TKey, TValue>(IDictionary<TKey, TValue> dictionary, string message = null)
         {
             if (dictionary == null || dictionary.Count == 0)
@@ -178,7 +178,7 @@ namespace Summer.Batch.Common.Util
         /// <param name="type">the type the object must be instance of</param>
         /// <param name="obj">the object to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="ArgumentException">if the object is not an instance of type</exception>
+        /// <exception cref="ArgumentException">&nbsp;if the object is not an instance of type</exception>
         public static void IsInstanceOf(Type type, object obj, string message = null)
         {
             NotNull(type, "Type to check against must not be null");
@@ -194,7 +194,7 @@ namespace Summer.Batch.Common.Util
         /// <param name="superType">the supertype to check</param>
         /// <param name="subType">the subtype to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// /// <exception cref="ArgumentException">if supertype is not assignable from subtype</exception>
+        /// /// <exception cref="ArgumentException">&nbsp;if supertype is not assignable from subtype</exception>
         public static void IsAssignable(Type superType, Type subType, string message = null)
         {
             NotNull(superType, "Type to check against must not be null");
@@ -205,11 +205,11 @@ namespace Summer.Batch.Common.Util
         }
 
         /// <summary>
-        /// Asserts than an expression evaluates to <code>true</code>.
+        /// Asserts than an expression evaluates to <c>true</c>.
         /// </summary>
         /// <param name="expression">the expression to check</param>
         /// <param name="message">the message to use if assertion fails</param>
-        /// <exception cref="InvalidOperationException">if expression evaluates to <code>false</code></exception>
+        /// <exception cref="InvalidOperationException">&nbsp;if expression evaluates to <c>false</c></exception>
         public static void State(bool expression, string message = null)
         {
             if (!expression)

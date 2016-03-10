@@ -167,7 +167,7 @@ namespace Summer.Batch.Extra.Utils
         /// Adds a number of months to the current date.
         /// </summary>
         /// <param name="months">The number of months to add.</param>
-        /// <returns>A new date, built by adding <paramparamref name="months"/> months to the current date.</returns>
+        /// <returns>A new date, built by adding <paramref name="months"/> months to the current date.</returns>
         public static DateTime? AddMonthsToCurrentDate(int? months)
         {
             return months == null ? (DateTime?) null : DateTime.Now.AddMonths((int)months);

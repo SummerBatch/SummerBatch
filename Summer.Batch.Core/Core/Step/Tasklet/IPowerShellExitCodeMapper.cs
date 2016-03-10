@@ -19,6 +19,8 @@ namespace Summer.Batch.Core.Step.Tasklet
     /// Maps the exit code of a PowerShell to <see cref="ExitStatus"/> value
     /// returned by a PowerShell. Designed for use with the
     /// <see cref="PowerShellTasklet"/>.
+    /// 
+    /// \since 1.1.0
     /// </summary>
     public interface IPowerShellExitCodeMapper
     {

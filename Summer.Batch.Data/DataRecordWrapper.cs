@@ -47,7 +47,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Gets a converted value from the data record.
         /// </summary>
-        /// <typeparam name="T">the type to convert the data to</typeparam>
+        /// <typeparam name="T">&nbsp;the type to convert the data to</typeparam>
         /// <param name="i">the index of the column to get the data from</param>
         /// <returns>the converted data in the column</returns>
         public T Get<T>(int i)
@@ -58,7 +58,7 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Gets a converted value from the data record.
         /// </summary>
-        /// <typeparam name="T">the type to convert the data to</typeparam>
+        /// <typeparam name="T">&nbsp;the type to convert the data to</typeparam>
         /// <param name="i">the index of the column to get the data from</param>
         /// <param name="defaultValue">the default value if the column is null.</param>
         /// <returns>the converted data in the column</returns>

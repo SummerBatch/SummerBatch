@@ -25,7 +25,7 @@ namespace Summer.Batch.CoreTests.TestHelper
         /// <param name="input1"></param>
         /// <param name="input2"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
         public static bool ContentEquals(Stream input1, Stream input2)
         {
             if (!(input1 is BufferedStream))

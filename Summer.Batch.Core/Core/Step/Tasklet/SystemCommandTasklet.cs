@@ -160,7 +160,7 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// Wraps command execution into system process call.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         private int ExecuteCommand()
         {
             ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe", "/C " + Command)

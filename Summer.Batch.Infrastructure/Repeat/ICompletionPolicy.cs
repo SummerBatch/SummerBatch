@@ -46,7 +46,7 @@ namespace Summer.Batch.Infrastructure.Repeat
         /// <summary>
         ///Determine whether a batch is complete given the latest result from the
         /// callback. If this method returns true then
-        /// #IsComplete(RepeatContext) should also (but not necessarily vice
+        /// <see cref="IsComplete(IRepeatContext)"/> should also (but not necessarily vice
         /// versa, since the answer here depends on the result).
         /// </summary>
         /// <param name="context"> the current batch context.</param>

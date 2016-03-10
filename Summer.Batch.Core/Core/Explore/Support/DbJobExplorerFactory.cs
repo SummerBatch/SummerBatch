@@ -161,6 +161,11 @@ namespace Summer.Batch.Core.Explore.Support
         }
     }
 
+    /// <summary>
+    /// Local <see cref="IDataFieldMaxValueIncrementer"/> implementation.
+    /// Since it is not supported here, a <see cref="NotSupportedException"/> will be thrown
+    /// by the <see cref="NextLong"/> method.
+    /// </summary>
     class LocalDataFieldMaxValueIncrementer : AbstractDataFieldMaxValueIncrementer
     {
         /// <summary>

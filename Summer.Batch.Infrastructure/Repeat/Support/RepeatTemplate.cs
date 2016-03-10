@@ -212,7 +212,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Support
         /// <summary>
         ///  Get the next completed result, possibly executing several callbacks until
         /// one finally finishes. Normally a subclass would have to override both
-        /// this method and {@link #CreateInternalState(RepeatContext)} because the
+        /// this method and <see cref="CreateInternalState"/> because the
         /// implementation of this method would rely on the details of the internal
         /// state.
         /// </summary>
@@ -220,7 +220,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Support
         /// <param name="callback"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected virtual RepeatStatus GetNextResult(IRepeatContext context, RepeatCallback callback, IRepeatInternalState state)
         {
             Update(context);

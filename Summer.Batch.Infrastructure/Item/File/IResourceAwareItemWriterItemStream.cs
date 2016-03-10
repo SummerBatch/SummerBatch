@@ -39,7 +39,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// Interface for <see cref="T:IItemWriter"/>s that implement <see cref="IItemStream"/> and write
     /// to a <see cref="Summer.Batch.Common.IO.IResource"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IResourceAwareItemWriterItemStream<T> : IItemStreamWriter<T> where T:class
     {
         /// <summary>

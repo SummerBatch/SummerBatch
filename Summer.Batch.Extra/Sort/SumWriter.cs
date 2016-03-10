@@ -19,6 +19,10 @@ using Summer.Batch.Common.Util;
 
 namespace Summer.Batch.Extra.Sort
 {
+    /// <summary>
+    /// Implementation of a <see cref="IRecordWriter{T}"/> that can sum similar records using a <see cref="ISum{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">&nbsp;type of the records</typeparam>
     public class SumWriter<T> : IDisposable where T : class
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
@@ -32,7 +36,7 @@ namespace Summer.Batch.Extra.Sort
         /// Default constructor.
         /// </summary>
         /// <param name="outputFile">The description of the current output file.</param>
-        /// <param name="sum">The sum to use for similar items (or <code>null</code>).</param>
+        /// <param name="sum">The sum to use for similar items (or <c>null</c>).</param>
         /// <param name="comparer">The comparer to use for sorting records.</param>
         public SumWriter(IOutputFile<T> outputFile, ISum<T> sum, IComparer<T> comparer)
         {

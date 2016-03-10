@@ -85,7 +85,7 @@ namespace Summer.Batch.Common.IO
         /// <summary>
         /// Checks if a resource actually exists.
         /// </summary>
-        /// <returns><code>true</code> if the underlying resource exists, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the underlying resource exists, <c>false</c> otherwise</returns>
         public override bool Exists()
         {
             return (File.Exists(_path) || Directory.Exists(_path));
@@ -119,7 +119,7 @@ namespace Summer.Batch.Common.IO
         /// <summary>
         /// Determines the filename for this resource.
         /// </summary>
-        /// <returns>the filename for this resource, or <code>null</code> if it does not have one</returns>
+        /// <returns>the filename for this resource, or <c>null</c> if it does not have one</returns>
         public override string GetFilename()
         {
             return Path.GetFileName(_path);            

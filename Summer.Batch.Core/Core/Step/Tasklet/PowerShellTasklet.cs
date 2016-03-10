@@ -37,17 +37,18 @@ using System.Transactions;
 namespace Summer.Batch.Core.Step.Tasklet
 {
     /// <summary>
-    ///<see cref="ITasklet"/>that executes a system command.
-    /// The system command is executed asynchronously using injected <see cref="ITaskExecutor"/> - 
+    /// An <see cref="ITasklet"/> that runs a powershell script.
+    /// The script is executed asynchronously using injected <see cref="ITaskExecutor"/> - 
     /// timeout value is required to be set, so that the batch job does not hang forever 
     /// if the external process hangs.
     /// Tasklet periodically checks for termination status (i.e.
-    /// Command finished its execution or timeout expired or job was interrupted). 
+    /// Script finished its execution or timeout expired or job was interrupted). 
     /// The check interval is given by TerminationCheckInterval.
     /// When job interrupt is detected tasklet's execution is terminated immediately
     /// by throwing JobInterruptedException.
     /// 
     /// NOTE : InterruptOnCancel is not being supported for now.
+    /// \since 1.1.0
     /// </summary>
     public class PowerShellTasklet : StepExecutionListenerSupport, IStoppableTasklet, IInitializationPostOperations
     {

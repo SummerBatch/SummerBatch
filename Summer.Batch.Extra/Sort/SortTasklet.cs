@@ -54,7 +54,7 @@ namespace Summer.Batch.Extra.Sort
         public Encoding Encoding { get; set; }
 
         /// <summary>
-        /// The encoding to use when sorting, if different from <see cref="Encoding"/>. Default is <code>null</code>.
+        /// The encoding to use when sorting, if different from <see cref="Encoding"/>. Default is <c>null</c>.
         /// </summary>
         public Encoding SortEncoding { get; set; }
 

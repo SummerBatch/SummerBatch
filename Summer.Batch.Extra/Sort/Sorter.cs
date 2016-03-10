@@ -29,7 +29,7 @@ namespace Summer.Batch.Extra.Sort
     /// format the records before  they are sorted. If <see cref="Comparer"/> is not set, records are
     /// copied in the order they are read, but they are still filtered or formatted.
     /// </summary>
-    /// <typeparam name="T">The type of the records to sort.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the records to sort.</typeparam>
     public class Sorter<T> where T : class
     {
         // 1MB in bytes
@@ -382,7 +382,7 @@ namespace Summer.Batch.Extra.Sort
         /// Selects a record using <see cref="Filter"/>.
         /// </summary>
         /// <param name="record">the record to check</param>
-        /// <returns><code>true</code> if the record has been selected, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the record has been selected, <c>false</c> otherwise</returns>
         private bool Select(T record)
         {
             return Filter == null || Filter.Select(record);

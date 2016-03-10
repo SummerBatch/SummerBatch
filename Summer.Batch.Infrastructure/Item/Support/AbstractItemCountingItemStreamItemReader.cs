@@ -40,7 +40,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// Abstract superclass for IItemReaders that supports restart by storing item count in the execution context
     /// and therefore requires item ordering to be preserved between runs.
     /// </summary>
-    /// <typeparam name="T">The type of the read items</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the read items</typeparam>
     public abstract class AbstractItemCountingItemStreamItemReader<T> : AbstractItemStreamItemReader<T> where T : class
     {
         private const string ReadCount = "read.count";
@@ -51,7 +51,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
 
         /// <summary>
         /// The index of the item to start reading from.
-        /// If the execution context contains a key <code>[name].read.count</code>
+        /// If the execution context contains a key <c>[name].read.count</c>
         /// (where [name] is the name of this component), the value from the execution
         /// context will be used instead.
         /// </summary>
@@ -59,7 +59,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
 
         /// <summary>
         /// The maximum index of the items to be read.
-        /// If the execution context contains a key <code>[name].read.count.max</code>
+        /// If the execution context contains a key <c>[name].read.count.max</c>
         /// (where [name] is the name of this component), the value from the execution
         /// context will be used instead.
         /// </summary>
@@ -81,16 +81,16 @@ namespace Summer.Batch.Infrastructure.Item.Support
 
         /// <summary>
         /// Reads a piece of input data and advance to the next one. Implementations
-        /// <strong>must</strong> return <code>null</code> at the end of the input
+        /// <strong>must</strong> return <c>null</c> at the end of the input
         /// data set. In a transactional setting, caller might get the same item
         /// twice from successive calls (or otherwise), if the first call was in a
         /// transaction that rolled back.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="UnexpectedInputException"></exception>
-        /// <exception cref="NonTransientResourceException"></exception>
-        /// <exception cref="ParseException"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
+        /// <exception cref="UnexpectedInputException">&nbsp;</exception>
+        /// <exception cref="NonTransientResourceException">&nbsp;</exception>
+        /// <exception cref="ParseException">&nbsp;</exception>
         public override T Read()
         {
             if (CurrentItemCount >= _maxItemCount)
@@ -106,8 +106,8 @@ namespace Summer.Batch.Infrastructure.Item.Support
         /// </summary>
         /// <param name="executionContext">current step's ExecutionContext.  Will be the
         /// executionContext from the last run of the step on a restart.</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         public override void Open(ExecutionContext executionContext)
         {
             base.Open(executionContext);
@@ -138,7 +138,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
         ///  If any resources are needed for the stream to operate they need to be destroyed here. Once this method has been
         /// called all other methods (except open) may throw an exception.
         /// </summary>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public override void Close()
         {
             base.Close();
@@ -151,8 +151,8 @@ namespace Summer.Batch.Infrastructure.Item.Support
         /// has not been put in the context, it should be added here.
         /// </summary>
         /// <param name="executionContext">to be updated</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         public override void Update(ExecutionContext executionContext)
         {
             base.Update(executionContext);

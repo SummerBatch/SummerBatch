@@ -42,7 +42,7 @@ namespace Summer.Batch.Core.Listener
     /// Relies on System.Attribute Order being put on classes / interfaces
     /// (see Order / OrderHelper / OrderComparer in Util NS)
     /// </summary>
-    /// <typeparam name="TS"></typeparam>
+    /// <typeparam name="TS">&nbsp;</typeparam>
     public class OrderedComposite<TS>
     {
 
@@ -54,7 +54,7 @@ namespace Summer.Batch.Core.Listener
         /// <summary>
         /// Public setter for items.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="items"></param>
         public void SetItems<T>(List<T> items) where T : TS
         {

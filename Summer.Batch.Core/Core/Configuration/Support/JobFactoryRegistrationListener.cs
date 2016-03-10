@@ -55,7 +55,7 @@ namespace Summer.Batch.Core.Configuration.Support
         /// </summary>
         /// <param name="jobFactory">an IJobFactory</param>
         /// <param name="parms">not needed by this listener</param>
-        /// <exception cref="Exception">if there is a problem</exception>
+        /// <exception cref="Exception">&nbsp;if there is a problem</exception>
         public void Bind(IJobFactory jobFactory, IDictionary<string, object> parms)
         {
             _logger.Info("Binding JobFactory: {0}",jobFactory.JobName);
@@ -67,7 +67,7 @@ namespace Summer.Batch.Core.Configuration.Support
         /// </summary>
         /// <param name="jobFactory">an IJobFactory</param>
         /// <param name="parms">not needed by this listener</param>
-        /// <exception cref="Exception">if there is a problem</exception>        
+        /// <exception cref="Exception">&nbsp;if there is a problem</exception>        
         public void Unbind(IJobFactory jobFactory, IDictionary<string, object> parms)
         {
             _logger.Info("Unbinding JobFactory: {0}", jobFactory.JobName);

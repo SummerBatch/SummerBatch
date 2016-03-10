@@ -44,7 +44,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// Delegate writers are kept in an ordered collection.
     /// Thread-safe, provided delegates are thread-safe as well.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class CompositeItemWriter<T> : IItemStreamWriter<T> where T:class
     {
         /// <summary>

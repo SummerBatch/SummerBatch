@@ -44,7 +44,7 @@ namespace Summer.Batch.Core.Configuration
         /// </summary>
         /// <param name="name">the name of the Job which should be unique</param>
         /// <returns>a Job identified by the given name</returns>
-        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException"/>
+        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException">&nbsp;thrown if no job with given name could be located</exception> 
         IJob GetJob(string name);
     }
 }

@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// <summary>
     /// Interface used to create a string representing an object.
     /// </summary>
-    /// <typeparam name="T">the type of the transformed objects</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the transformed objects</typeparam>
     public interface ILineAggregator<in T>
     {
         /// <summary>

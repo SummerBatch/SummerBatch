@@ -61,10 +61,10 @@ namespace Summer.Batch.Core.Launch
         /// <param name="jobParameters"></param>
         /// <returns>the JobExecution if it returns synchronously. If the
         /// implementation is asynchronous, the status might well be unknown</returns>
-        /// <exception cref="JobExecutionAlreadyRunningException">if the JobInstance identified by the properties already has an execution running</exception>
-        /// <exception cref="JobRestartException">if the job has been run before and circumstances that preclude a re-start</exception>
-        /// <exception cref="JobInstanceAlreadyCompleteException"> if the job has been run before with the same parameters and completed successfully</exception>
-        /// <exception cref="JobParametersInvalidException">if the parameters are not valid for this job</exception>
+        /// <exception cref="JobExecutionAlreadyRunningException">&nbsp;if the JobInstance identified by the properties already has an execution running</exception>
+        /// <exception cref="JobRestartException">&nbsp;if the job has been run before and circumstances that preclude a re-start</exception>
+        /// <exception cref="JobInstanceAlreadyCompleteException">&nbsp; if the job has been run before with the same parameters and completed successfully</exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;if the parameters are not valid for this job</exception>
         JobExecution Run(IJob job, JobParameters jobParameters);
 
     }

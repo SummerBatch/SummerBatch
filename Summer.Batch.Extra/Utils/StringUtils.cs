@@ -671,7 +671,7 @@ namespace Summer.Batch.Extra.Utils
         /// </summary>
         /// <param name="str">string</param>   
         /// <param name="stripChars">string</param>
-        /// <returns>the stripped string, <code>null</code> if null string input.</returns> 
+        /// <returns>the stripped string, <c>null</c> if null string input.</returns> 
         public static string StripEnd(string str, string stripChars)
         {
             if (str == null)

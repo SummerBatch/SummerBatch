@@ -78,7 +78,7 @@ namespace Summer.Batch.Common.Util
         /// <summary>
         /// Dumps an enumerable in a string builder.
         /// </summary>
-        /// <typeparam name="T">the type of the elements in the enumerable</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the elements in the enumerable</typeparam>
         /// <param name="sb">the string builder to write to</param>
         /// <param name="enumerable">the enumerable to dump</param>
         private static void DoDump<T>(StringBuilder sb, IEnumerable<T> enumerable)

@@ -28,7 +28,7 @@ namespace Summer.Batch.Core.Scope
         /// Retrieves the current underlying instance.
         /// </summary>
         /// <returns>the underlying instance.</returns>
-        /// <exception cref="InvalidOperationException">if no step is being executed in the current thread</exception>
+        /// <exception cref="InvalidOperationException">&nbsp;if no step is being executed in the current thread</exception>
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes",
             Justification = "Method hidden from child types on purpose, to avoid name collisions.")]
         object IProxyObject.GetInstance()
@@ -40,7 +40,7 @@ namespace Summer.Batch.Core.Scope
         /// Not supported, the instance is managed by the step scope.
         /// </summary>
         /// <param name="instance">unused</param>
-        /// <exception cref="NotSupportedException">alaways thrown</exception>
+        /// <exception cref="NotSupportedException">&nbsp;alaways thrown</exception>
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes",
             Justification = "Method hidden from child types on purpose, to avoid name collisions.")]
         void IProxyObject.SetInstance(object instance)

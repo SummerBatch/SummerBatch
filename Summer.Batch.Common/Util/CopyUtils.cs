@@ -37,7 +37,7 @@ namespace Summer.Batch.Common.Util
         /// </summary>
         /// <param name="destination"></param>
         /// <param name="origin"></param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">&nbsp;</exception>
         public static void CopyProperties(object destination, object origin)
         {
             if (destination == null)

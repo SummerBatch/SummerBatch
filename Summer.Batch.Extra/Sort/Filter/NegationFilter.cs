@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra.Sort.Filter
     /// <summary>
     /// Implementation of <see cref="IFilter{T}"/> that negates another filter.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class NegationFilter<T> : IFilter<T>
     {
         /// <summary>
@@ -29,7 +29,7 @@ namespace Summer.Batch.Extra.Sort.Filter
         /// Determines if a record should be selected by negating <see cref="Filter"/>.
         /// </summary>
         /// <param name="record">a record in a file being sorted</param>
-        /// <returns><code>true</code> if the record is selected, <code>false</code> otherwise</returns>
+        /// <returns><c>true</c> if the record is selected, <c>false</c> otherwise</returns>
         public bool Select(T record)
         {
             return !Filter.Select(record);

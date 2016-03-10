@@ -39,21 +39,21 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// <summary>
     /// Base class for <see cref="T:IItemReader"/> implementations.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public abstract class AbstractItemStreamItemReader<T> : ItemStreamSupport, IItemStreamReader<T> where T : class
     {
         /// <summary>
         /// Reads a piece of input data and advance to the next one. Implementations
-        /// <strong>must</strong> return <code>null</code> at the end of the input
+        /// <strong>must</strong> return <c>null</c> at the end of the input
         /// data set. In a transactional setting, caller might get the same item
         /// twice from successive calls (or otherwise), if the first call was in a
         /// transaction that rolled back.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="UnexpectedInputException"></exception>
-        /// <exception cref="NonTransientResourceException"></exception>
-        /// <exception cref="ParseException"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
+        /// <exception cref="UnexpectedInputException">&nbsp;</exception>
+        /// <exception cref="NonTransientResourceException">&nbsp;</exception>
+        /// <exception cref="ParseException">&nbsp;</exception>
         public abstract T Read();
     }
 }

@@ -48,7 +48,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Exception
         /// </summary>
         /// <param name="context"></param>
         /// <param name="exception"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         void HandleException(IRepeatContext context, System.Exception exception);
     }
 }

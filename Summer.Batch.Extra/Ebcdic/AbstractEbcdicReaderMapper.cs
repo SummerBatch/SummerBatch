@@ -25,7 +25,7 @@ namespace Summer.Batch.Extra.Ebcdic
     /// Abstract super type for implementation of IEbcdicReaderMapper. It
     /// holds information and code required by most mappers, like date parser.
     /// </summary>
-    /// <typeparam name="T">the mapped class</typeparam>
+    /// <typeparam name="T">&nbsp;the mapped class</typeparam>
     public abstract class AbstractEbcdicReaderMapper<T> : AbstractEbcdicMapper, IInitializationPostOperations, IEbcdicReaderMapper<T>
     {
 
@@ -140,7 +140,7 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <param name="itemCount">the record number</param>
         /// <param name="mapper">the mapper to use for mapping the sub lists</param>
         /// <returns>a list of business objects created using the mapper</returns>
-        /// <typeparam name="TSub"></typeparam>
+        /// <typeparam name="TSub">&nbsp;</typeparam>
         protected IList<TSub> SubMap<TSub>(IList<object> values, int itemCount, IEbcdicReaderMapper<TSub> mapper)
         {
             return values.Select(value => mapper.Map((IList<object>)value, itemCount)).ToList();

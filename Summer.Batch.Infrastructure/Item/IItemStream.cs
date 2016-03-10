@@ -46,8 +46,8 @@ namespace Summer.Batch.Infrastructure.Item
         /// </summary>
         /// <param name="executionContext">current step's ExecutionContext.  Will be the
         /// executionContext from the last run of the step on a restart.</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         void Open(ExecutionContext executionContext);
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace Summer.Batch.Infrastructure.Item
         /// has not been put in the context, it should be added here.
         /// </summary>
         /// <param name="executionContext">to be updated</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         void Update(ExecutionContext executionContext);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Summer.Batch.Infrastructure.Item
         /// If any resources are needed for the stream to operate they need to be destroyed here. Once this method has been
         /// called all other methods (except open) may throw an exception.
         /// </summary>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         void Close();
     }
 }

@@ -52,8 +52,8 @@ namespace Summer.Batch.Common.Collections
     /// <summary>
     /// Dictionary that preserves the insertion order during enumeration.
     /// </summary>
-    /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
-    /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+    /// <typeparam name="TKey">&nbsp;The type of keys in the dictionary.</typeparam>
+    /// <typeparam name="TValue">&nbsp;The type of values in the dictionary.</typeparam>
     [Serializable]
     public class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ISerializable
     {
@@ -78,7 +78,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="capacity">Initial number of elements that the dictionary can contain.</param>
         /// <param name="comparer">Comparer to use when comparing keys</param>
-        /// <exception cref="ArgumentOutOfRangeException">capacity is less than 0</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;capacity is less than 0</exception>
         public OrderedDictionary(int capacity = 0, IEqualityComparer<TKey> comparer = null)
         {
             if (capacity < 0)
@@ -182,7 +182,7 @@ namespace Summer.Batch.Common.Collections
         /// </summary>
         /// <param name="key">The key to remove</param>
         /// <returns>whether the key was found in the dictionary and an actual removal happened</returns>
-        /// <exception cref="ArgumentNullException">if key is null</exception>
+        /// <exception cref="ArgumentNullException">&nbsp;if key is null</exception>
         public bool Remove(TKey key)
         {
             LinkedListNode<KeyValuePair<TKey, TValue>> lln;

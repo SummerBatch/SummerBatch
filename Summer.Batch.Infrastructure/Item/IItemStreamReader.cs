@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item
     /// <summary>
     /// Convenience interface that combines <see cref="IItemStream"/> and <see cref="T:IItemReader"/>.
     /// </summary>
-    /// <typeparam name="T">the type of the read items</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the read items</typeparam>
     public interface IItemStreamReader<out T> : IItemStream, IItemReader<T> where T : class
     {
          

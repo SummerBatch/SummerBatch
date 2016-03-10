@@ -52,7 +52,7 @@ namespace Summer.Batch.Core.Step
         /// Checks if step execution has been interrupted. Throws a JobInterrupdeException in that case.
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="JobInterruptedException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
         public void CheckInterrupted(StepExecution stepExecution)
         {
             if (IsInterrupted(stepExecution))

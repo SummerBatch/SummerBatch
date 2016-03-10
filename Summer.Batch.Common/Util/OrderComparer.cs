@@ -19,7 +19,7 @@ namespace Summer.Batch.Common.Util
     /// <summary>
     /// Comparer based on <see cref="Order"/>.
     /// </summary>
-    /// <typeparam name="T">The type of objects to compare.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of objects to compare.</typeparam>
     public class OrderComparer<T> : IComparer<T>
     {
         /// <summary>

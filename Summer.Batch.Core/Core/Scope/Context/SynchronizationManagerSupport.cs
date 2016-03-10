@@ -43,8 +43,8 @@ namespace Summer.Batch.Core.Scope.Context
     /// <summary>
     ///  Central convenience class for framework use in managing the scope context.
     /// </summary>
-    /// <typeparam name="TExecution">the type of the execution</typeparam>
-    /// <typeparam name="TContext">the type of the stored context</typeparam>
+    /// <typeparam name="TExecution">&nbsp;the type of the execution</typeparam>
+    /// <typeparam name="TContext">&nbsp;the type of the stored context</typeparam>
     public abstract class SynchronizationManagerSupport<TExecution, TContext> : IDisposable where TContext : class where TExecution:class
     {
         // We have to deal with single and multi-threaded execution, with a single

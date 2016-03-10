@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Accessor
     /// <summary>
     /// Interface for getting and setting values in array of bytes records
     /// </summary>
-    /// <typeparam name="T">the type of the accessed value</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the accessed value</typeparam>
     public interface IAccessor<T>
     {
         /// <summary>

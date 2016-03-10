@@ -41,7 +41,7 @@ namespace Summer.Batch.Common.Util
         /// <summary>
         /// Deserializes a byte array to an object.
         /// </summary>
-        /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
+        /// <typeparam name="T">&nbsp;The type of the object to deserialize to.</typeparam>
         /// <param name="bytes">The byte array to deserialize.</param>
         /// <returns>The deserialized object.</returns>
         public static T Deserialize<T>(this byte[] bytes)

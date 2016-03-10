@@ -64,7 +64,7 @@ namespace Summer.Batch.Core.Partition
         /// <param name="stepExecution">the StepExecution to be partitioned.</param>
         /// <param name="gridSize"> a hint for the splitter if the size of the grid is known</param>
         /// <returns>a set of StepExecution instances for remote processing</returns>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         HashSet<StepExecution> Split(StepExecution stepExecution, int gridSize);
     }
 }

@@ -39,7 +39,7 @@ namespace Summer.Batch.Common.Property
         /// </summary>
         /// <param name="propertyPath">the path to the property to retrieve</param>
         /// <returns>the value of the property</returns>
-        /// <exception cref="InvalidPropertyException">if the property does not exist</exception>
+        /// <exception cref="InvalidPropertyException">&nbsp;if the property does not exist</exception>
         public object GetProperty(string propertyPath)
         {
             var properties = propertyPath.Split('.');
@@ -64,7 +64,7 @@ namespace Summer.Batch.Common.Property
         /// <param name="propertyName">the name of a property</param>
         /// <param name="collection">the property collection to search</param>
         /// <returns>the corresponding property descriptor</returns>
-        /// <exception cref="InvalidPropertyException">if the property does not exist</exception>
+        /// <exception cref="InvalidPropertyException">&nbsp;if the property does not exist</exception>
         private PropertyDescriptor GetPropertyDescriptor(string propertyName, PropertyDescriptorCollection collection)
         {
             var property = collection.Find(propertyName, true);

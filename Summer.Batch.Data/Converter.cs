@@ -28,10 +28,10 @@ namespace Summer.Batch.Data
         /// <summary>
         /// Converts an object to the specified type.
         /// </summary>
-        /// <typeparam name="T">the type to convert to</typeparam>
+        /// <typeparam name="T">&nbsp;the type to convert to</typeparam>
         /// <param name="obj">the object to convert</param>
         /// <returns><paramref name="obj"/> converted to type <typeparamref name="T"/>.</returns>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <paramref name="obj"/> cannot be converted to type <typeparamref name="T"/>
         /// </exception>
         public static T Convert<T>(object obj)
@@ -45,7 +45,7 @@ namespace Summer.Batch.Data
         /// <param name="obj">the object to convert</param>
         /// <param name="type">the type to convert to</param>
         /// <returns><paramref name="obj"/> converted to type <paramref name="type"/>.</returns>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidOperationException">&nbsp;
         /// if <paramref name="obj"/> cannot be converted to type <paramref name="type"/>
         /// </exception>
         public static object Convert(object obj, Type type)

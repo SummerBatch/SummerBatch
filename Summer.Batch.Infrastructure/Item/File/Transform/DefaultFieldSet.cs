@@ -90,7 +90,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="names">an array containing the names of the fields</param>
         /// <param name="values">an array containing the values of the fields</param>
-        /// <exception cref="ArgumentException">if names and values do not have the same length</exception>
+        /// <exception cref="ArgumentException">&nbsp;if names and values do not have the same length</exception>
         public DefaultFieldSet(string[] names, string[] values) : this(values)
         {
             Assert.NotNull(names, "names must not be null");
@@ -107,7 +107,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the trimmed content of the field</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public string ReadString(int index)
         {
             return ReadAndTrim(index);
@@ -118,7 +118,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the trimmed content of the field</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public string ReadString(string name)
         {
             return ReadString(IndexOf(name));
@@ -129,7 +129,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the raw content of the field</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public string ReadRawString(int index)
         {
             if (index < 0 || index >= Values.Length)
@@ -144,7 +144,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the raw content of the field</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public string ReadRawString(string name)
         {
             return ReadRawString(IndexOf(name));
@@ -154,9 +154,9 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// Reads a field as a boolean.
         /// </summary>
         /// <param name="index">the index of the field to read</param>
-        /// <param name="trueValue">the literal corresponding to true (default is <code>"true"</code>)</param>
+        /// <param name="trueValue">the literal corresponding to true (default is <c>"true"</c>)</param>
         /// <returns>true if the field contains trueValue, false otherwise</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public bool ReadBoolean(int index, string trueValue = "true")
         {
             Assert.NotNull(trueValue, "trueValue must not be null");
@@ -167,9 +167,9 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// Reads a field as a boolean.
         /// </summary>
         /// <param name="name">the name of the field to read</param>
-        /// <param name="trueValue">the literal corresponding to true (default is <code>"true"</code>)</param>
+        /// <param name="trueValue">the literal corresponding to true (default is <c>"true"</c>)</param>
         /// <returns>true if the field contains trueValue, false otherwise</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public bool ReadBoolean(string name, string trueValue = "true")
         {
             return ReadBoolean(IndexOf(name), trueValue);
@@ -180,7 +180,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read character</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public char ReadChar(int index)
         {
             return char.Parse(ReadAndTrim(index));
@@ -191,7 +191,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read character</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public char ReadChar(string name)
         {
             return ReadChar(IndexOf(name));
@@ -202,7 +202,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read byte</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public byte ReadByte(int index)
         {
             return byte.Parse(ReadAndTrim(index));
@@ -213,7 +213,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read byte</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public byte ReadByte(string name)
         {
             return ReadByte(IndexOf(name));
@@ -224,7 +224,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read short</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public short ReadShort(int index)
         {
             return short.Parse(ReadAndTrim(index));
@@ -235,7 +235,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read short</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public short ReadShort(string name)
         {
             return ReadShort(IndexOf(name));
@@ -246,7 +246,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read int</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public int ReadInt(int index)
         {
             return int.Parse(ReadAndTrim(index));
@@ -257,7 +257,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read int</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public int ReadInt(string name)
         {
             return ReadInt(IndexOf(name));
@@ -269,7 +269,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="index">the index of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read int</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public int ReadInt(int index, int defaultValue)
         {
             var value = ReadAndTrim(index);
@@ -282,7 +282,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="name">the name of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read int</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public int ReadInt(string name, int defaultValue)
         {
             return ReadInt(IndexOf(name), defaultValue);
@@ -293,7 +293,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read long</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public long ReadLong(int index)
         {
             return long.Parse(ReadAndTrim(index));
@@ -304,7 +304,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read long</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public long ReadLong(string name)
         {
             return ReadLong(IndexOf(name));
@@ -316,7 +316,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="index">the index of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read long</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public long ReadLong(int index, long defaultValue)
         {
             var value = ReadAndTrim(index);
@@ -329,7 +329,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="name">the name of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read long</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public long ReadLong(string name, long defaultValue)
         {
             return ReadLong(IndexOf(name), defaultValue);
@@ -340,7 +340,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read float</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public float ReadFloat(int index)
         {
             return float.Parse(ReadAndTrim(index), Culture);
@@ -351,7 +351,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read float</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public float ReadFloat(string name)
         {
             return ReadFloat(IndexOf(name));
@@ -362,7 +362,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read double</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public double ReadDouble(int index)
         {
             return double.Parse(ReadAndTrim(index), Culture);
@@ -373,7 +373,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read double</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public double ReadDouble(string name)
         {
             return ReadDouble(IndexOf(name));
@@ -384,7 +384,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read decimal</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public decimal ReadDecimal(int index)
         {
             return decimal.Parse(ReadAndTrim(index), Culture);
@@ -395,7 +395,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read decimal</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public decimal ReadDecimal(string name)
         {
             return ReadDecimal(IndexOf(name));
@@ -407,7 +407,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="index">the index of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read decimal</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public decimal ReadDecimal(int index, decimal defaultValue)
         {
             var value = ReadAndTrim(index);
@@ -420,7 +420,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="name">the name of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read decimal</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public decimal ReadDecimal(string name, decimal defaultValue)
         {
             return ReadDecimal(IndexOf(name), defaultValue);
@@ -431,7 +431,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="index">the index of the field to read</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public DateTime ReadDate(int index)
         {
             return ReadDate(index, DatePattern);
@@ -442,7 +442,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// </summary>
         /// <param name="name">the name of the field to read</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public DateTime ReadDate(string name)
         {
             return ReadDate(IndexOf(name));
@@ -454,7 +454,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="index">the index of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public DateTime ReadDate(int index, DateTime defaultValue)
         {
             return ReadDate(index, DatePattern, defaultValue);
@@ -466,7 +466,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="name">the name of the field to read</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public DateTime ReadDate(string name, DateTime defaultValue)
         {
             return ReadDate(IndexOf(name), defaultValue);
@@ -478,7 +478,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="index">the index of the field to read</param>
         /// <param name="pattern">the pattern to use to parse the date</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if the index does not correspond to a field</exception>
+        /// <exception cref="ArgumentOutOfRangeException">&nbsp;if the index does not correspond to a field</exception>
         public DateTime ReadDate(int index, string pattern)
         {
             return DateTime.ParseExact(ReadAndTrim(index), pattern, Culture);
@@ -490,7 +490,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="name">the name of the field to read</param>
         /// <param name="pattern">the pattern to use to parse the date</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public DateTime ReadDate(string name, string pattern)
         {
             return ReadDate(IndexOf(name), pattern);
@@ -516,7 +516,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         /// <param name="pattern">the pattern to use to parse the date</param>
         /// <param name="defaultValue">the default value if the field is blank</param>
         /// <returns>the read date</returns>
-        /// <exception cref="ArgumentException">if no field has the given name</exception>
+        /// <exception cref="ArgumentException">&nbsp;if no field has the given name</exception>
         public DateTime ReadDate(string name, string pattern, DateTime defaultValue)
         {
             return ReadDate(IndexOf(name), pattern, defaultValue);

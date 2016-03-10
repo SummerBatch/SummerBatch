@@ -39,7 +39,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
     /// An implementation of <see cref="T:ILineAggregator"/> that converts an object
     /// into a delimited list of strings. The default delimiter is a comma.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class DelimitedLineAggregator<T> : ExtractorLineAggregator<T> where T : class
     {
         /// <summary>

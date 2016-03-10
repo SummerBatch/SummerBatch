@@ -38,7 +38,7 @@ namespace Summer.Batch.Infrastructure.Item.File.Mapping
     /// <summary>
     /// Interface used to map a <see cref="IFieldSet"/> to an item.
     /// </summary>
-    /// <typeparam name="T">the type of the created items</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the created items</typeparam>
     public interface IFieldSetMapper<out T>
     {
         /// <summary>

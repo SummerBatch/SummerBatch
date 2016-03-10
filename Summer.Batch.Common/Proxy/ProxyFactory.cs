@@ -67,7 +67,7 @@ namespace Summer.Batch.Common.Proxy
         /// <summary>
         /// Creates a new proxy for the specified interface and optionally sets its underlying instance.
         /// </summary>
-        /// <typeparam name="T">the interface to proxy</typeparam>
+        /// <typeparam name="T">&nbsp;the interface to proxy</typeparam>
         /// <param name="superType">the super-type of the proxy object</param>
         /// <param name="instance">the underlying instance</param>
         /// <returns>a new proxy for the specified interface</returns>

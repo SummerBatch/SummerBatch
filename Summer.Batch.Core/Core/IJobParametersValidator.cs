@@ -45,7 +45,7 @@ namespace Summer.Batch.Core
         /// throw an exception if not.
         /// </summary>
         /// <param name="parameters"></param>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         void Validate(JobParameters parameters);
     }
 }

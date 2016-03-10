@@ -43,7 +43,7 @@ namespace Summer.Batch.Core.Configuration
         /// Registers a job at runtime.
         /// </summary>
         /// <param name="jobFactory">the job to be registered</param>
-        /// <exception cref="DuplicateJobException">if a factory with the same job name has already been registered</exception>
+        /// <exception cref="DuplicateJobException">&nbsp;if a factory with the same job name has already been registered</exception>
         void Register(IJobFactory jobFactory);
 
         /// <summary>

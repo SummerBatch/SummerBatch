@@ -20,7 +20,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Accessor
     /// Implementation of <see cref="IAccessor{T}"/> that returns a constant.
     /// <see cref="Set"/> is not supported.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class ConstantAccessor<T> : IAccessor<T>
     {
         /// <summary>
@@ -38,7 +38,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Accessor
             return Constant;
         }
 
-        /// <exception cref="InvalidOperationException">this operation is not supported and will always throw this exception</exception>
+        /// <exception cref="InvalidOperationException">&nbsp;this operation is not supported and will always throw this exception</exception>
         public void Set(byte[] record, T value)
         {
             throw new InvalidOperationException("Cannot set value on a constant accessor");

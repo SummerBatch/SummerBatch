@@ -71,7 +71,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// Retrieves job executions by their job instance. The corresponding step
         /// executions may not be fully hydrated (e.g. their execution context may be
         /// missing), depending on the implementation. Use
-        /// GetStepExecution(Long, Long) to hydrate them in that case.
+        /// <see cref="GetStepExecution"/> to hydrate them in that case.
         /// </summary>
         /// <param name="jobInstance">the JobInstance to query</param>
         /// <returns>the set of all executions for the specified JobInstance</returns>
@@ -119,7 +119,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// contexts).
         /// </summary>
         /// <param name="executionId">the job execution id</param>
-        /// <returns>the JobExecution with this id, or null if not found</returns>
+        /// <returns>the JobExecution with this id, or <c>null</c> if not found</returns>
         public JobExecution GetJobExecution(long executionId)
         {
             JobExecution jobExecution = _jobExecutionDao.GetJobExecution(executionId);
@@ -143,7 +143,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// </summary>
         /// <param name="jobExecutionId">the parent job execution id</param>
         /// <param name="executionId">the step execution id</param>
-        /// <returns>the StepExecution with this id, or null if not found</returns>
+        /// <returns>the StepExecution with this id, or <c>null</c> if not found</returns>
         public StepExecution GetStepExecution(long jobExecutionId, long executionId)
         {
             JobExecution jobExecution = _jobExecutionDao.GetJobExecution(jobExecutionId);
@@ -157,12 +157,11 @@ namespace Summer.Batch.Core.Explore.Support
             return stepExecution;
         }
 
-
-        ///<summary>
+        /// <summary>
         /// Gets the JobInstance for the given instance id.
         /// </summary>
-        /// <param name="instanceId"></param>
-        /// <returns>the JobInstance with this id, or null</returns>
+        /// <param name="instanceId">the instance id</param>
+        /// <returns>the JobInstance with this id, or <c>null</c></returns>
         public JobInstance GetJobInstance(long instanceId)
         {
             return _jobInstanceDao.GetJobInstance(instanceId);
@@ -195,7 +194,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// </summary>
         /// <param name="jobName">the name of the job to query for</param>
         /// <returns>the number of JobInstances that exist within the associated job repository</returns>
-        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException"/>
+        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException">&nbsp;if no jobinstance could be found for the given name</exception>
         public int GetJobInstanceCount(string jobName)
         {
             return _jobInstanceDao.GetJobInstanceCount(jobName);
@@ -208,7 +207,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// Finds all dependencies for a JobExecution, including JobInstance (which
         /// requires JobParameters) plus StepExecutions.
         /// </summary>
-        /// <param name="jobExecution"></param>
+        /// <param name="jobExecution">the given job execution</param>
         private void GetJobExecutionDependencies(JobExecution jobExecution)
         {
             JobInstance jobInstance = _jobInstanceDao.GetJobInstance(jobExecution);
@@ -220,7 +219,7 @@ namespace Summer.Batch.Core.Explore.Support
         /// <summary>
         /// Gets execution dependencies for a given StepExecution.
         /// </summary>
-        /// <param name="stepExecution"></param>
+        /// <param name="stepExecution">the given step execution</param>
         private void GetStepExecutionDependencies(StepExecution stepExecution)
         {
             if (stepExecution != null)

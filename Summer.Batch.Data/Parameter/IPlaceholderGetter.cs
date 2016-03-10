@@ -21,7 +21,7 @@ namespace Summer.Batch.Data.Parameter
     {
         /// <summary>
         /// Whether the placeholders provided by this <see cref="IPlaceholderGetter"/>
-        /// are named. If <code>false</code>, they are position-based.
+        /// are named. If <c>false</c>, they are position-based.
         /// </summary>
         bool Named { get; }
 

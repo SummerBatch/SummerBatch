@@ -36,7 +36,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// <summary>
     /// Interface for mapping lines to entities.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface ILineMapper<out T>
     {
         /// <summary>

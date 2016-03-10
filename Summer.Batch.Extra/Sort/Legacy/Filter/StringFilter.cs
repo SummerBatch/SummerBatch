@@ -25,7 +25,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Filter
     {
         /// <summary>
         /// The encoding to use for sorting. Used for legacy orders (like EBCDIC).
-        /// Default is <code>null</code>.
+        /// Default is <c>null</c>.
         /// </summary>
         public Encoding SortEncoding { get; set; }
 

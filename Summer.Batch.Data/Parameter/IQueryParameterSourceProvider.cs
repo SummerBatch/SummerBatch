@@ -17,7 +17,7 @@ namespace Summer.Batch.Data.Parameter
     /// <summary>
     /// Interface in charge of providing <see cref="IQueryParameterSource"/> for items.
     /// </summary>
-    /// <typeparam name="T">the type of the items that this provider supports</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the items that this provider supports</typeparam>
     public interface IQueryParameterSourceProvider<in T>
     {
         /// <summary>

@@ -28,7 +28,7 @@ namespace Summer.Batch.Extra.Delegating
     /// the supplied rupture definition (list of fields separated
     /// by commas).
     /// </summary>
-    /// <typeparam name="T">The type of objects read by the reader</typeparam>
+    /// <typeparam name="T">&nbsp;The type of objects read by the reader</typeparam>
     public class DelegatingGroupReader<T> : IItemStreamReader<List<T>> where T : class
     {
 
@@ -136,7 +136,7 @@ namespace Summer.Batch.Extra.Delegating
         /// Read through the delegate, grouping records in a list.
         /// </summary>
         /// <returns> the list of read records</returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public List<T> Read()
         {
             List<T> toReturn = null;

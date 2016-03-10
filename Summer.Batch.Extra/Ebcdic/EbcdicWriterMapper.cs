@@ -134,7 +134,7 @@ namespace Summer.Batch.Extra.Ebcdic
         /// <summary>
         /// dynamic types handling
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">&nbsp;</typeparam>
         /// <param name="result"></param>
         /// <param name="fieldsGroup"></param>
         /// <param name="writtenNumbers"></param>

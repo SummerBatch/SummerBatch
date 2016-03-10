@@ -97,7 +97,7 @@ namespace Summer.Batch.Core.Job.Flow.Support
         /// Performs post-initialization checks.
         /// see IInitializationPostOperations#AfterPropertiesSet .
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public void AfterPropertiesSet()
         {
             if (StartState == null)
@@ -144,7 +144,7 @@ namespace Summer.Batch.Core.Job.Flow.Support
         /// </summary>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="FlowExecutionException"></exception>
+        /// <exception cref="FlowExecutionException">&nbsp;</exception>
         public FlowExecution Start(IFlowExecutor executor)
         {
             if (StartState == null)
@@ -162,7 +162,7 @@ namespace Summer.Batch.Core.Job.Flow.Support
         /// <param name="stateName"></param>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="FlowExecutionException"></exception>
+        /// <exception cref="FlowExecutionException">&nbsp;</exception>
         public FlowExecution Resume(string stateName, IFlowExecutor executor)
         {
             FlowExecutionStatus status = FlowExecutionStatus.Unkown;
@@ -231,7 +231,7 @@ namespace Summer.Batch.Core.Job.Flow.Support
         /// <param name="status"></param>
         /// <param name="stepExecution"></param>
         /// <returns></returns>
-        /// <exception cref="FlowExecutionException"></exception>
+        /// <exception cref="FlowExecutionException">&nbsp;</exception>
         protected IState NextState(string stateName, FlowExecutionStatus status, StepExecution stepExecution)
         {
             ICollection<StateTransition> set;
@@ -307,7 +307,7 @@ namespace Summer.Batch.Core.Job.Flow.Support
         /// <summary>
         /// Analyse the transitions provided and generate all the information needed to execute the flow.
         /// </summary>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">&nbsp;</exception>
         private void InitializeTransitions()
         {
             StartState = null;

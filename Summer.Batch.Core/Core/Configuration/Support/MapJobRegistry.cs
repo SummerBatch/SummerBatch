@@ -54,7 +54,7 @@ namespace Summer.Batch.Core.Configuration.Support
         /// Registers a job at runtime.
         /// </summary>
         /// <param name="jobFactory">the job to be registered</param>
-        /// <exception cref="DuplicateJobException">if a factory with the same job name has already been registered</exception>
+        /// <exception cref="DuplicateJobException">&nbsp;if a factory with the same job name has already been registered</exception>
         public void Register(IJobFactory jobFactory)
         {
             Assert.NotNull(jobFactory);
@@ -87,7 +87,7 @@ namespace Summer.Batch.Core.Configuration.Support
         /// </summary>
         /// <param name="name">the name of the Job which should be unique</param>
         /// <returns>a Job identified by the given name</returns>
-        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException"/>
+        /// <exception cref="T:Summer.Batch.Core.Launch.NoSuchJobException">&nbsp;if no job with given name could be located</exception>
         public IJob GetJob(string name)
         {
             IJobFactory factory;

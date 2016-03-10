@@ -45,7 +45,7 @@ namespace Summer.Batch.Core.Step.Item
     /// over the chunk , and if there is a failure call Remove() on the items list.
     /// The skipped items are then available through the chunk.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class Chunk<T>
     {
         #region Attributes

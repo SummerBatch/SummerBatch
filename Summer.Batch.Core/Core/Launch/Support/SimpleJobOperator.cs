@@ -104,7 +104,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// post-init checks.
         /// IInitializationPostOperations#AfterPropertiesSet
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public void AfterPropertiesSet()
         {
             Assert.NotNull(JobLauncher, "JobLauncher must be provided");
@@ -119,7 +119,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="instanceId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobInstanceException"></exception>
+        /// <exception cref="NoSuchJobInstanceException">&nbsp;</exception>
         public IList<long?> GetExecutions(long instanceId)
         {
             JobInstance jobInstance = JobExplorer.GetJobInstance(instanceId);
@@ -146,7 +146,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// <param name="start"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobExecutionException"></exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;</exception>
         public IList<long?> GetJobInstances(string jobName, int start, int count)
         {
             IList<JobInstance> jobInstances = JobExplorer.GetJobInstances(jobName, start, count);
@@ -163,7 +163,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobExecutionException"></exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;</exception>
         public string GetParameters(long executionId)
         {
             JobExecution jobExecution = FindExecutionById(executionId);
@@ -175,7 +175,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="jobName"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobException"></exception>
+        /// <exception cref="NoSuchJobException">&nbsp;</exception>
         public ICollection<long?> GetRunningExecutions(string jobName)
         {
             // SLE: OrderedSet is not a ISet: must return a Collection (Interface changed for that purpose)
@@ -196,7 +196,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobExecutionException"></exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;</exception>
         public IDictionary<long?, string> GetStepExecutionSummaries(long executionId)
         {
             JobExecution jobExecution = FindExecutionById(executionId);
@@ -215,7 +215,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobExecutionException"></exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;</exception>
         public string GetSummary(long executionId)
         {
             JobExecution jobExecution = FindExecutionById(executionId);
@@ -227,11 +227,11 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="JobInstanceAlreadyCompleteException"></exception>
-        /// <exception cref="NoSuchJobExecutionException"></exception>
-        /// <exception cref="NoSuchJobException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="JobInstanceAlreadyCompleteException">&nbsp;</exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;</exception>
+        /// <exception cref="NoSuchJobException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         public long? Restart(long executionId)
         {
             _logger.Info("Checking status of job execution with id= {0}",executionId);
@@ -259,9 +259,9 @@ namespace Summer.Batch.Core.Launch.Support
         /// <param name="jobName"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobException"></exception>
-        /// <exception cref="JobInstanceAlreadyExistsException"></exception>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="NoSuchJobException">&nbsp;</exception>
+        /// <exception cref="JobInstanceAlreadyExistsException">&nbsp;</exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         public long? Start(string jobName, string parameters)
         {
             _logger.Info("Checking status of job with name= {0}", jobName);
@@ -298,10 +298,10 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="jobName"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobException"></exception>
-        /// <exception cref="JobParametersNotFoundException"></exception>
-        /// <exception cref="UnexpectedJobExecutionException"></exception>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="NoSuchJobException">&nbsp;</exception>
+        /// <exception cref="JobParametersNotFoundException">&nbsp;</exception>
+        /// <exception cref="UnexpectedJobExecutionException">&nbsp;</exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         public long? StartNextInstance(string jobName)
         {
             _logger.Info("Locating parameters for next instance of job with name={0}", jobName);
@@ -357,8 +357,8 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobException"></exception>
-        /// <exception cref="JobExecutionNotRunningException"></exception>
+        /// <exception cref="NoSuchJobException">&nbsp;</exception>
+        /// <exception cref="JobExecutionNotRunningException">&nbsp;</exception>
         public bool Stop(long executionId)
         {
             JobExecution jobExecution = FindExecutionById(executionId);
@@ -448,7 +448,7 @@ namespace Summer.Batch.Core.Launch.Support
         /// </summary>
         /// <param name="executionId"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchJobExecutionException">if no jobexecution can be found for the given id</exception>
+        /// <exception cref="NoSuchJobExecutionException">&nbsp;if no jobexecution can be found for the given id</exception>
         private JobExecution FindExecutionById(long executionId)
         {
             JobExecution jobExecution = JobExplorer.GetJobExecution(executionId);

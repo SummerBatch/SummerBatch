@@ -54,12 +54,12 @@ namespace Summer.Batch.Core.Configuration.Support
 
         /// <summary>
         /// Registers all the step of the given job. If the job is already registered,
-        /// the method #UnregisterStepsFromJob(string)} is called before registering
+        /// the method <see cref="UnregisterStepFromJob"/> is called before registering
         /// the given steps.
         /// </summary>
         /// <param name="jobName"> the given job name</param>
         /// <param name="steps"> the job steps</param>
-        /// <exception cref="DuplicateJobException"> if a job with the same job name has already been registered.</exception>
+        /// <exception cref="DuplicateJobException">&nbsp; if a job with the same job name has already been registered.</exception>
         public void Register(string jobName, ICollection<IStep> steps)
         {
             Assert.NotNull(jobName, "The job name cannot be null.");
@@ -100,8 +100,8 @@ namespace Summer.Batch.Core.Configuration.Support
         /// <param name="jobName"> the name of the job</param>
         /// <param name="stepName"> the name of the step to retrieve</param>
         /// <returns>the step with the given name belonging to the mentioned job</returns>
-        /// <exception cref="NoSuchJobException"> no such job with that name exists</exception>
-        /// <exception cref="NoSuchStepException"> no such step with that name for that job exists</exception>
+        /// <exception cref="NoSuchJobException">&nbsp; no such job with that name exists</exception>
+        /// <exception cref="NoSuchStepException">&nbsp; no such step with that name for that job exists</exception>
         public IStep GetStep(string jobName, string stepName)
         {
             Assert.NotNull(jobName, "The job name cannot be null.");

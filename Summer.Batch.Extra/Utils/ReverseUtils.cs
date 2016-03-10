@@ -33,30 +33,30 @@ namespace Summer.Batch.Extra.Utils
         private static readonly string GET = "get";
 
         /// <summary>
-        /// Check if the given character is '\u0000' ASCII value.
+        /// Check if the given character is <c>'\\u0000'</c> ASCII value.
         /// </summary>
         /// <param name="character">char</param>  
-        /// <returns>true if char is matching '\u0000' ASCII value. Otherwise false.</returns> 
+        /// <returns><c>true</c> if char is matching <c>'\\u0000'</c> ASCII value. Otherwise <c>false</c>.</returns> 
         public static bool IsCharLowValue(char character)
         {
             return character == '\u0000';
         }
 
         /// <summary>
-        /// Check if the given character is '\u009F' ASCII value.
+        /// Check if the given character is <c>'\\u009F'</c> ASCII value.
         /// </summary>
         /// <param name="character"> character char</param>
-        /// <returns>true if char is matching '\u009F' ASCII value. Otherwise false.</returns>
+        /// <returns><c>true</c> if char is matching <c>'\\u009F'</c> ASCII value. Otherwise <c>false</c>.</returns>
         public static bool IsCharHighValue(char character) 
         {
             return character == '\u009F';
         }
 
         /// <summary>
-        /// Check if characters of the given string are all '\u0000' ASCII value.
+        /// Check if characters of the given string are all <c>'\\u0000'</c> ASCII value.
         /// </summary>
         /// <param name="str">string</param>  
-        /// <returns>true if all characters of given string are matching '\u0000' ASCII value. Otherwise false.</returns>
+        /// <returns><c>true</c> if all characters of given string are matching <c>'\\u0000'</c> ASCII value. Otherwise <c>false</c>.</returns>
         public static bool IsStringLowValue(string str) 
         {
             var result = true;
@@ -76,10 +76,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Check if characters of the given string are all '\u009F' ASCII value.
+        /// Check if characters of the given string are all <c>'\\u009F'</c> ASCII value.
         /// </summary>
         /// <param name="str">string</param>  
-        /// <returns>true if all characters of given string are matching '\u009F' ASCII value. Otherwise false.</returns>
+        /// <returns><c>true</c> if all characters of given string are matching <c>'\\u009F'</c> ASCII value. Otherwise <c>false</c>.</returns>
         public static bool IsStringHighValue(string str) 
         {
             var result = true;
@@ -99,10 +99,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Convert a bool to "Y" or "N" string.
+        /// Convert a bool to <c>"Y"</c> or <c>"N"</c> string.
         /// </summary>
         /// <param name="boolean">bool</param>
-        /// <returns>"Y" if boolean == true, "N" if boolean == false. Otherwise null.</returns> 
+        /// <returns><c>"Y"</c> if <c>boolean == true</c>, <c>"N"</c> if <c>boolean == false</c>. Otherwise <c>null</c>.</returns> 
         public static string ConvertBooleanToStringYN(bool? boolean)
         {
             string stringValue = null;
@@ -114,10 +114,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Convert a bool to "O" or "N" string.
+        /// Convert a bool to <c>"O"</c> or <c>"N"</c> string.
         /// </summary>
         /// <param name="boolean">bool</param>
-        /// <returns>"O" if parameter is true, "N" if parameter is false. Otherwise null.</returns> 
+        /// <returns><c>"O"</c> if parameter is <c>true</c>, <c>"N"</c> if parameter is <c>false</c>. Otherwise <c>null</c>.</returns> 
         public static string ConvertBooleanToStringON(bool? boolean)
         {
             string stringValue = null;
@@ -129,10 +129,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Convert a "Y" or "N" string to bool.
+        /// Convert a <c>"Y"</c> or <c>"N"</c> string to bool.
         /// </summary>
         /// <param name="str">string</param>  
-        /// <returns>true if parameter matches "Y", false if parameter matches "N". Otherwise null.</returns> 
+        /// <returns><c>true</c> if parameter matches <c>"Y"</c>, <c>false</c> if parameter matches <c>"N"</c>. Otherwise <c>null</c>.</returns> 
         public static bool? ConvertStringToBooleanYN(string str)
         {
             bool? boolean = null;
@@ -151,10 +151,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Convert a "O" or "N" string to bool.
+        /// Convert a <c>"O"</c> or <c>"N"</c> string to bool.
         /// </summary>
         /// <param name="str">string</param>
-        /// <returns>true if parameter matches "O", false if parameter matches "N". Otherwise null.</returns> 
+        /// <returns><c>true</c> if parameter matches <c>"O"</c>, false if parameter matches <c>"N"</c>. Otherwise <c>null</c>.</returns> 
         public static bool? ConvertStringToBooleanON(string str)
         {
             bool? boolean = null;
@@ -173,10 +173,10 @@ namespace Summer.Batch.Extra.Utils
         }
 
         /// <summary>
-        /// Check if all attributes of the object, whose types are Number, String or Date, are null or are empty/whitespace strings.
+        /// Check if all attributes of the object, whose types are Number, String or Date, are <c>null</c> or are empty/whitespace strings.
         /// </summary>
         /// <param name="obj">objet</param>
-        /// <returns>true if all attributes of the object, whose types are Number, String or Date, are null or are empty/whitespace strings.</returns>
+        /// <returns><c>true</c> if all attributes of the object, whose types are Number, String or Date, are <c>null</c> or are empty/whitespace strings.</returns>
         public static bool IsSpaces(object obj)
         {
             bool isSpaces = true;

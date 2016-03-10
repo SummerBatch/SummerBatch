@@ -46,7 +46,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// A restartable <see cref="T:Summer.Batch.Item.ItemReader"/> that reads lines from a <see cref="T:Summer.Batch.IO.Resource"/>.
     /// A line is mapped using a <see cref="T:Summer.Batch.Item.File.LineMapper"/>.
     /// </summary>
-    /// <typeparam name="T">the type of the entities read from the resource</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the entities read from the resource</typeparam>
     public class FlatFileItemReader<T> : AbstractItemCountingItemStreamItemReader<T>, IResourceAwareItemReaderItemStream<T>, IInitializationPostOperations
         where T : class
     {
@@ -59,7 +59,7 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// <summary>
         /// Determines if the reader is in strict mode.
         /// In strict mode it will throw an exception if the resource cannot be read.
-        /// Default is <code>true</code>.
+        /// Default is <c>true</c>.
         /// </summary>
         public bool Strict { private get; set; }
 

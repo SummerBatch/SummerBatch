@@ -49,7 +49,7 @@ namespace Summer.Batch.Common.TaskExecution
         /// or might block in the case of synchronous execution. 
         /// </summary>
         /// <param name="task">the Task to execute (never null).</param>
-        /// <exception cref="TaskRejectedException">If the given task was not accepted.</exception>
+        /// <exception cref="TaskRejectedException">&nbsp;If the given task was not accepted.</exception>
         void Execute(Task task);
     }
 }

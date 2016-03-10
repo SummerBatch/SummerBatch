@@ -57,7 +57,7 @@ namespace Summer.Batch.Core.Partition
         /// <param name="stepSplitter">a strategy for generating a collection of <see cref="StepExecution"/> instances</param>
         /// <param name="stepExecution">the master step execution for the whole partition</param>
         /// <returns>a collection of completed StepExecution instances</returns>
-        /// <exception cref="Exception">if anything goes wrong. This allows implementations to
+        /// <exception cref="Exception">&nbsp;if anything goes wrong. This allows implementations to
         /// be liberal and rely on the caller to translate an exception into a step
         /// failure as necessary.</exception>
         ICollection<StepExecution> Handle(IStepExecutionSplitter stepSplitter, StepExecution stepExecution);

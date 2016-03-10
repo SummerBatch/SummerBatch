@@ -53,7 +53,7 @@ namespace Summer.Batch.Core.Job
         /// Validate job parameters (delegates to each validator).
         /// </summary>
         /// <param name="parameters"></param>
-        /// <exception cref="JobParametersInvalidException"></exception>
+        /// <exception cref="JobParametersInvalidException">&nbsp;</exception>
         public void Validate(JobParameters parameters)
         {
             foreach (var validator in Validators)

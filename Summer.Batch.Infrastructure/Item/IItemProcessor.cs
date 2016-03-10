@@ -40,8 +40,8 @@ namespace Summer.Batch.Infrastructure.Item
     /// into the output (TOut). Input and Output types can be different.
     /// Convention: Returning null indicates that this item should not be continued to be processed.
     /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
+    /// <typeparam name="TIn">&nbsp;</typeparam>
+    /// <typeparam name="TOut">&nbsp;</typeparam>
     public interface IItemProcessor<in TIn, out TOut> where TIn:class where TOut:class
     {
         /// <summary>
@@ -51,7 +51,7 @@ namespace Summer.Batch.Infrastructure.Item
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         TOut Process(TIn item);
     }
 }

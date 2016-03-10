@@ -226,7 +226,7 @@ namespace Summer.Batch.Core.Scope.Context
             return base.RemoveAttribute(name);
         }
 
-        ///<summary>
+        /// <summary>
         /// Clean up the context at the end of a step execution. Must be called once
         /// at the end of a step execution to honour the destruction callback
         /// contract from the Step Scope.

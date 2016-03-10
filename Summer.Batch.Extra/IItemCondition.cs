@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra
     /// <summary>
     ///  An Item Condition used to write records conditionally.
     /// </summary>
-    /// <typeparam name="TT">the type of the items to check</typeparam>
+    /// <typeparam name="TT">&nbsp;the type of the items to check</typeparam>
     public interface IItemCondition <in TT>
     {
         /// <summary>

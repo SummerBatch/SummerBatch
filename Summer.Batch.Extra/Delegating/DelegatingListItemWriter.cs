@@ -23,9 +23,9 @@ namespace Summer.Batch.Extra.Delegating
     /// Writter that flattens collections into a list before delegating to an inner writer. Used when a
     /// processor returns a collection.
     /// </summary>
-    /// <typeparam name="TCollection">The type of objects written by the writer. 
+    /// <typeparam name="TCollection">&nbsp;The type of objects written by the writer. 
     /// Must be a collection of TItem (enforced by constraint on type parameter, see below)</typeparam>
-    /// <typeparam name="TItem">The type of objects written by the delegated writers</typeparam>
+    /// <typeparam name="TItem">&nbsp;The type of objects written by the delegated writers</typeparam>
     public class DelegatingListItemWriter<TCollection, TItem> : 
         IItemStreamWriter<TCollection>
         where TCollection : class,ICollection<TItem> 

@@ -38,7 +38,7 @@ namespace Summer.Batch.Core
     /// Strategy interface for the generation of the key used in identifying
     /// unique <see cref="JobInstance"/> .
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IJobKeyGenerator<in T>
     {
         /// <summary>

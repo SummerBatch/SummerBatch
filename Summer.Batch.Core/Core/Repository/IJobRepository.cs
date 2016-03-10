@@ -94,9 +94,9 @@ namespace Summer.Batch.Core.Repository
         /// <param name="jobName"></param>
         /// <param name="jobParameters"></param>
         /// <returns></returns>
-        /// <exception cref="JobExecutionAlreadyRunningException"></exception>
-        /// <exception cref="JobRestartException"></exception>
-        /// <exception cref="JobInstanceAlreadyCompleteException"></exception>
+        /// <exception cref="JobExecutionAlreadyRunningException">&nbsp;</exception>
+        /// <exception cref="JobRestartException">&nbsp;</exception>
+        /// <exception cref="JobInstanceAlreadyCompleteException">&nbsp;</exception>
         JobExecution CreateJobExecution(String jobName, JobParameters jobParameters);
 
         /// <summary>

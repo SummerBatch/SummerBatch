@@ -102,7 +102,7 @@ namespace Summer.Batch.Core.Step
         /// used programmatically by JobStepBuilder ...
         /// IInitializationPostOperations#AfterPropertiesSet.
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public virtual void AfterPropertiesSet()  {
             Assert.State(Name != null, "A Step must have a name");
             Assert.State(JobRepository != null, "JobRepository is mandatory");
@@ -113,7 +113,7 @@ namespace Summer.Batch.Core.Step
         /// StepExecution before returning.
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected abstract void DoExecute(StepExecution stepExecution);
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Summer.Batch.Core.Step
         /// at the beginning of a step, to open or acquire resources. Does nothing by default.
         /// </summary>
         /// <param name="ctx"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected virtual void Open(ExecutionContext ctx) { }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Summer.Batch.Core.Step
         /// at the end of a step, to close or release resources. Does nothing by default.
         /// </summary>
         /// <param name="ctx"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         protected virtual void Close(ExecutionContext ctx) { }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace Summer.Batch.Core.Step
         /// Open), execution Logic (DoExecute) and resource closing (Close).
         /// </summary>
         /// <param name="stepExecution"></param>
-        /// <exception cref="JobInterruptedException"></exception>
-        /// <exception cref="UnexpectedJobExecutionException"></exception>
+        /// <exception cref="JobInterruptedException">&nbsp;</exception>
+        /// <exception cref="UnexpectedJobExecutionException">&nbsp;</exception>
         public void Execute(StepExecution stepExecution)
         {
             Logger.Debug("Executing: id={0}", stepExecution.Id);

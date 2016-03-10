@@ -198,8 +198,8 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field">the object to encode</param>
         /// <param name="fieldFormat">the format of the field</param>
         /// <returns>an array of byte with the encoded field value</returns>
-        /// <exception cref="ValueTypeMismatchException">if the object to encode is not of the expected type</exception>
-        /// <exception cref="UnexpectedFieldTypeException">if the type field is unknown or unsupported</exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;if the object to encode is not of the expected type</exception>
+        /// <exception cref="UnexpectedFieldTypeException">&nbsp;if the type field is unknown or unsupported</exception>
         public byte[] Encode(object field, FieldFormat fieldFormat)
         {
             byte[] result;
@@ -363,7 +363,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="ValueTypeMismatchException"></exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;</exception>
         private byte[] EncodeZoned(object field, FieldFormat fieldFormat)
         {
             if (field is decimal)
@@ -383,7 +383,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="ValueTypeMismatchException"></exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;</exception>
         private byte[] EncodePacked(object field, FieldFormat fieldFormat)
         {
             if (field is decimal)
@@ -405,7 +405,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="ValueTypeMismatchException"></exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;</exception>
         private byte[] EncodeBinary(object field, FieldFormat fieldFormat)
         {
             if (!(field is decimal))
@@ -445,7 +445,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="ValueTypeMismatchException"></exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;</exception>
         private byte[] EncodeTransparent(object field, FieldFormat fieldFormat)
         {
             var bytes = field as byte[];
@@ -472,7 +472,7 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         /// <param name="field"></param>
         /// <param name="fieldFormat"></param>
         /// <returns></returns>
-        /// <exception cref="ValueTypeMismatchException"></exception>
+        /// <exception cref="ValueTypeMismatchException">&nbsp;</exception>
         private byte[] EncodeText(object field, FieldFormat fieldFormat)
         {
             var s = field as string;

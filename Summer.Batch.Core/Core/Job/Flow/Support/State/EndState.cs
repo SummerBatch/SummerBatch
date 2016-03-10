@@ -108,7 +108,7 @@ namespace Summer.Batch.Core.Job.Flow.Support.State
         /// </summary>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public override FlowExecutionStatus Handle(IFlowExecutor executor)
         {
             lock (executor)

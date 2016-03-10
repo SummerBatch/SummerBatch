@@ -50,7 +50,7 @@ namespace Summer.Batch.Core.Launch
         /// </summary>
         /// <param name="instanceId">the id of a JobInstance</param>
         /// <returns>the id values of all the  JobExecutions associated with this instance</returns>
-        /// <exception cref="NoSuchJobInstanceException"></exception>
+        /// <exception cref="NoSuchJobInstanceException">&nbsp;</exception>
         IList<long?> GetExecutions(long instanceId);
 
 
@@ -114,7 +114,7 @@ namespace Summer.Batch.Core.Launch
         /// <see cref="IJobParametersIncrementer"/> attached to the specified job. If the
         /// previous instance is still in a failed state, this method should still
         /// create a new instance and run it with different parameters (as long as
-        /// the IJobParametersIncrementer is working)
+        /// the <see cref="IJobParametersIncrementer"/> is working)
         /// </summary>
         /// <param name="jobName"></param>
         /// <returns></returns>
@@ -160,7 +160,7 @@ namespace Summer.Batch.Core.Launch
         IDictionary<long?, string> GetStepExecutionSummaries(long executionId);
 
         /// <summary>
-        /// List the available job names that can be launched with #start(String, String).
+        /// List the available job names that can be launched with <see cref="Start"/>.
         /// </summary>
         /// <returns></returns>
         ISet<string> GetJobNames();

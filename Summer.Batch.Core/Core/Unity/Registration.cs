@@ -29,7 +29,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Creates a new <see cref="Registration{TFrom,TTo}"/> for a singleton.
         /// </summary>
-        /// <typeparam name="T">the type to register</typeparam>
+        /// <typeparam name="T">&nbsp;the type to register</typeparam>
         /// <param name="container">the container where to register</param>
         /// <param name="name">the name of the registration</param>
         /// <returns>an instance of <see cref="Registration{TFrom,TTo}"/></returns>
@@ -42,8 +42,8 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Creates a new <see cref="Registration{TFrom,TTo}"/> for a singleton.
         /// </summary>
-        /// <typeparam name="TFrom">the requested type of the registration</typeparam>
-        /// <typeparam name="TTo">the actual type of the registration</typeparam>
+        /// <typeparam name="TFrom">&nbsp;the requested type of the registration</typeparam>
+        /// <typeparam name="TTo">&nbsp;the actual type of the registration</typeparam>
         /// <param name="container">the container where to register</param>
         /// <param name="name">the name of the registration</param>
         /// <returns>an instance of <see cref="Registration{TFrom,TTo}"/></returns>
@@ -56,7 +56,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Creates a new <see cref="Registration{TFrom,TTo}"/> wit the step scope.
         /// </summary>
-        /// <typeparam name="T">the type to register</typeparam>
+        /// <typeparam name="T">&nbsp;the type to register</typeparam>
         /// <param name="container">the container where to register</param>
         /// <param name="name">the name of the registration</param>
         /// <returns>an instance of <see cref="Registration{TFrom,TTo}"/></returns>
@@ -69,8 +69,8 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Creates a new <see cref="Registration{TFrom,TTo}"/> wit the step scope.
         /// </summary>
-        /// <typeparam name="TFrom">the requested type of the registration</typeparam>
-        /// <typeparam name="TTo">the actual type of the registration</typeparam>
+        /// <typeparam name="TFrom">&nbsp;the requested type of the registration</typeparam>
+        /// <typeparam name="TTo">&nbsp;the actual type of the registration</typeparam>
         /// <param name="container">the container where to register</param>
         /// <param name="name">the name of the registration</param>
         /// <returns>an instance of <see cref="Registration{TFrom,TTo}"/></returns>
@@ -84,8 +84,8 @@ namespace Summer.Batch.Core.Unity
     /// <summary>
     /// Registration
     /// </summary>
-    /// <typeparam name="TFrom"></typeparam>
-    /// <typeparam name="TTo"></typeparam>
+    /// <typeparam name="TFrom">&nbsp;</typeparam>
+    /// <typeparam name="TTo">&nbsp;</typeparam>
     public class Registration<TFrom, TTo>
     {
         private readonly string _name;
@@ -200,7 +200,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Specifies a reference for the previous injection.
         /// </summary>
-        /// <typeparam name="T">the requested type for the reference</typeparam>
+        /// <typeparam name="T">&nbsp;the requested type for the reference</typeparam>
         /// <param name="referenceName">the name of the reference</param>
         /// <returns>the current instance</returns>
         public Registration<TFrom, TTo> Reference<T>(string referenceName = null)
@@ -212,7 +212,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Specifies a list of types to resolve and inject as an array.
         /// </summary>
-        /// <typeparam name="T">the type of the array to inject</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the array to inject</typeparam>
         /// <param name="types">the types to resolve to create the array</param>
         /// <returns>the current instance</returns>
         public Registration<TFrom, TTo> References<T>(params Type[] types)
@@ -224,7 +224,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Specifies a list of names to resolve and inject as an array.
         /// </summary>
-        /// <typeparam name="T">the type of the array to inject</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the array to inject</typeparam>
         /// <param name="names">the names to resolve to create the array</param>
         /// <returns>the current instance</returns>
         public Registration<TFrom, TTo> References<T>(params string[] names)
@@ -236,7 +236,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Specifies a list of types and names to resolve and inject as an array.
         /// </summary>
-        /// <typeparam name="T">the type of the array to inject</typeparam>
+        /// <typeparam name="T">&nbsp;the type of the array to inject</typeparam>
         /// <param name="references">the types and their corresponding name to resolve to create the array</param>
         /// <returns>the current instance</returns>
         public Registration<TFrom, TTo> References<T>(params Reference[] references)
@@ -250,7 +250,7 @@ namespace Summer.Batch.Core.Unity
         /// <summary>
         /// Specifies a late binding expression to be resolved at injection.
         /// </summary>
-        /// <typeparam name="T">the type returned by the late binding expression</typeparam>
+        /// <typeparam name="T">&nbsp;the type returned by the late binding expression</typeparam>
         /// <param name="lateBinding">the late binding expression</param>
         /// <returns>the current instance</returns>
         public Registration<TFrom, TTo> LateBinding<T>(string lateBinding)

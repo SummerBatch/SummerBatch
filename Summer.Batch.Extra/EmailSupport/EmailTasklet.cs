@@ -174,7 +174,7 @@ namespace Summer.Batch.Extra.EmailSupport
         /// <param name="contribution"></param>
         /// <param name="chunkContext"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext)
         {
             DoExecute();//Delegated
@@ -264,7 +264,7 @@ namespace Summer.Batch.Extra.EmailSupport
         /// Read mail body from given file
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="IOException">&nbsp;</exception>
         private string GetText()
         {
             //Read file into string

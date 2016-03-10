@@ -52,7 +52,7 @@ namespace Summer.Batch.Core.Step.Tasklet
         /// <param name="contribution"></param>
         /// <param name="chunkContext"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         RepeatStatus Execute(StepContribution contribution, ChunkContext chunkContext);
 
     }

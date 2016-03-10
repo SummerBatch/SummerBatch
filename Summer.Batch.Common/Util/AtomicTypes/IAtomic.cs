@@ -39,8 +39,8 @@ namespace Summer.Batch.Common.Util.AtomicTypes
     /// <summary>
     /// Provide atomic access to an instance of <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">The type of the instance to be updated atomically.</typeparam>
-    /// <author>Kenneth Xu</author>
+    /// <typeparam name="T">&nbsp;The type of the instance to be updated atomically.</typeparam>
+    /// \author Kenneth Xu
     public interface IAtomic<T> //NET_ONLY
     {
         /// <summary> 

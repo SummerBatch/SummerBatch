@@ -104,7 +104,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// Post-init checks.
         /// IInitializationPostOperations#AfterPropertiesSet .
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public void AfterPropertiesSet()
         {
             Assert.State(JobRepository != null, "A JobRepository is required");
@@ -196,7 +196,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// <param name="stepExecution"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         protected bool GetStartable(StepExecution stepExecution, ExecutionContext context)
         {
             JobInstance jobInstance = stepExecution.JobExecution.JobInstance;
@@ -215,7 +215,7 @@ namespace Summer.Batch.Core.Partition.Support
         /// <param name="stepExecution"></param>
         /// <param name="lastStepExecution"></param>
         /// <returns></returns>
-        /// <exception cref="JobExecutionException"></exception>
+        /// <exception cref="JobExecutionException">&nbsp;</exception>
         private bool ShouldStart(bool allowStartIfComplete, StepExecution stepExecution, StepExecution lastStepExecution)
         {
             if (lastStepExecution == null)

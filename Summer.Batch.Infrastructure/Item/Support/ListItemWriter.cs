@@ -38,7 +38,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     /// <summary>
     /// Simple item writer that populates a List with the elements to be written.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class ListItemWriter<T> : IItemWriter<T> where T:class
     {
         private readonly IList<T> _writtenItems = new List<T>();

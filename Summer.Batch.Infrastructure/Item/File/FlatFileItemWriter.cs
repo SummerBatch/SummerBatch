@@ -50,7 +50,7 @@ namespace Summer.Batch.Infrastructure.Item.File
     /// A restartable <see cref="T:Summer.Batch.Item.ItemWriter"/>that writes to a <see cref="T:Summer.Batch.IO.IResource"/>.
     /// A <see cref="T:LineAggregator"/> is used to write lines from items.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public class FlatFileItemWriter<T> : AbstractItemStreamItemWriter<T>, IResourceAwareItemWriterItemStream<T>, IInitializationPostOperations where T:class
     {
         private const string RestartDataName = "current.count";
@@ -86,19 +86,19 @@ namespace Summer.Batch.Infrastructure.Item.File
 
         /// <summary>
         /// Indicates that the target resource should be appended if it already exists.
-        /// Default is <code>false</code>.
+        /// Default is <c>false</c>.
         /// </summary>
         public bool AppendAllowed { private get; set; }
 
         /// <summary>
-        /// Indicates that the target resource should be deleted if it exists. Ignored if <see cref="P:AppendAllowed"/> is <code>true</code>.
-        /// Default is <code>false</code>. 
+        /// Indicates that the target resource should be deleted if it exists. Ignored if <see cref="P:AppendAllowed"/> is <c>true</c>.
+        /// Default is <c>false</c>. 
         /// </summary>
         public bool DeleteIfExists { private get; set; }
 
         /// <summary>
         /// Indicates that the target resource should be deleted if no lines were written.
-        /// Default is <code>false</code>.
+        /// Default is <c>false</c>.
         /// </summary>
         public bool DeleteIfEmpty { private get; set; }
 
@@ -110,13 +110,13 @@ namespace Summer.Batch.Infrastructure.Item.File
 
         /// <summary>
         /// Indicates that the writer should take part in the active transaction. During a transaction, data are written at commit.
-        /// Defaults is <code>true</code>.
+        /// Defaults is <c>true</c>.
         /// </summary>
         public bool Transactional { private get; set; }
 
         /// <summary>
         /// Indicates that the buffer should be flushed after each write
-        /// Default is <code>false</code>.
+        /// Default is <c>false</c>.
         /// </summary>
         public bool AutoFlush { private get; set; }
 
@@ -182,8 +182,8 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// </summary>
         /// <param name="executionContext">current step's ExecutionContext.  Will be the
         /// executionContext from the last run of the step on a restart.</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         public override void Open(ExecutionContext executionContext)
         {
             Assert.NotNull(Resource, "The resource must be set.");
@@ -209,7 +209,7 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// If any resources are needed for the stream to operate they need to be destroyed here. Once this method has been
         /// called all other methods (except open) may throw an exception.
         /// </summary>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public override void Close()
         {
             if (_initialized && FooterWriter != null)
@@ -229,8 +229,8 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// has not been put in the context, it should be added here.
         /// </summary>
         /// <param name="executionContext">to be updated</param>
-        /// <exception cref="ItemStreamException"></exception>
-        /// <exception cref="ArgumentException">if execution context is null</exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
+        /// <exception cref="ArgumentException">&nbsp;if execution context is null</exception>
         public override void Update(ExecutionContext executionContext)
         {
             if (!_initialized)

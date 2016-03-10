@@ -77,7 +77,7 @@ namespace Summer.Batch.Core.Step.Job
         /// Invoked programmatically by JobStepBuilder.
         /// @see IInitializationPostOperations#AfterPropertiesSet.
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public override void AfterPropertiesSet() { 
             base.AfterPropertiesSet();
             Assert.State(JobLauncher != null, "A JobLauncher must be provided");

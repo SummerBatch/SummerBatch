@@ -141,7 +141,7 @@ namespace Summer.Batch.Extra.FtpSupport
         /// <summary>
         /// Delegated. Simplifies unit testing.
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public bool DoExecute()
         {
             RemoveLocalFiles();
@@ -156,7 +156,7 @@ namespace Summer.Batch.Extra.FtpSupport
         /// Download list of remote files from remote directory
         /// </summary>
         /// <param name="remoteFiles"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         private void DownloadRemoteFiles(IList<string> remoteFiles)
         {
             if (remoteFiles.Any())
@@ -196,7 +196,7 @@ namespace Summer.Batch.Extra.FtpSupport
         /// Search for remote files matching the FileNamePattern
         /// </summary>
         /// <returns> a list of remote file names</returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         private IList<string> ComputeRemoteFiles()
         {
             IList<string> remoteFiles = new List<string>();

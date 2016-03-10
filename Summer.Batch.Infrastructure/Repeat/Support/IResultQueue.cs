@@ -44,7 +44,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Support
     /// Result providers in another thread call Put(Object) to notify the
     /// expecting client of a new result.
     /// </summary>
-    /// <typeparam name="TB"></typeparam>
+    /// <typeparam name="TB">&nbsp;</typeparam>
     public interface IResultQueue<TB>
     {
         /// <summary>
@@ -57,7 +57,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Support
         /// Implementations may choose to block here, if they need to limit the
         /// number or rate of tasks being submitted.
         /// </summary>
-        /// <exception cref="ThreadInterruptedException">if the call blocks and is then interrupted.</exception>
+        /// <exception cref="ThreadInterruptedException">&nbsp;if the call blocks and is then interrupted.</exception>
         void Expect();
 
         /// <summary>
@@ -66,15 +66,15 @@ namespace Summer.Batch.Infrastructure.Repeat.Support
         /// deposit the result of a finished task on the queue for collection.
         /// </summary>
         /// <param name="result">the result for later collection.</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">&nbsp;</exception>
         void Put(TB result);
 
         /// <summary>
         /// Gets the next available result, blocking if there are none yet available.
         /// </summary>
         /// <returns>a result previously deposited</returns>
-        /// <exception cref="InvalidOperationException">if there is no result expected</exception>
-        /// <exception cref="ThreadInterruptedException">if the operation is interrupted while waiting</exception>
+        /// <exception cref="InvalidOperationException">&nbsp;if there is no result expected</exception>
+        /// <exception cref="ThreadInterruptedException">&nbsp;if the operation is interrupted while waiting</exception>
         TB Take();
 
         /// <summary>

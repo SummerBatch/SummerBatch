@@ -17,7 +17,7 @@ namespace Summer.Batch.Extra.Sort.Format
     /// <summary>
     /// Interface for formatting records.
     /// </summary>
-    /// <typeparam name="T">the type of the records</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the records</typeparam>
     public interface IFormatter<T>
     {
         /// <summary>

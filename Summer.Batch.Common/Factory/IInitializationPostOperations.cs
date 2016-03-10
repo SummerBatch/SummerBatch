@@ -28,7 +28,7 @@ namespace Summer.Batch.Common.Factory
         /// This method allows the object instance to perform initialization only possible when all 
         /// properties have been set and to throw an exception in the event of misconfiguration. 
         /// </summary>
-        /// <exception cref="Exception">in the event of misconfiguration (such as failure to set an essential property) 
+        /// <exception cref="Exception">&nbsp;in the event of misconfiguration (such as failure to set an essential property) 
         /// or if initialization fails.</exception>
         void AfterPropertiesSet();
     }

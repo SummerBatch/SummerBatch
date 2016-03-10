@@ -88,7 +88,7 @@ namespace Summer.Batch.Core.Job.Flow.Support.State
         /// </summary>
         /// <param name="executor"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">&nbsp;</exception>
         public override FlowExecutionStatus Handle(IFlowExecutor executor)
         {
             // On starting a new step, possibly upgrade the last execution to make
@@ -127,7 +127,7 @@ namespace Summer.Batch.Core.Job.Flow.Support.State
         /// </summary>
         /// <param name="stepName"></param>
         /// <returns></returns>
-        /// <exception cref="NoSuchStepException"></exception>
+        /// <exception cref="NoSuchStepException">&nbsp;</exception>
         public IStep GetStep(string stepName)
         {
             IStep result = null;

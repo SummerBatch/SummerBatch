@@ -23,7 +23,7 @@ namespace Summer.Batch.Extra.Delegating
     /// The next record to read is then buffered to be returned next time.
     /// The "last one" information is saved in the step context.
     /// </summary>
-    /// <typeparam name="T">The type of objects read by the reader</typeparam>
+    /// <typeparam name="T">&nbsp;The type of objects read by the reader</typeparam>
     public class DelegatingBufferingItemReader<T> : IItemStreamReader<T> where T : class
     {
 
@@ -51,7 +51,7 @@ namespace Summer.Batch.Extra.Delegating
         /// Simply delegating to the inner buffered reader.
         /// </summary>
         /// <param name="executionContext">the execution context</param>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Open(ExecutionContext executionContext)
         {
             _executionContext = executionContext;
@@ -66,7 +66,7 @@ namespace Summer.Batch.Extra.Delegating
         /// Simply delegating to the inner buffered reader.
         /// </summary>
         /// <param name="executionContext"></param>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Update(ExecutionContext executionContext)
         {
             var stream = Delegate as IItemStream;
@@ -79,7 +79,7 @@ namespace Summer.Batch.Extra.Delegating
         /// <summary>
         /// Simply delegating to the inner buffered reader.
         /// </summary>
-        /// <exception cref="ItemStreamException"></exception>
+        /// <exception cref="ItemStreamException">&nbsp;</exception>
         public void Close()
         {
             var stream = Delegate as IDisposable;

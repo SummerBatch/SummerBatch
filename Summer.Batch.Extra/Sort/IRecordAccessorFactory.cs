@@ -19,7 +19,7 @@ namespace Summer.Batch.Extra.Sort
     /// <summary>
     /// Factory interface for creating instances of <see cref="IRecordReader{T}"/> and <see cref="IRecordWriter{T}"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">&nbsp;</typeparam>
     public interface IRecordAccessorFactory<T>
     {
         /// <summary>

@@ -20,7 +20,7 @@ namespace Summer.Batch.Common.Collections
     /// <summary>
     /// A set that preserves the insertion order.
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the set.</typeparam>
+    /// <typeparam name="T">&nbsp;The type of the elements in the set.</typeparam>
     public class OrderedSet<T> : ICollection<T>
     {
         private readonly IDictionary<T, LinkedListNode<T>> _dictionary;

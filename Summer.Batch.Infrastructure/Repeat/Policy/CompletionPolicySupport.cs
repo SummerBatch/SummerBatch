@@ -41,7 +41,7 @@ namespace Summer.Batch.Infrastructure.Repeat.Policy
     public class CompletionPolicySupport : ICompletionPolicy
     {
         /// <summary>
-        /// If exit status is not continuable returns <code>true</code>, otherwise
+        /// If exit status is not continuable returns <c>true</c>, otherwise
 	    /// delegates to  #IsComplete(IRepeatContext).
         /// </summary>
         /// <param name="context"></param>

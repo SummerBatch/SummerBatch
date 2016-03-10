@@ -28,7 +28,7 @@ namespace Summer.Batch.Infrastructure.Item.Database
     /// Implementation of <see cref="T:IItemReader"/> that reads items from a database using a <see cref="DbDataReader"/>.
     /// It creates its own connection as it will be busy until the reader is closed.
     /// </summary>
-    /// <typeparam name="T">the type of the read elements</typeparam>
+    /// <typeparam name="T">&nbsp;the type of the read elements</typeparam>
     public class DataReaderItemReader<T> : AbstractItemCountingItemStreamItemReader<T>, IInitializationPostOperations where T : class
     {
         private bool _initialized;
