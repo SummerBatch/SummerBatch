@@ -53,6 +53,20 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
 
         }
 
+        [TestMethod()]
+        public void RunJobWithTaskletCopy2()
+        {
+            XmlJob job = XmlJobParser.LoadJob("Job1.xml");
+            IJobOperator jobOperator = BatchRuntime.GetJobOperator(new MyUnityLoaderJob1Copy2(), job);
+            Assert.IsNotNull(jobOperator);
+            long? executionId = jobOperator.StartNextInstance(job.Id);
+            Assert.IsNotNull(executionId);
+
+            JobExecution jobExecution = ((SimpleJobOperator)jobOperator).JobExplorer.GetJobExecution((long)executionId);
+            Assert.IsFalse(jobExecution.Status.IsUnsuccessful());
+            Assert.IsFalse(jobExecution.Status.IsRunning());
+
+        }
 
         [TestMethod()]
         public void RunJobWithTaskletDelete()
@@ -156,6 +170,25 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
                     new InjectionProperty("Sources",new List<IResource>{new FileSystemResource(TestDataDirectoryIn)}),
                     new InjectionProperty("Targets",new List<IResource>{new FileSystemResource(TestDataDirectoryOut)})
                     );
+            }
+        }
+        private class MyUnityLoaderJob1Copy2 : UnityLoader
+        {
+            public override void LoadArtifacts(IUnityContainer unityContainer)
+            {
+
+                //Register Tasklet
+                unityContainer.RegisterType<ITasklet, FileUtilsTasklet>("tasklet1",
+                    new InjectionProperty("Mode", FileUtilsTasklet.FileUtilsMode.Copy),
+                    new InjectionProperty("Sources", new List<IResource>
+                    {
+                        new FileSystemResource(Path.Combine(TestDataDirectoryIn, "report0.txt"))
+                    }),
+                    new InjectionProperty("Targets", new List<IResource>
+                    {
+                        new FileSystemResource(Path.Combine(TestDataDirectoryOut, "report0-copy.txt"))
+                    })
+                );
             }
         }
 

@@ -351,22 +351,22 @@ namespace Summer.Batch.Extra.IO
         {
             if (Sources.Count() == 1)
             {
-                IResource source = Sources[0];
-                if (source.GetFileInfo().Attributes.HasFlag(FileAttributes.Directory))
+                var source = Sources[0];
+                if (source.Exists())
                 {
-                    if (!Targets[0].GetFileInfo().Attributes.HasFlag(FileAttributes.Directory))
+                    if (source.GetFileInfo().Attributes.HasFlag(FileAttributes.Directory))
                     {
-                        throw new Exception("Target must be a directory.");
-                    }
-                    else
-                    {
+                        if (!Targets[0].GetFileInfo().Attributes.HasFlag(FileAttributes.Directory))
+                        {
+                            throw new Exception("Target must be a directory.");
+                        }
                         //copy dir
                         FileUtils.CopyDir(source.GetFullPath(), Targets[0].GetFullPath());
                     }
-                }
-                else if (source.GetFileInfo().Attributes.HasFlag(FileAttributes.Normal))
-                {
-                    File.Copy(source.GetFullPath(), Targets[0].GetFullPath());
+                    else
+                    {
+                        File.Copy(source.GetFullPath(), Targets[0].GetFullPath(), true);
+                    }
                 }
                 else
                 {
