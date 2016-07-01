@@ -15,8 +15,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Summer.Batch.Common.Proxy;
+using Summer.Batch.Core.Scope.Context;
 
 namespace Summer.Batch.Core.Scope
 {
@@ -110,6 +112,8 @@ namespace Summer.Batch.Core.Scope
                 {
                     instance = Containers[key].Resolve(key.Item1, key.Item2);
                     instances[proxy] = instance;
+                    // Registering the destruction callback for the instance
+                    RegisterDestructionCallback(key, instance);
                 }
             }
             return instance;
@@ -127,6 +131,19 @@ namespace Summer.Batch.Core.Scope
             Type mappedType;
             MappedTypes.TryGetValue(key, out mappedType);
             return mappedType;
+        }
+
+        private static void RegisterDestructionCallback(Tuple<Type, string> key, object instance)
+        {
+            var disposable = instance as IDisposable;
+            if (disposable != null)
+            {
+                var name = key.Item1.FullName + ':' + key.Item2;
+                StepSynchronizationManager.GetContext().RegisterDestructionCallback(name, new Task(() =>
+                {
+                    disposable.Dispose();
+                }));
+            }
         }
     }
 }

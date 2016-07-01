@@ -78,7 +78,6 @@ namespace Summer.Batch.Core.Scope.Context
         public static StepContext Register(StepExecution stepExecution)
         {
             var context = Manager.Register(stepExecution);
-            StepScopeSynchronization.ResetInstances();
             return context;
         }
 
@@ -105,6 +104,7 @@ namespace Summer.Batch.Core.Scope.Context
         public static void Release()
         {
             Manager.Release();
+            StepScopeSynchronization.ResetInstances();
         }
     }
 }
