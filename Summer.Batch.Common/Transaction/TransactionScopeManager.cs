@@ -130,6 +130,10 @@ namespace Summer.Batch.Common.Transaction
         public static void RegisterResource(IEnlistmentNotification resource)
         {
             Resources.Value.Add(resource);
+            if (System.Transactions.Transaction.Current != null)
+            {
+                System.Transactions.Transaction.Current.EnlistVolatile(resource, EnlistmentOptions.None);
+            }
         }
 
         /// <summary>
