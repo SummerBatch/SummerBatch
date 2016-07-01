@@ -1,7 +1,23 @@
 Summer Batch
+============
 
-Release 1.0.0 - November 2015.
-==============================
+Release 1.1.1 - July 2016
+-------------------------
+- Disposable instances in the step scope are now properly disposed at the end of a step
+- Resources registered with the transaction manager while a transaction is active are now properly enlisted in it
+
+Release 1.1.1 - June 2016
+-------------------------
+- Fixes an issue on FileUtilsTasklet when copying a single file
+
+Release 1.1.0 - March 2016
+--------------------------
+- FileUtilsTasklet has a new mode to compare files
+- Support for the execution of PowerShell scripts
+- Support for multiple outputs in the sort tasklet
+
+Release 1.0.0 - November 2015
+-----------------------------
 
 This is the first official release of Summer Batch.
 
