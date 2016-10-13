@@ -1,7 +1,11 @@
 Summer Batch
 ============
+Release 1.1.3 - October 2016
+----------------------------
+- GDG: the first file created in a group now has the number 1 instead of 0
+- All step scope reference are now handled as proxy to ensure all instances are properly disposed
 
-Release 1.1.1 - July 2016
+Release 1.1.2 - July 2016
 -------------------------
 - Disposable instances in the step scope are now properly disposed at the end of a step
 - Resources registered with the transaction manager while a transaction is active are now properly enlisted in it
