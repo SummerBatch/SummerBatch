@@ -53,11 +53,6 @@ namespace Summer.Batch.Core.Unity.StepScope
             }
 
             var lifetimePolicy = context.Policies.GetNoDefault<ILifetimePolicy>(context.BuildKey, false);
-            if (lifetimePolicy is StepScopeLifetimeManager)
-            {
-                // the object being built is in the step scope, we don't need proxies for its dependencies
-                return;
-            }
 
             // Constructor parameters resolvers
             var constructorParameters = new Dictionary<string, StepScopeDependency>();
