@@ -148,7 +148,7 @@ namespace Summer.Batch.Extra.IO
             int number;
             if (!resources.Any())
             {
-                number = Max - 1;
+                number = 0;
             }
             else if (resources.ContainsKey(Max - 1) && resources.ContainsKey(0))
             {
