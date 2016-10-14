@@ -13,6 +13,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using System;
+using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Summer.Batch.Core.Scope.Context;
 using Summer.Batch.Common.Proxy;
@@ -48,6 +49,14 @@ namespace Summer.Batch.Core.Unity.StepScope
             if (!(newValue is IProxyObject))
             {
                 Context.SetAttribute(_name, newValue);
+                var disposable = newValue as IDisposable;
+                if (disposable != null)
+                {
+                    StepSynchronizationManager.GetContext().RegisterDestructionCallback(_name, new Task(() =>
+                    {
+                        disposable.Dispose();
+                    }));
+                }
             }
         }
 
