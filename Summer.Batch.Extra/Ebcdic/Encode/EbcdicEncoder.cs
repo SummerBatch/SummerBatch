@@ -263,12 +263,12 @@ namespace Summer.Batch.Extra.Ebcdic.Encode
         {
             // adjust the value to the expected number of decimal
             decimal internalValue = value;
-            if (nbDecimals != GetScale(value))
+            if (nbDecimals < GetScale(value))
             {
                 // truncate any additional digit
                 internalValue = Math.Round(value, nbDecimals);
             }
-            var str = internalValue.ToString(CultureInfo.InvariantCulture);
+            var str = internalValue.ToString("f" + nbDecimals, CultureInfo.InvariantCulture);
             var bytes = new byte[size];
             var index = str.Length;
             byte odd;
