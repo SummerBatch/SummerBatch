@@ -28,6 +28,10 @@ namespace Summer.Batch.Extra.Sort
     {
         private readonly IRecordReader<T> _reader;
         private readonly IComparer<T> _comparer;
+        private Boolean _stableExternalSortTempFile;
+
+        //last resort order if records are the same, use the order of the buffer to determine the comparison result
+        public int Order;
 
         private T _cache;
 
@@ -36,11 +40,17 @@ namespace Summer.Batch.Extra.Sort
         /// </summary>
         /// <param name="reader">the reader to read from</param>
         /// <param name="comparer">the comparer for the records</param>
-        public RecordReaderBuffer(IRecordReader<T> reader, IComparer<T> comparer)
+        /// <param name="stableExternalSortTempFile">used to trigger a comparison of the file names in last resort
+        /// If comparison of the next cached items are the same, compare the input file name ( in external sort input files are temporary pre-sorted files
+        /// This is used in stable sort to ensure that for equals records (equality determined based upon the sort card) , the first
+        /// record in is the first record out when reading using the external sort algorithm.</param>
+        public RecordReaderBuffer(IRecordReader<T> reader, IComparer<T> comparer, Boolean stableExternalSortTempFile = false, int order = 0)
         {
             _reader = reader;
             _comparer = comparer;
             _cache = _reader.Read();
+            _stableExternalSortTempFile = stableExternalSortTempFile;
+            Order = order;
         }
 
         /// <summary>
@@ -70,7 +80,16 @@ namespace Summer.Batch.Extra.Sort
         /// <returns>the comparison of the two buffers</returns>
         public int CompareTo(RecordReaderBuffer<T> other)
         {
-            return _comparer.Compare(_cache, other._cache);
+            int comparison = _comparer.Compare(_cache, other._cache);
+            if (comparison == 0 && _stableExternalSortTempFile)
+            {
+                //records are the same, as a last resort, compare the file metadata
+                return Order - other.Order;
+            }
+            // return the comparer comparison  
+
+            return comparison;
+            
         }
 
         #region Dispose pattern members

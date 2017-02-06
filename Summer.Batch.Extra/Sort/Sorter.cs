@@ -84,6 +84,13 @@ namespace Summer.Batch.Extra.Sort
         public IRecordAccessorFactory<T> RecordAccessorFactory { get; set; }
 
         /// <summary>
+        /// false = unstable sort : the order of the records that have the same sort key value is not guaranteed.
+        /// true = stable sort : the order of the records that have the same sort key is presererved from the input files
+        /// Note : order is not guaranteed when multi files inputs
+        /// </summary>
+        public bool StableSort { get; set; }
+
+        /// <summary>
         /// The maximum size in MB of the input files for the in memory sort.
         /// If the input files are over this limit, external merge sort is used.
         /// Default is 100.
@@ -223,7 +230,17 @@ namespace Summer.Batch.Extra.Sort
             return Task.Run(() =>
             {
                 // Sort the records
-                records.Sort(Comparer);
+                if (StableSort)
+                {
+                    var listStableOrdered = records.OrderBy(x => x, Comparer).ToList();
+                    records.Clear();
+                    records.AddRange(listStableOrdered);
+                }
+                else
+                {
+                    records.Sort(Comparer);
+                }
+                
 
                 // Save in temporary file
                 var tmpFilename = Path.GetTempFileName();
@@ -250,9 +267,10 @@ namespace Summer.Batch.Extra.Sort
             _logger.Info("Merging temporary files");
             // we use a list of buffers to sort them by
             // their current record
+            //order the files to enable stable sort
             var buffers =
                 tmpFiles.Select(
-                    f => new RecordReaderBuffer<T>(RecordAccessorFactory.CreateReader(new FileStream(f, FileMode.Open)), Comparer))
+                    (f, i) => new RecordReaderBuffer<T>(RecordAccessorFactory.CreateReader(new FileStream(f, FileMode.Open)), Comparer, StableSort, i))
                     .ToList();
 
             var sumWriters = GetSumWriters();
@@ -343,7 +361,16 @@ namespace Summer.Batch.Extra.Sort
             }
 
             // Sort the records
-            records.Sort(Comparer);
+            if (StableSort)
+            {
+                var listStableOrdered = records.OrderBy(x => x, Comparer).ToList();
+                records.Clear();
+                records.AddRange(listStableOrdered);
+            }
+            else
+            {
+                records.Sort(Comparer);
+            }
 
             // Write the records
             var sumWriters = GetSumWriters();
