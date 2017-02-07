@@ -284,6 +284,75 @@ namespace Summer.Batch.CoreTests.Sort
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
+
+        [TestMethod]
+        // same than TestSort3Tasklet but in stable sort, the expected output differs due to the sorting algorithm
+        public void TestSortStable1Tasklet()
+        {
+            var output = new FileInfo(@"TestData\Sort\Output\sortStable1.txt");
+            var expected = new FileInfo(@"TestData\Sort\Expected\sortStable1.txt");
+
+            var sortTasklet = new SortTasklet
+            {
+                StableSort = true,
+                Separator = "\n",
+                SortCard = "9,2,CH,A,259,6,CH,D,17,3,CH,A,296,1,CH,D",
+                Sum = "233,12,ZD",
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort3.txt")) },
+                Output = new List<IResource> { new FileSystemResource(output) }
+            };
+
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+        /*
+        //These tests are commented due to the size of the test files (>300Mo) Github currently limits files to 100Mo
+        //  Contact the Summer Batch team to get a copy of the test files
+        [TestMethod]
+        public void TestSortExternalTasklet()
+        {
+            var output = new FileInfo(@"TestData\Sort\Output\sort3-1040k.txt");
+            var expected = new FileInfo(@"TestData\Sort\Expected\sort3-1040k.txt");
+
+            var sortTasklet = new SortTasklet
+            {
+                StableSort = false,
+                RecordLength = 351,
+                SortCard = "9,2,CH,A,259,6,CH,D,17,3,CH,A,296,1,CH,D",
+                Sum = "233,12,ZD",
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort3-1040k.txt")) },
+                Output = new List<IResource> { new FileSystemResource(output) }
+            };
+
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
+        [TestMethod]
+        public void TestStableSortExternalTasklet()
+        {
+            var output = new FileInfo(@"TestData\Sort\Output\sort3-1040k-stable.txt");
+            var expected = new FileInfo(@"TestData\Sort\Expected\sort3-1040k-stable.txt");
+
+            var sortTasklet = new SortTasklet
+            {
+                StableSort = true,
+                RecordLength = 351,
+                SortCard = "9,2,CH,A,259,6,CH,D,17,3,CH,A,296,1,CH,D",
+                Sum = "233,12,ZD",
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort3-1040k.txt")) },
+                Output = new List<IResource> { new FileSystemResource(output) }
+            };
+
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+          */
+
         [TestMethod]
         public void TestSort4()
         {

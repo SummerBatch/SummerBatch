@@ -317,6 +317,15 @@
     <Content Include="TestData\Sort\Expected\sort18-1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\Sort\Expected\sort3-1040k-stable.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sort3-1040k.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Sort\Expected\sortStable1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Sort\Input\sort18.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

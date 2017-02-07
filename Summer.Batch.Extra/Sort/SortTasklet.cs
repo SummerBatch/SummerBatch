@@ -119,6 +119,13 @@ namespace Summer.Batch.Extra.Sort
         public long MaxInMemorySize { get; set; }
 
         /// <summary>
+        /// false - default = unstable sort : the order of the records that have the same sort key value is not guaranteed.
+        /// true = stable sort : the order of the records that have the same sort key is presererved from the input files
+        /// Note : order is not guaranteed when multi files inputs
+        /// </summary>
+        public bool StableSort { get; set; }
+
+        /// <summary>
         /// Default constructor.
         /// </summary>
         public SortTasklet()
@@ -165,6 +172,8 @@ namespace Summer.Batch.Extra.Sort
         {
             Logger.Debug("Building sorter");
             var sorter = new Sorter<byte[]>();
+
+            sorter.StableSort = StableSort;
 
             var formatterParser = new FormatterParser { Encoding = Encoding };
 
