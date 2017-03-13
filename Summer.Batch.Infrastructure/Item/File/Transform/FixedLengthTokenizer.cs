@@ -59,6 +59,59 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
             }
         }
 
+        private string _columnDefs;
+
+        /// <summary>
+        /// Define ranges of columns to extract using a dash and comma delimited string
+        /// </summary>
+        public string ColumnDefs
+        {
+            get { return _columnDefs; }
+            set
+            {
+                _columnDefs = value;
+
+                if (_columnDefs.Trim().Length == 0)
+                {
+                    throw new InvalidOperationException("ColumnDefs is empty");
+                }
+
+                List<Range> ranges = new List<Range>();
+
+                foreach (var range in _columnDefs.Split(','))
+                {
+                    var rangeDef = range.Split('-');
+
+                    if (rangeDef.Length > 2)
+                    {
+                        throw new InvalidOperationException("ColumnDefs definition is invalid");
+                    }
+
+                    Range rangeItem = null;
+
+                    if (rangeDef.Length > 1)
+                    {
+                        rangeItem = new Range(Convert.ToInt32(rangeDef[0]), Convert.ToInt32(rangeDef[1]));
+                    }
+                    else
+                    {
+                        rangeItem = new Range(Convert.ToInt32(rangeDef[0]));
+                    }
+
+                    ranges.Add(rangeItem);
+                }
+
+                if (ranges.Count == 0)
+                {
+                    throw new InvalidOperationException("ColumnDefs definition is invalid");
+                }
+
+                _ranges = ranges.ToArray();
+                CalculateMaxRange();
+            }
+        }
+
+
         /// <summary>
         /// Method that does the actual tokenizing.
         /// </summary>
