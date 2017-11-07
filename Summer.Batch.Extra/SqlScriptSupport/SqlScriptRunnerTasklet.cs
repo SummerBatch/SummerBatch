@@ -40,6 +40,26 @@ namespace Summer.Batch.Extra.SqlScriptSupport
 
         private DbProviderFactory _providerFactory;
 
+        private int? _commandTimeout;
+
+        public int CommandTimeout
+        {
+            get
+            {
+                if (_commandTimeout == null)
+                {
+                    // Return default command timeout if not provided
+                    _commandTimeout = 30;
+                }
+
+                return _commandTimeout.Value;
+            }
+            set
+            {
+                _commandTimeout = value;
+            }
+        }
+
         /// <summary>
         /// The connection string to the database
         /// </summary>
@@ -98,6 +118,7 @@ namespace Summer.Batch.Extra.SqlScriptSupport
                 string preparedCommand = PrepareCommands(Resource);
                 DbCommand command = connection.CreateCommand();
                 command.CommandText = preparedCommand;
+                command.CommandTimeout = CommandTimeout;
                 int sqlDone = command.ExecuteNonQuery();
                 if(Logger.IsTraceEnabled)
                 {
