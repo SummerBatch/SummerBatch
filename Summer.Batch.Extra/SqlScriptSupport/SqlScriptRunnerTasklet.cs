@@ -40,6 +40,31 @@ namespace Summer.Batch.Extra.SqlScriptSupport
 
         private DbProviderFactory _providerFactory;
 
+        private int? _commandTimeout;
+
+        /// <summary>
+        /// Default timeout is 30 seconds based on MSDN
+        /// If a 0 timeout is provided, this means there is no timeout limit
+        /// Allows the user to specify a longer timeout to account for longer running scripts than 30 seconds
+        /// </summary>
+        public int CommandTimeout
+        {
+            get
+            {
+                if (_commandTimeout == null)
+                {
+                    // Return default command timeout if not provided
+                    _commandTimeout = 30;
+                }
+
+                return _commandTimeout.Value;
+            }
+            set
+            {
+                _commandTimeout = value;
+            }
+        }
+
         /// <summary>
         /// The connection string to the database
         /// </summary>
@@ -98,6 +123,7 @@ namespace Summer.Batch.Extra.SqlScriptSupport
                 string preparedCommand = PrepareCommands(Resource);
                 DbCommand command = connection.CreateCommand();
                 command.CommandText = preparedCommand;
+                command.CommandTimeout = CommandTimeout;
                 int sqlDone = command.ExecuteNonQuery();
                 if(Logger.IsTraceEnabled)
                 {
