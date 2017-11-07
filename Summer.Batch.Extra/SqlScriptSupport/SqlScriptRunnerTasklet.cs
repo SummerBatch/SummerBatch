@@ -42,6 +42,11 @@ namespace Summer.Batch.Extra.SqlScriptSupport
 
         private int? _commandTimeout;
 
+        /// <summary>
+        /// Default timeout is 30 seconds based on MSDN
+        /// If a 0 timeout is provided, this means there is no timeout limit
+        /// Allows the user to specify a longer timeout to account for longer running scripts than 30 seconds
+        /// </summary>
         public int CommandTimeout
         {
             get
