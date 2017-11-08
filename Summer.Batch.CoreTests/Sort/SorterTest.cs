@@ -39,6 +39,7 @@ namespace Summer.Batch.CoreTests.Sort
         private static readonly Encoding Cp1147 = Encoding.GetEncoding("IBM01147");
         private static readonly Encoding Cp1047 = Encoding.GetEncoding("IBM01047");
         private static readonly Encoding Cp1252 = Encoding.GetEncoding("Windows-1252");
+        private static readonly Encoding ASCII = Encoding.GetEncoding("ASCII");
 
         [TestMethod]
         public void TestSort1()
@@ -284,6 +285,28 @@ namespace Summer.Batch.CoreTests.Sort
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
 
+        [TestMethod]
+        public void TestSort3SumAsciiTasklet()
+        {
+            var output = new FileInfo(@"TestData\Sort\Output\sort3ascii_out.txt");
+            var expected = new FileInfo(@"TestData\Sort\Expected\sort3ascii_out.txt");
+
+            var sortTasklet = new SortTasklet
+            {
+                Separator = "\n",
+                SortCard = "9,2,CH,A,259,6,CH,D,17,3,CH,A,296,1,CH,D",
+                Sum = "233,12,AD2",
+                Encoding = ASCII,
+                SortEncoding = ASCII,
+                Input = new List<IResource> { new FileSystemResource(new FileInfo(@"TestData\Sort\Input\sort3ascii.txt")) },
+                Output = new List<IResource> { new FileSystemResource(output) }
+            };
+
+            sortTasklet.Execute(new StepContribution(new StepExecution("sort", new JobExecution(1))), null);
+
+            Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
+        }
+
 
         [TestMethod]
         // same than TestSort3Tasklet but in stable sort, the expected output differs due to the sorting algorithm
@@ -420,6 +443,7 @@ namespace Summer.Batch.CoreTests.Sort
 
             Assert.IsTrue(TestHelper.TestHelper.ContentEquals(expected.OpenRead(), output.OpenRead()));
         }
+
 
         [TestMethod]
         public void TestSort5()

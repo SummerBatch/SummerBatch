@@ -38,6 +38,10 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         /// </summary>
         protected const string ZonedFormat = "ZD";
         /// <summary>
+        /// Ascii decimal format constant.
+        /// </summary>
+        protected const string AsciiDecimalFormat = "AD";
+        /// <summary>
         /// Packed format constant.
         /// </summary>
         protected const string PackedFormat = "PD";
@@ -129,7 +133,24 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
                     result = new BinaryAccessor { Encoding = encoding, Length = length, Start = start, Signed = false };
                     break;
                 default:
-                    throw new ParsingException("Unknown format: " + format);
+                    if (format != null && format.StartsWith(AsciiDecimalFormat)){
+                        int precision = 0;
+                        if (format.Length > 2)
+                        {
+                            precision = int.Parse(format.Substring(2));
+                            result = new AsciiAcessor { Encoding = encoding, Length = length, Start = start, Precision = precision };
+                        }
+                        else
+                        {
+                            throw new ParsingException("Unknown format: " + format);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        throw new ParsingException("Unknown format: " + format);
+                    }
+                    
             }
             return result;
         }

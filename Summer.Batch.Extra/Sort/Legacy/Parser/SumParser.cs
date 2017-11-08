@@ -30,7 +30,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
         private static readonly Regex SumRegex
             = new Regex("(?:FORMAT=(?<format1>\\w+),)?FIELDS=\\((?<card>.+)\\)(?:,FORMAT=(?<format2>\\w+))?");
 
-        private static readonly string[] Formats = { ZonedFormat, PackedFormat, BinaryFormat, SignedBinaryFormat };
+        private static readonly string[] Formats = { ZonedFormat, PackedFormat, BinaryFormat, SignedBinaryFormat, AsciiDecimalFormat };
 
         /// <summary>
         /// The encoding of the records to sum.
@@ -84,7 +84,7 @@ namespace Summer.Batch.Extra.Sort.Legacy.Parser
             var start = lexer.ParseInt() - 1;
             var length = lexer.ParseInt();
             var format = defaultFormat;
-            if (Formats.Contains(lexer.Current))
+            if (Formats.Contains(lexer.Current) || lexer.Current.StartsWith(AsciiDecimalFormat))
             {
                 format = lexer.Parse();
             }
