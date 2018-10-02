@@ -86,9 +86,17 @@ namespace Summer.Batch.Core.Unity
             if (PersistenceSupport)
             {
                 var tablePrefix = ConfigurationManager.AppSettings[AbstractDbBatchMetadataDao.TablePrefixSetting];
+
+                var datasourceName = ConfigurationManager.AppSettings["datasourceName"];
+
+                if (string.IsNullOrEmpty(datasourceName))
+                {
+                    datasourceName = "Default";
+                }
+
                 var injectionMembers = new InjectionMember[tablePrefix == null ? 1 : 2];
                 injectionMembers[0] = new InjectionProperty("ConnectionStringSettings",
-                    new ResolvedParameter<ConnectionStringSettings>("Default"));
+                    new ResolvedParameter<ConnectionStringSettings>(datasourceName));
                 if (tablePrefix != null)
                 {
                     injectionMembers[1] = new InjectionProperty("TablePrefix", tablePrefix);
