@@ -13,6 +13,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using Summer.Batch.Common.Property;
+using System;
 
 namespace Summer.Batch.Data.Parameter
 {
@@ -31,7 +32,14 @@ namespace Summer.Batch.Data.Parameter
         /// <returns>the value of the given parameter</returns>
         public object this[string name]
         {
-            get { return _propertyAccessor.GetProperty(name); }
+            get {
+                var result = _propertyAccessor.GetProperty(name);
+                if (result == null)
+                {
+                    result = System.DBNull.Value;
+                }
+                return result;
+            }
         }
 
         /// <summary>
