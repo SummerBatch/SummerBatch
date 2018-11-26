@@ -96,7 +96,7 @@ namespace Summer.Batch.Core.Unity
 
                 var injectionMembers = new InjectionMember[tablePrefix == null ? 1 : 2];
                 injectionMembers[0] = new InjectionProperty("ConnectionStringSettings",
-                    new ResolvedParameter<ConnectionStringSettings>(datasourceName));
+                    ConfigurationManager.ConnectionStrings[datasourceName]);
                 if (tablePrefix != null)
                 {
                     injectionMembers[1] = new InjectionProperty("TablePrefix", tablePrefix);
