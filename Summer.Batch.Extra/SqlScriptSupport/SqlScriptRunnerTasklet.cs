@@ -53,8 +53,9 @@ namespace Summer.Batch.Extra.SqlScriptSupport
             {
                 if (_commandTimeout == null)
                 {
-                    // Return default command timeout if not provided
-                    _commandTimeout = 30;
+                    // V1.1.11
+                    //Set the timeout to -1 to indicate to use the default timeout
+                    _commandTimeout = -1;
                 }
 
                 return _commandTimeout.Value;
@@ -123,7 +124,11 @@ namespace Summer.Batch.Extra.SqlScriptSupport
                 string preparedCommand = PrepareCommands(Resource);
                 DbCommand command = connection.CreateCommand();
                 command.CommandText = preparedCommand;
-                command.CommandTimeout = CommandTimeout;
+                // V1.1.11 -> Allow custom timeout
+                if (CommandTimeout != -1)
+                {
+                    command.CommandTimeout = CommandTimeout;
+                }
                 int sqlDone = command.ExecuteNonQuery();
                 if(Logger.IsTraceEnabled)
                 {

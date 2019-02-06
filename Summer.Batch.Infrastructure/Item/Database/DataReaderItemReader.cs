@@ -57,6 +57,34 @@ namespace Summer.Batch.Infrastructure.Item.Database
         /// </summary>
         public RowMapper<T> RowMapper { get; set; }
 
+
+        private int? _commandTimeout;
+
+        /// <summary>
+        /// Default timeout is 30 seconds based on MSDN
+        /// If a 0 timeout is provided, this means there is no timeout limit
+        /// Allows the user to specify a longer timeout to account for longer running scripts than 30 seconds
+        /// Since V1.1.11
+        /// </summary>
+        public int CommandTimeout
+        {
+            get
+            {
+                if (_commandTimeout == null)
+                {
+                    //Set the timeout to -1 to indicate to use the default timeout
+                    _commandTimeout = -1;
+                }
+
+                return _commandTimeout.Value;
+            }
+            set
+            {
+                _commandTimeout = value;
+            }
+        }
+
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -149,6 +177,13 @@ namespace Summer.Batch.Infrastructure.Item.Database
             var parsedQuery = new ParsedQuery(Query, DatabaseExtensionManager.GetPlaceholderGetter(ConnectionString.ProviderName));
             _command = _connection.CreateCommand();
             _command.CommandText = parsedQuery.SubstitutedQuery;
+
+            // Added in V1.1.11 to allow definition of a custom timeout
+            if (CommandTimeout != -1)
+            {
+                _command.CommandTimeout = CommandTimeout;
+            }
+
             SetParameters(parsedQuery);
             _dataReader = _command.ExecuteReader();
         }
