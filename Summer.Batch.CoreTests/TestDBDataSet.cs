@@ -1,6 +1,10 @@
 ﻿namespace Summer.Batch.CoreTests
 {
 }
+
+namespace Summer.Batch.CoreTests
+{
+}
 //
 //   Copyright 2015 Blu Age Corporation - Plano, Texas
 //

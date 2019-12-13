@@ -25,7 +25,7 @@ namespace Summer.Batch.CoreTests.Core.Repository.Dao
 {
     public abstract class DaoTestHelper
     {
-        private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\TestDB.mdf;Integrated Security=True;Connect Timeout=30";
+        private const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\TestDB.mdf;Integrated Security=True;Connect Timeout=30";
         private const string ProviderName = "System.Data.SqlClient";
         private const string XmlSchema = "TestDBDataSet.xsd";
 

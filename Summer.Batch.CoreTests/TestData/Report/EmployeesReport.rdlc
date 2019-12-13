@@ -833,7 +833,7 @@
     <DataSource Name="BA_REPORT_Datasource">
       <ConnectionProperties>
         <DataProvider>System.Data.SqlClient</DataProvider>
-        <ConnectString>Data Source=(LocalDB)\v11.0;AttachDbFilename=Q:\Source\Repos\Summer.Batch\Summer.Batch\Summer.Batch.CoreTests\BA_REPORTS.mdf</ConnectString>
+        <ConnectString>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=Q:\Source\Repos\Summer.Batch\Summer.Batch\Summer.Batch.CoreTests\BA_REPORTS.mdf</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:DataSourceID>3aefd6bb-e160-4c05-8f9f-71b0a6530144</rd:DataSourceID>

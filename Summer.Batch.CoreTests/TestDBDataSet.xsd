@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection ConnectionStringObject="Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VisualStudioProjects\Batch\Summer.Batch\Summer.Batch.CoreTests\TestDB.mdf;Integrated Security=True;Connect Timeout=30" IsAppSettingsProperty="false" Modifier="Assembly" Name="TestDB.mdf" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+          <Connection ConnectionStringObject="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VisualStudioProjects\Batch\Summer.Batch\Summer.Batch.CoreTests\TestDB.mdf;Integrated Security=True;Connect Timeout=30" IsAppSettingsProperty="false" Modifier="Assembly" Name="TestDB.mdf" ParameterPrefix="@" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables />
         <Sources />

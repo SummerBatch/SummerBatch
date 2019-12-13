@@ -63,7 +63,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
             {
                 
                 string rvConnection =
-                    @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\BA_REPORTS.mdf";
+                    @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BA_REPORTS.mdf";
                 string dataProvider = "System.Data.SqlClient";
                 string sqlCommand =
                     "SELECT e.empId, e.empName, c.name, e.empDob, e.empSalary, e.emailId, a.buildingNo, a.streetName, a.city, " +

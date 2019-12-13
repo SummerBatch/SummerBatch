@@ -35,7 +35,7 @@ namespace Summer.Batch.CoreTests.Batch.Tasklets
         private static readonly string TestPathIn = Path.Combine(TestDataDirectoryIn, "myscript.sql");
 
         private const string ConnectionString 
-            = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\NewTestDB.mdf;Integrated Security=True;Connect Timeout=30";
+            = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\NewTestDB.mdf;Integrated Security=True;Connect Timeout=30";
         private const string ProviderName = "System.Data.SqlClient";
 
         private static readonly ConnectionStringSettings ConnectionStringSettings = new ConnectionStringSettings

@@ -325,8 +325,7 @@ namespace Summer.Batch.Extra.IO
         {
             var toDelete = new HashSet<IResource>();
             var startingResources = _startingResources[path];
-            var newResources = resources.Except(startingResources.Values).ToList();
-            foreach (var resource in newResources)
+            foreach (var resource in resources)
             {
                 var numberToDelete = GetGenerationNumber(resource) - options.Limit;
                 if (numberToDelete < 0)
