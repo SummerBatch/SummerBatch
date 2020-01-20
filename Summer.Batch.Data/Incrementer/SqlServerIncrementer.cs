@@ -12,7 +12,6 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System;
 using System.Linq;
 
 namespace Summer.Batch.Data.Incrementer
@@ -37,26 +36,15 @@ namespace Summer.Batch.Data.Incrementer
                 _nextValueIndex = 0;
                 using (var connection = GetConnection())
                 {
-                    using (var insertCommand = GetCommand(string.Format("insert into {0} default values; select scope_identity();", IncrementerName), connection))
+                    using (var insertCommand = GetCommand(string.Format("SELECT NEXT VALUE FOR {0};", IncrementerName), connection))
                     {
                         for (var i = 0; i < CacheSize; i++)
                         {
                             var result = insertCommand.ExecuteScalar();
-                            if (result is decimal)
-                            {
-                                _valueCache[i] = Convert.ToInt64((decimal)result);
-                            }
-                            else
-                            {
-                                throw new Exception("scope_identity() failed after executing an update");
-                            }
+                            _valueCache[i] = (long)result;
                         }
                     }
                     var maxValue = _valueCache.Last();
-                    using (var deleteCommand = GetCommand(string.Format("delete from {0} where {1} < {2}", IncrementerName, ColumnName, maxValue), connection))
-                    {
-                        deleteCommand.ExecuteNonQuery();
-                    }
                 }
             }
             return _valueCache[_nextValueIndex++];
