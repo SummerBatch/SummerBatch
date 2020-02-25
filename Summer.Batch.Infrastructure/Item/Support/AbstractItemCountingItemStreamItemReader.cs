@@ -45,7 +45,7 @@ namespace Summer.Batch.Infrastructure.Item.Support
     {
         private const string ReadCount = "read.count";
         private const string ReadCountMax = "read.count.max";
-
+        private const string BufferReader = "batch.bufferReader";
         private int _maxItemCount = int.MaxValue;
         private bool _saveState = true;
 
@@ -160,10 +160,23 @@ namespace Summer.Batch.Infrastructure.Item.Support
             {
                 Assert.NotNull(executionContext, "executionContext must not be null");
                 executionContext.PutInt(GetExecutionContextKey(ReadCount), CurrentItemCount);
+                UpdateForBufferedReader(executionContext);
                 if (_maxItemCount < int.MaxValue)
                 {
                     executionContext.PutInt(GetExecutionContextKey(ReadCountMax), _maxItemCount);
                 }
+            }
+        }
+        /// <summary>
+        /// Updates the execution for BufferReader
+        /// </summary>
+        /// <param name="executionContext"></param>
+        private void UpdateForBufferedReader(ExecutionContext executionContext)
+        {
+            if (executionContext.ContainsKey(BufferReader) && (bool)executionContext.Get(BufferReader))
+            {
+                CurrentItemCount--;
+                executionContext.Put(BufferReader, false);
             }
         }
 
