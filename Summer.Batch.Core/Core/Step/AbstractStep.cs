@@ -157,6 +157,7 @@ namespace Summer.Batch.Core.Step
             catch (Exception e)
             {
                 exitStatus = HandleExecutionException(stepExecution, e, exitStatus);
+                throw;
             }
             finally
             {
@@ -164,7 +165,7 @@ namespace Summer.Batch.Core.Step
                 exitStatus = HandleUpdateExecutionContext(stepExecution, exitStatus);
                 HandleUpdateStepExecution(stepExecution, exitStatus);
                 HandleCloseAndRelease(stepExecution);
-
+                stepExecution.ExecutionContext.Put("batch.executed", true);
                 if (Logger.IsDebugEnabled)
                 {
                     Logger.Debug("Step execution complete:{0}", stepExecution.GetSummary());
@@ -252,7 +253,10 @@ namespace Summer.Batch.Core.Step
             ExitStatus returnedExitStatus = exitStatus;
             try
             {
-                JobRepository.UpdateExecutionContext(stepExecution);
+                if (!exitStatus.ExitCode.Equals(ExitStatus.Failed.ExitCode))
+                {
+                    JobRepository.UpdateExecutionContext(stepExecution);
+                }
             }
             catch (Exception e)
             {
