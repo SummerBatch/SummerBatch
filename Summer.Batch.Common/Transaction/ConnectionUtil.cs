@@ -55,13 +55,13 @@ namespace Summer.Batch.Common.Transaction
         public static void ReleaseConnections()
         {
             /* V1.1.11 -> Release connection removed to allow reuse of the same connection
-             * and avoid issue with the transaction coordinator.
+             * and avoid issue with the transaction coordinator.*/
             foreach (var connection in Connections.Value.Values.Where(c => c != null && c.State == ConnectionState.Open))
             {
                 connection.Close();
             }
             Connections.Value.Clear();
-            */
+            
         }
     }
 }
