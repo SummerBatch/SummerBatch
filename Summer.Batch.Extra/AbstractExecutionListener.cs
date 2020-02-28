@@ -26,7 +26,7 @@ namespace Summer.Batch.Extra
     /// </summary>
     public class AbstractExecutionListener : IStepExecutionListener
     {
-
+        private const string Restart = "batch.restart";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace Summer.Batch.Extra
         public virtual void BeforeStep(StepExecution stepExecution)
         {
             RegisterContexts(stepExecution);
-            Preprocess();
-
+            if (!stepExecution.ExecutionContext.ContainsKey(Restart))
+                Preprocess();
         }
 
         /// <summary>
