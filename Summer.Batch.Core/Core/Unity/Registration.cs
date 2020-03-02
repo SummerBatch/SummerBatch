@@ -18,7 +18,7 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Summer.Batch.Core.Unity.Injection;
 using Summer.Batch.Core.Unity.StepScope;
-
+using Summer.Batch.Infrastructure.Item.File;
 namespace Summer.Batch.Core.Unity
 {
     /// <summary>
@@ -120,6 +120,11 @@ namespace Summer.Batch.Core.Unity
             _name = name;
             _lifetimeManager = lifetimeManager;
             _container = container;
+            if(typeof(TTo).Name.Contains("FlatFileItemWriter"))
+            {
+                Property("Name");
+                Value(_name+"/FlatFileItemWriter");
+            }
         }
 
         /// <summary>

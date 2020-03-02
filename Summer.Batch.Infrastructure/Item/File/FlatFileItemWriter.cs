@@ -55,7 +55,8 @@ namespace Summer.Batch.Infrastructure.Item.File
     {
         private const string RestartDataName = "current.count";
         private const string WrittenStatisticsName = "written";
-
+        private const string WriteInProcess = "batch.writeInProcess";
+        private const string ProcessWriterPreFix = "WriteInProcess/";
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -192,6 +193,10 @@ namespace Summer.Batch.Infrastructure.Item.File
 
             if (_initialized) { return; }
 
+            if (executionContext.ContainsKey(WriteInProcess) && executionContext.ContainsKey(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName)))
+            {
+                RestoreWriteInProcessFrom(executionContext);
+            }
             if (executionContext.ContainsKey(GetExecutionContextKey(RestartDataName)))
             {
                 RestoreFrom(executionContext);
@@ -240,7 +245,12 @@ namespace Summer.Batch.Infrastructure.Item.File
 
             Assert.NotNull(executionContext, "Execution context must not be null");
 
-            if (SaveState)
+            if (executionContext.ContainsKey(WriteInProcess) && (bool)executionContext.Get(WriteInProcess) && SaveState)
+            {
+                executionContext.PutLong(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName), GetPosition());
+                executionContext.PutLong(ProcessWriterPreFix+GetExecutionContextKey(WrittenStatisticsName), _linesWritten);
+            }
+            else
             {
                 executionContext.PutLong(GetExecutionContextKey(RestartDataName), GetPosition());
                 executionContext.PutLong(GetExecutionContextKey(WrittenStatisticsName), _linesWritten);
@@ -299,7 +309,20 @@ namespace Summer.Batch.Infrastructure.Item.File
                 _restarted = true;
             }
         }
-
+        private void RestoreWriteInProcessFrom(ExecutionContext executionContext)
+        {
+            _lastMarkedByteOffsetPosition = executionContext.GetLong(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName));
+            _linesWritten = executionContext.GetLong(ProcessWriterPreFix+GetExecutionContextKey(WrittenStatisticsName));
+            if (DeleteIfEmpty && _linesWritten == 0)
+            {
+                _restarted = false;
+                _lastMarkedByteOffsetPosition = 0;
+            }
+            else
+            {
+                _restarted = true;
+            }
+        }
         private void InitializeWriter()
         {
             var file = Resource.GetFileInfo();
