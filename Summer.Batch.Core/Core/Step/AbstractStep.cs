@@ -157,7 +157,6 @@ namespace Summer.Batch.Core.Step
             catch (Exception e)
             {
                 exitStatus = HandleExecutionException(stepExecution, e, exitStatus);
-                throw;
             }
             finally
             {
@@ -294,6 +293,7 @@ namespace Summer.Batch.Core.Step
             {
                 Logger.Error(e, "Exception in afterStep callback in step {0} in job {1}", Name,
                     stepExecution.JobExecution.JobInstance.JobName);
+                returnedExitStatus = returnedExitStatus.And(GetDefaultExitStatusForFailure(e));
             }
             return returnedExitStatus;
         }
