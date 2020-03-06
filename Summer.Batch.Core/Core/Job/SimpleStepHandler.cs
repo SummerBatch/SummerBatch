@@ -172,7 +172,10 @@ namespace Summer.Batch.Core.Job
                 throw;
             }
 
-            JobRepository.UpdateExecutionContext(execution);
+            if (!currentStepExecution.ExitStatus.ExitCode.Equals(ExitStatus.Failed.ExitCode))
+            {
+                JobRepository.UpdateExecutionContext(execution);
+            }
         }
 
         /// <summary>
