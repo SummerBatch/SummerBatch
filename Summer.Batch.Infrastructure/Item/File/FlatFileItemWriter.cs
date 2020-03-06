@@ -340,7 +340,7 @@ namespace Summer.Batch.Infrastructure.Item.File
             {
                 if (file.Length < _lastMarkedByteOffsetPosition)
                 {
-                    throw new ItemStreamException("Current file size is maller that size at last commit.");
+                    throw new ItemStreamException("Current file size is smaller that size at last commit.");
                 }
                 _fileStream.SetLength(_lastMarkedByteOffsetPosition);
                 _fileStream.Position = _lastMarkedByteOffsetPosition;
