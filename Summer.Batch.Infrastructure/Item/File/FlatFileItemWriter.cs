@@ -193,14 +193,23 @@ namespace Summer.Batch.Infrastructure.Item.File
 
             if (_initialized) { return; }
 
-            if (executionContext.ContainsKey(WriteInProcess) && executionContext.ContainsKey(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName)))
+            if ((executionContext.ContainsKey(WriteInProcess) && (bool)executionContext.Get(WriteInProcess)))
             {
-                RestoreWriteInProcessFrom(executionContext);
+                executionContext.Put(WriteInProcess, false);
+                if (executionContext.ContainsKey(ProcessWriterPreFix + GetExecutionContextKey(RestartDataName)))
+                {
+                    RestoreWriteInProcessFrom(executionContext);
+                }
             }
-            if (executionContext.ContainsKey(GetExecutionContextKey(RestartDataName)))
+            else
             {
-                RestoreFrom(executionContext);
+                if (executionContext.ContainsKey(GetExecutionContextKey(RestartDataName)))
+                {
+                    RestoreFrom(executionContext);
+                }
             }
+            
+
             InitializeWriter();
 
             if (_lastMarkedByteOffsetPosition == 0 && !_appending && HeaderWriter != null)

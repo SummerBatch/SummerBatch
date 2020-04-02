@@ -88,7 +88,7 @@ namespace Summer.Batch.Extra.Process
         /// </summary>
         public void InitStream()
         {
-            
+            StepContextManager.Context.Put(WriteInProcess, true);
             if (!_initDone)
             {
                 if (_stream != null)
@@ -96,10 +96,6 @@ namespace Summer.Batch.Extra.Process
                     _stream.Open(StepContextManager.Context);
                     _initDone = true;
                 }
-            }
-            else
-            {
-                StepContextManager.Context.Put(WriteInProcess, true);
             }
         }
 
