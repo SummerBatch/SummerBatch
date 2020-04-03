@@ -76,6 +76,13 @@ namespace Summer.Batch.Core.Partition.Support
         public ICollection<StepExecution> Handle(IStepExecutionSplitter stepSplitter, StepExecution masterStepExecution)
         {
             HashSet<StepExecution> stepExecutions = stepSplitter.Split(masterStepExecution, _gridSize);
+            if (masterStepExecution.ExecutionContext.ContainsKey("batch.restart"))
+            {
+                foreach(StepExecution stepExecution in stepExecutions)
+                {
+                    stepExecution.ExecutionContext.Put("batch.restart", true);
+                }
+            }
             return DoHandle(masterStepExecution, stepExecutions);
         }
     }
