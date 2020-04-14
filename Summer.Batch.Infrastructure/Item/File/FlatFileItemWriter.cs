@@ -55,7 +55,8 @@ namespace Summer.Batch.Infrastructure.Item.File
     {
         private const string RestartDataName = "current.count";
         private const string WrittenStatisticsName = "written";
-
+        private const string WriteInProcess = "batch.writeInProcess";
+        private const string ProcessWriterPreFix = "WriteInProcess/";
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -192,10 +193,23 @@ namespace Summer.Batch.Infrastructure.Item.File
 
             if (_initialized) { return; }
 
-            if (executionContext.ContainsKey(GetExecutionContextKey(RestartDataName)))
+            if ((executionContext.ContainsKey(WriteInProcess) && (bool)executionContext.Get(WriteInProcess)))
             {
-                RestoreFrom(executionContext);
+                executionContext.Put(WriteInProcess, false);
+                if (executionContext.ContainsKey(ProcessWriterPreFix + GetExecutionContextKey(RestartDataName)))
+                {
+                    RestoreWriteInProcessFrom(executionContext);
+                }
             }
+            else
+            {
+                if (executionContext.ContainsKey(GetExecutionContextKey(RestartDataName)))
+                {
+                    RestoreFrom(executionContext);
+                }
+            }
+            
+
             InitializeWriter();
 
             if (_lastMarkedByteOffsetPosition == 0 && !_appending && HeaderWriter != null)
@@ -240,7 +254,12 @@ namespace Summer.Batch.Infrastructure.Item.File
 
             Assert.NotNull(executionContext, "Execution context must not be null");
 
-            if (SaveState)
+            if (executionContext.ContainsKey(WriteInProcess) && (bool)executionContext.Get(WriteInProcess) && SaveState)
+            {
+                executionContext.PutLong(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName), GetPosition());
+                executionContext.PutLong(ProcessWriterPreFix+GetExecutionContextKey(WrittenStatisticsName), _linesWritten);
+            }
+            else
             {
                 executionContext.PutLong(GetExecutionContextKey(RestartDataName), GetPosition());
                 executionContext.PutLong(GetExecutionContextKey(WrittenStatisticsName), _linesWritten);
@@ -299,7 +318,20 @@ namespace Summer.Batch.Infrastructure.Item.File
                 _restarted = true;
             }
         }
-
+        private void RestoreWriteInProcessFrom(ExecutionContext executionContext)
+        {
+            _lastMarkedByteOffsetPosition = executionContext.GetLong(ProcessWriterPreFix+GetExecutionContextKey(RestartDataName));
+            _linesWritten = executionContext.GetLong(ProcessWriterPreFix+GetExecutionContextKey(WrittenStatisticsName));
+            if (DeleteIfEmpty && _linesWritten == 0)
+            {
+                _restarted = false;
+                _lastMarkedByteOffsetPosition = 0;
+            }
+            else
+            {
+                _restarted = true;
+            }
+        }
         private void InitializeWriter()
         {
             var file = Resource.GetFileInfo();
@@ -317,7 +349,7 @@ namespace Summer.Batch.Infrastructure.Item.File
             {
                 if (file.Length < _lastMarkedByteOffsetPosition)
                 {
-                    throw new ItemStreamException("Current file size is maller that size at last commit.");
+                    throw new ItemStreamException("Current file size is smaller that size at last commit.");
                 }
                 _fileStream.SetLength(_lastMarkedByteOffsetPosition);
                 _fileStream.Position = _lastMarkedByteOffsetPosition;

@@ -33,6 +33,8 @@ namespace Summer.Batch.Extra.Delegating
     {
 
         #region Attributes
+        private const string BufferReader = "batch.bufferReader";
+        private const string Restart = "batch.restart";
         /// <summary>
         /// The delegate, i.e. the real reader that is grouped.
         /// </summary>
@@ -62,6 +64,11 @@ namespace Summer.Batch.Extra.Delegating
         /// Boolean to know if this is the first read.
         /// </summary>
         private bool _isFirst = true;
+
+        /// <summary>
+        /// Boolean to know if this is the second read.
+        /// </summary>
+        private bool _isSecond = false;
         #endregion
 
         /// <summary>
@@ -102,6 +109,11 @@ namespace Summer.Batch.Extra.Delegating
         public void Update(ExecutionContext executionContext)
         {
             var stream = Delegate as IItemStream;
+            if (_isSecond)
+            {
+                executionContext.Put(BufferReader, true);
+                _isSecond = false;
+            }
             if (stream != null)
             {
                 stream.Update(executionContext);
@@ -146,6 +158,7 @@ namespace Summer.Batch.Extra.Delegating
                 // Read first record through delegate. 
                 _buffer = Delegate.Read();
                 _isFirst = false;
+                _isSecond = true;
                 if (_buffer != null)
                 {
                     // Compute the values for the rupture fields of the buffer

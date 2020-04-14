@@ -157,7 +157,7 @@ namespace Summer.Batch.Extra.Ebcdic
                 {
                     if (file.Length < _lastMarkedByteOffsetPosition)
                     {
-                        throw new ItemStreamException("Current file size is maller that size at last commit.");
+                        throw new ItemStreamException("Current file size is smaller that size at last commit.");
                     }
                     _outputStream.SetLength(_lastMarkedByteOffsetPosition);
                     _outputStream.Position = _lastMarkedByteOffsetPosition;

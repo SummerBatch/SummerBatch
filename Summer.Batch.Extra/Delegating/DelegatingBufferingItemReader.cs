@@ -27,6 +27,8 @@ namespace Summer.Batch.Extra.Delegating
     public class DelegatingBufferingItemReader<T> : IItemStreamReader<T> where T : class
     {
 
+        private const string BufferReader = "batch.bufferReader";
+        private const string Restart = "batch.restart";
         /// <summary>
         /// The delegate, i.e. the real reader that is buffered.
         /// </summary>
@@ -46,6 +48,11 @@ namespace Summer.Batch.Extra.Delegating
         /// Boolean to know if this is the first read.
         /// </summary>
         private bool _isFirst = true;
+
+        /// <summary>
+        /// Boolean to know if this is the second read.
+        /// </summary>
+        private bool _isSecond = false;
 
         /// <summary>
         /// Simply delegating to the inner buffered reader.
@@ -70,6 +77,11 @@ namespace Summer.Batch.Extra.Delegating
         public void Update(ExecutionContext executionContext)
         {
             var stream = Delegate as IItemStream;
+            if (_isSecond)
+            {
+                executionContext.Put(BufferReader, true);
+                _isSecond = false;
+            }
             if (stream != null)
             {
                 stream.Update(executionContext);
@@ -114,6 +126,7 @@ namespace Summer.Batch.Extra.Delegating
                //read first record through delegate
                 toReturn = Delegate.Read();
                 _isFirst = false;
+                _isSecond = true;
             }
             else
             {

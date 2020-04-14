@@ -46,7 +46,7 @@ namespace Summer.Batch.Core.Step.Item
     public class ChunkOrientedTasklet<TI> : ITasklet where TI:class
     {
         private const string InputsKey = "INPUTS";
-
+        private const string WriteInProcess = "batch.writeInProcess";
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         #region Attributes
@@ -120,6 +120,10 @@ namespace Summer.Batch.Core.Step.Item
 
             chunkContext.RemoveAttribute(InputsKey);
             chunkContext.SetComplete();
+            if (chunkContext.StepContext.StepExecution.ExecutionContext.ContainsKey(WriteInProcess) &&
+                (bool)chunkContext.StepContext.StepExecution.ExecutionContext.Get(WriteInProcess))
+                chunkContext.StepContext.StepExecution.ExecutionContext.Put(WriteInProcess, false);
+
             if (_logger.IsDebugEnabled)
             {
                 _logger.Debug("Inputs not busy, ended: {0}" , inputs.End);

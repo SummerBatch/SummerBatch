@@ -48,6 +48,7 @@ namespace Summer.Batch.Extra.Process
         {
             InitStream();
             _writer.Write(new List<T> {obj});
+            UpdateStream();
         }
     }
 }

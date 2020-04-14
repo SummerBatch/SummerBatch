@@ -37,7 +37,7 @@ using Summer.Batch.Core.Repository;
 using Summer.Batch.Common.Factory;
 using Summer.Batch.Infrastructure.Item;
 using Summer.Batch.Common.Util;
-
+using System;
 namespace Summer.Batch.Core.Job
 {
     /// <summary>
@@ -163,7 +163,7 @@ namespace Summer.Batch.Core.Job
                 step.Execute(currentStepExecution);
                 currentStepExecution.ExecutionContext.Put("batch.executed", true);
             }
-            catch (JobInterruptedException)
+            catch (Exception)
             {
                 // Ensure that the job gets the message that it is stopping
                 // and can pass it on to other steps that are executing
@@ -172,7 +172,10 @@ namespace Summer.Batch.Core.Job
                 throw;
             }
 
-            JobRepository.UpdateExecutionContext(execution);
+            if (!currentStepExecution.ExitStatus.ExitCode.Equals(ExitStatus.Failed.ExitCode))
+            {
+                JobRepository.UpdateExecutionContext(execution);
+            }
         }
 
         /// <summary>
@@ -186,6 +189,7 @@ namespace Summer.Batch.Core.Job
             if (isRestart)
             {
                 currentStepExecution.ExecutionContext = lastStepExecution.ExecutionContext;
+                currentStepExecution.ExecutionContext.Put("batch.restart", true);
                 if (lastStepExecution.ExecutionContext.ContainsKey("batch.executed"))
                 {
                     currentStepExecution.ExecutionContext.Remove("batch.executed");

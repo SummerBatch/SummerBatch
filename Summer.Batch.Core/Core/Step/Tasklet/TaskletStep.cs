@@ -215,7 +215,7 @@ namespace Summer.Batch.Core.Step.Tasklet
             _stream.Update(stepExecution.ExecutionContext);
 
             JobRepository.UpdateExecutionContext(stepExecution);
-
+            JobRepository.UpdateExecutionContext(stepExecution.JobExecution);
             // Shared semaphore per step execution, so other step executions can run
             // in parallel without needing the lock
             Semaphore semaphore = CreateSemaphore();
@@ -396,6 +396,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                         // Going to attempt a commit. If it fails this flag will
                         // stay false and we can use that later.
                         _ownerStep.JobRepository.UpdateExecutionContext(_stepExecution);
+                        _ownerStep.JobRepository.UpdateExecutionContext(_stepExecution.JobExecution);
                         _stepExecution.IncrementCommitCount();
                         if (Logger.IsDebugEnabled)
                         {

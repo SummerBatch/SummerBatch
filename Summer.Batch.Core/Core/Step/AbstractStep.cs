@@ -164,7 +164,7 @@ namespace Summer.Batch.Core.Step
                 exitStatus = HandleUpdateExecutionContext(stepExecution, exitStatus);
                 HandleUpdateStepExecution(stepExecution, exitStatus);
                 HandleCloseAndRelease(stepExecution);
-
+                stepExecution.ExecutionContext.Put("batch.executed", true);
                 if (Logger.IsDebugEnabled)
                 {
                     Logger.Debug("Step execution complete:{0}", stepExecution.GetSummary());
@@ -252,7 +252,10 @@ namespace Summer.Batch.Core.Step
             ExitStatus returnedExitStatus = exitStatus;
             try
             {
-                JobRepository.UpdateExecutionContext(stepExecution);
+                if (!exitStatus.ExitCode.Equals(ExitStatus.Failed.ExitCode))
+                {
+                    JobRepository.UpdateExecutionContext(stepExecution);
+                }
             }
             catch (Exception e)
             {
@@ -290,6 +293,7 @@ namespace Summer.Batch.Core.Step
             {
                 Logger.Error(e, "Exception in afterStep callback in step {0} in job {1}", Name,
                     stepExecution.JobExecution.JobInstance.JobName);
+                returnedExitStatus = returnedExitStatus.And(GetDefaultExitStatusForFailure(e));
             }
             return returnedExitStatus;
         }
