@@ -1,5 +1,11 @@
 Summer Batch
 ============
+Release 1.2 - April 2020
+	- Added restart support when failure occurs on pre and post processor
+	- Fixes restart issues with DelegatedItemWriter used within a processor
+	- Fixes restart issues with FlatFileItemWriter used within a processor
+	- Fixes restart issues related to DelegatingGroupReader/DelegatingBufferingItemReader
+
 Release 1.1.5 - November 2017
 -------------------------------
 
