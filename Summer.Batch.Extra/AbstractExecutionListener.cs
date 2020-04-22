@@ -28,6 +28,7 @@ namespace Summer.Batch.Extra
     public class AbstractExecutionListener : IStepExecutionListener
     {
         private const string Restart = "batch.restart";
+        private const string PreProcessor = "batch.preprocessor";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -69,8 +70,23 @@ namespace Summer.Batch.Extra
         public virtual void BeforeStep(StepExecution stepExecution)
         {
             RegisterContexts(stepExecution);
-            if (!stepExecution.ExecutionContext.ContainsKey(Restart))
-                Preprocess();
+            if (!stepExecution.ExecutionContext.ContainsKey(PreProcessor))
+            {
+                stepExecution.ExecutionContext.Put(PreProcessor, true);
+            }
+           
+            if (!stepExecution.ExecutionContext.ContainsKey(Restart) || (stepExecution.ExecutionContext.ContainsKey(PreProcessor) && (bool)stepExecution.ExecutionContext.Get(PreProcessor)))
+            {
+                try
+                {
+                    Preprocess();
+                    stepExecution.ExecutionContext.Put(PreProcessor, false);
+                }
+                catch(Exception e)
+                {
+                    throw;
+                }
+            }
         }
 
         /// <summary>
