@@ -13,6 +13,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Transactions;
 using Microsoft.Practices.Unity;
 using NLog;
 using Summer.Batch.Common.Transaction;
@@ -100,7 +104,9 @@ namespace Summer.Batch.Extra
             ExitStatus returnStatus = stepExecution.ExitStatus;
             if (!"FAILED".Equals(returnStatus.ExitCode))
             {
-                using (var scope = TransactionScopeManager.CreateScope())
+                var transactionOptions = new TransactionOptions();
+                transactionOptions.IsolationLevel = IsolationLevel.ReadCommitted;
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     try
                     {
