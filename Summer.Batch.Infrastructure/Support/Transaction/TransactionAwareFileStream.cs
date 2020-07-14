@@ -148,7 +148,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
                 }
                 else
                 {
-                    Logger.Info("Flush - writer already disposed by transaction.");
+                    Logger.Trace("Flush - writer already disposed by transaction.");
                 }
 
             }
@@ -164,11 +164,11 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
             Write(_internalBuffer.ToArray(), 0, _internalBuffer.Count);
             _internalBuffer.Clear();
             //flush
-            Logger.Info("Complete - base.Flush()");
+            Logger.Trace("Complete - base.Flush()");
             Flush();
             if (_shouldClose)
             {
-                Logger.Info("Complete - base.Dispose(true)");
+                Logger.Trace("Complete - base.Dispose(true)");
                 Dispose(true);
             }
         }
@@ -179,35 +179,35 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            Logger.Info("WaitOne - before waitone");
+            Logger.Trace("WaitOne - before waitone");
             _pool.WaitOne();
-            Logger.Info("WaitOne - after waitone");
+            Logger.Trace("WaitOne - after waitone");
             if (disposing)
             {
                 TransactionScopeManager.UnregisterResource(this);
                 if (IsTransactionActive())
                 {
-                    Logger.Info("Dispose - _shouldClose = true");
+                    Logger.Trace("Dispose - _shouldClose = true");
                     _shouldClose = true;
                 }
                 else
                 {
                     if (!_disposed)
                     {
-                        Logger.Info("Dispose - base.Dispose(true)");
+                        Logger.Trace("Dispose - base.Dispose(true)");
                         _disposed = true;
                         base.Dispose(true);
                     }
                     else
                     {
-                        Logger.Info("Dispose - already disposed");
+                        Logger.Trace("Dispose - already disposed");
                     }
 
                 }
             }
-            Logger.Info("Release - before release");
+            Logger.Trace("Release - before release");
             _pool.Release();
-            Logger.Info("Release - after release");
+            Logger.Trace("Release - after release");
         }
     }
 }
