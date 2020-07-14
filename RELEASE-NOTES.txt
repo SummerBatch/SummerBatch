@@ -1,7 +1,12 @@
 Summer Batch
 ============
+Release 1.2.3 - July 2020
+	- Minor update to the Logger level
+
+-------------------------------
 Release 1.2.2 - July 2020
 	- Handling async callbacks from DTC drivers to ensure streams are flushed only once and closed properly
+
 --------------------------------
 Release 1.2.1 - April 2020
 	- Fixes issues with preprocessor and FlatFileItemWriter restartability
