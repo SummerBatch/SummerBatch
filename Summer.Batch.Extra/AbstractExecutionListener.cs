@@ -13,6 +13,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Microsoft.Practices.Unity;
 using NLog;
 using Summer.Batch.Common.Transaction;
@@ -30,7 +33,6 @@ namespace Summer.Batch.Extra
         private const string Restart = "batch.restart";
         private const string PreProcessor = "batch.preprocessor";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         /// <summary>
         /// The context manager for the job context.
         /// </summary>
@@ -89,32 +91,36 @@ namespace Summer.Batch.Extra
             }
         }
 
-        /// <summary>
-        /// Logic launched after the step. Will launch the postprocessor.
-        /// @see IStepExecutionListener#AfterStep
-        /// </summary>
-        /// <param name="stepExecution"></param>
-        /// <returns></returns>
-        public virtual ExitStatus AfterStep(StepExecution stepExecution)
+    /// <summary>
+    /// Logic launched after the step. Will launch the postprocessor.
+    /// @see IStepExecutionListener#AfterStep
+    /// </summary>
+    /// <param name="stepExecution"></param>
+    /// <returns></returns>
+    public virtual ExitStatus AfterStep(StepExecution stepExecution)
         {
             ExitStatus returnStatus = stepExecution.ExitStatus;
             if (!"FAILED".Equals(returnStatus.ExitCode))
             {
-                using (var scope = TransactionScopeManager.CreateScope())
+                MethodInfo post = this.GetType().GetMethod("Postprocess", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (post.DeclaringType != typeof(AbstractExecutionListener))
                 {
-                    try
+                    using (var scope = TransactionScopeManager.CreateScope())
                     {
-                        returnStatus = Postprocess();
+                        try
+                        {
+                            returnStatus = Postprocess();
+                        }
+                        catch (Exception e)
+                        {
+                            // Need to catch exception to log and set status to FAILED, while
+                            // Spring batch would only log and keep the status COMPLETED
+                            Logger.Error(e, "Exception during postprocessor");
+                            stepExecution.UpgradeStatus(BatchStatus.Failed);
+                            throw;
+                        }
+                        scope.Complete();
                     }
-                    catch (Exception e)
-                    {
-                        // Need to catch exception to log and set status to FAILED, while
-                        // Spring batch would only log and keep the status COMPLETED
-                        Logger.Error(e, "Exception during postprocessor");
-                        stepExecution.UpgradeStatus(BatchStatus.Failed);
-                        throw;
-                    }
-                    scope.Complete();
                 }
             }
             return returnStatus;

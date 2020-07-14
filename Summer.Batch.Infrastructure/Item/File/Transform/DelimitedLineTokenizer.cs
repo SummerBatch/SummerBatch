@@ -188,6 +188,10 @@ namespace Summer.Batch.Infrastructure.Item.File.Transform
         {
             while (chars[start] == ' ')
             {
+                if (start == end)
+                {
+                    break;
+                }
                 start++;
             }
             if (chars[start] != QuoteCharacter)
