@@ -70,6 +70,11 @@ namespace Summer.Batch.Core.Step.Builder
         {
         }
 
+        protected AbstractTaskletStepBuilder(IUnityContainer container, string name, int delayConfig)
+           : base(container, name, delayConfig)
+        {
+        }
+
         /// <summary>
         /// Sets the task executor.
         /// </summary>

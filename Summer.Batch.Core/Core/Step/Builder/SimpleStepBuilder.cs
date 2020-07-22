@@ -82,6 +82,13 @@ namespace Summer.Batch.Core.Step.Builder
             _outType = outType;
         }
 
+        public SimpleStepBuilder(IUnityContainer container, string name, Type inType, Type outType, int delayConfig)
+            : base(container, name, delayConfig)
+        {
+            _inType = inType;
+            _outType = outType;
+        }
+
         /// <summary>
         /// Sets the reader.
         /// </summary>
