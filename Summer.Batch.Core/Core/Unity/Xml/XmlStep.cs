@@ -44,5 +44,11 @@ namespace Summer.Batch.Core.Unity.Xml
         /// </summary>
         [XmlElement("partition")]
         public XmlPartition Partition { get; set; }
+
+        /// <summary>
+        /// configuration for adding delay at the end of each chunk
+        /// </summary>
+        [XmlAttribute("delay-config")]
+        public string DelayConfig { get; set; } = "10";
     }
 }

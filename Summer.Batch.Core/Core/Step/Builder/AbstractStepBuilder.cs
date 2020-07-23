@@ -75,6 +75,8 @@ namespace Summer.Batch.Core.Step.Builder
         /// </summary>
         public IJobRepository JobRepository { get; set; }
 
+        public int DelayConfig { get; set; }
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -85,6 +87,14 @@ namespace Summer.Batch.Core.Step.Builder
             Container = container;
             Name = name;
             StartLimit = int.MaxValue;
+        }
+
+        protected AbstractStepBuilder(IUnityContainer container, string name, int delayConfig)
+        {
+            Container = container;
+            Name = name;
+            StartLimit = int.MaxValue;
+            DelayConfig = delayConfig;
         }
 
         /// <summary>
@@ -138,7 +148,8 @@ namespace Summer.Batch.Core.Step.Builder
             {
                 new InjectionProperty("JobRepository", JobRepository),
                 new InjectionProperty("AllowStartIfComplete", AllowStartIfComplete),
-                new InjectionProperty("StartLimit", StartLimit)
+                new InjectionProperty("StartLimit", StartLimit),
+                new InjectionProperty("DelayConfig", DelayConfig)
             };
             injectionMembers.AddRange(_stepExecutionListeners.Select(listener =>
                 new InjectionMethod("RegisterStepExecutionListener", new ResolvedParameter(listener.Item1, listener.Item2))));

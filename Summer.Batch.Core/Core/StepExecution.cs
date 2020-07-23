@@ -152,6 +152,16 @@ namespace Summer.Batch.Core
             set { _writeSkipCount = value; }
         }
 
+        private volatile int _delayConfig;
+
+        /// <summary>
+        /// Read count.
+        /// </summary>
+        public int DelayConfig
+        {
+            get { return _delayConfig; }
+            set { _delayConfig = value; }
+        }
 
         // NOTE TMA : DateTime not supported as volatile by C#
         private long _startTime = DateTime.Now.Ticks;

@@ -58,6 +58,8 @@ namespace Summer.Batch.Core
         /// <returns></returns>
         int StartLimit { get; set; }
 
+        int DelayConfig { get; set; }
+
         /// <summary>
         /// Executes the step.
         /// </summary>

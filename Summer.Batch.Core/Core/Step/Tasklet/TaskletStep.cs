@@ -248,7 +248,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                     }
                     // Release connections since the transaction has ended
                     ConnectionUtil.ReleaseConnections();
-
+                    Thread.Sleep(stepExecution.DelayConfig);
                     _interruptionPolicy.CheckInterrupted(stepExecution);
                     return result;
                 }

@@ -67,6 +67,7 @@ namespace Summer.Batch.Core.Step
         public bool? AllowStartIfComplete { get; set; }
         private int _startLimit = Int32.MaxValue;
         
+        public int DelayConfig { get; set; }
         /// <summary>
         /// Start limit for this step.
         /// </summary>
@@ -144,6 +145,7 @@ namespace Summer.Batch.Core.Step
             Logger.Debug("Executing: id={0}", stepExecution.Id);
             stepExecution.StartTime = DateTime.Now;
             stepExecution.BatchStatus = BatchStatus.Started;
+            stepExecution.DelayConfig = DelayConfig;
             JobRepository.Update(stepExecution);
 
             // Start with a default value that will be trumped by anything

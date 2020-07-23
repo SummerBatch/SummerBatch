@@ -1,5 +1,9 @@
 Summer Batch
 ============
+Release 1.2.4 - July 2020
+	- Added delay-config property to step configuration
+
+-------------------------------
 Release 1.2.3 - July 2020
 	- Minor update to the Logger level
 
