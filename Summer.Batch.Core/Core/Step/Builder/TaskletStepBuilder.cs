@@ -52,6 +52,9 @@ namespace Summer.Batch.Core.Step.Builder
         {
         }
 
+        public TaskletStepBuilder(IUnityContainer container, string name, int delayConfig) : base(container, name, delayConfig)
+        {
+        }
         /// <summary>
         /// Sets the tasklet.
         /// </summary>

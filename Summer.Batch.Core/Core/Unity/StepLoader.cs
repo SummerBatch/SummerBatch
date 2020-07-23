@@ -64,7 +64,7 @@ namespace Summer.Batch.Core.Unity
         {
             if (_step.Batchlet != null)
             {
-                var builder = new TaskletStepBuilder(_container, _step.Id).Tasklet(_step.Batchlet.Ref);
+                var builder = new TaskletStepBuilder(_container, _step.Id, Int32.Parse(_step.DelayConfig)).Tasklet(_step.Batchlet.Ref);
                 builder.Repository(_container.Resolve<IJobRepository>());
                 AddListeners(builder);
                 return builder.Build();
