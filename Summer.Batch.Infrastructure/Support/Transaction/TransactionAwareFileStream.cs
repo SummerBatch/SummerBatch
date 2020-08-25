@@ -19,6 +19,7 @@ using System.Transactions;
 using Summer.Batch.Common.Transaction;
 using NLog;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Summer.Batch.Infrastructure.Support.Transaction
 {
@@ -32,7 +33,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         private bool _shouldClose;
         private readonly List<byte> _internalBuffer;
         private readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
+        public TransactionStatus currentTransaction { get; set; }
         /// <summary>
         /// Custom constructor with path and FileMode.
         /// </summary>
@@ -102,6 +103,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         public void Commit(Enlistment enlistment)
         {
             Complete();
+            currentTransaction = TransactionStatus.Committed;
             enlistment.Done();
         }
 
@@ -111,6 +113,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         /// <param name="enlistment"></param>
         public void Rollback(Enlistment enlistment)
         {
+            currentTransaction = TransactionStatus.Aborted;
             enlistment.Done();
         }
 
@@ -120,6 +123,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         /// <param name="enlistment"></param>
         public void InDoubt(Enlistment enlistment)
         {
+            currentTransaction = TransactionStatus.InDoubt;
             enlistment.Done();
         }
 
@@ -130,6 +134,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         public void SinglePhaseCommit(SinglePhaseEnlistment singlePhaseEnlistment)
         {
             Complete();
+            currentTransaction = TransactionStatus.Committed;
             singlePhaseEnlistment.Committed();
         }
 
@@ -142,8 +147,10 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
             //Flush is permitted only on non-transaction context
             if (!IsTransactionActive())
             {
-                if (!_disposed)
+             if (!_disposed)
                 {
+                    
+                    Logger.Info("Flush - now flush from " + new StackFrame(1).GetMethod().DeclaringType.Name.ToString());
                     base.Flush();
                 }
                 else
@@ -158,7 +165,7 @@ namespace Summer.Batch.Infrastructure.Support.Transaction
         /// <summary>
         /// @see ISinglePhaseNotification#Complete .
         /// </summary>
-        private void Complete()
+        public void Complete()
         {
             //write buffer
             Write(_internalBuffer.ToArray(), 0, _internalBuffer.Count);

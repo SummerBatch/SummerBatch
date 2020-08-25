@@ -45,6 +45,9 @@ using System.Linq;
 using System.Threading;
 using System.Transactions;
 using ExecutionContext = Summer.Batch.Infrastructure.Item.ExecutionContext;
+using Summer.Batch.Infrastructure.Support.Transaction;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Summer.Batch.Core.Step.Tasklet
 {
@@ -219,7 +222,6 @@ namespace Summer.Batch.Core.Step.Tasklet
             // Shared semaphore per step execution, so other step executions can run
             // in parallel without needing the lock
             Semaphore semaphore = CreateSemaphore();
-
             _stepOperations.Iterate(StepContextRepeatCallback.GetRepeatCallback(stepExecution,
                 (context, chunkContext) =>
                 {
@@ -228,11 +230,10 @@ namespace Summer.Batch.Core.Step.Tasklet
 
                     ChunkTransactionCallback callback =
                         new ChunkTransactionCallback(chunkContext, semaphore, this);
-
                     RepeatStatus result;
-
-                    using (var scope = TransactionScopeManager.CreateScope())
-                    {
+                    TransactionScope previousScope;
+                    using (var scope = TransactionScopeManager.CreateScope()) 
+                    { 
                         TransactionScopeManager.RegisterTransactionSynchronization(scope, callback);
                         try
                         {
@@ -245,10 +246,12 @@ namespace Summer.Batch.Core.Step.Tasklet
                             throw; // throw to ensure rollback will occur (no complete)
                         }
                         scope.Complete();
+                        previousScope = scope;
                     }
+                    TransactionScopeManager.GetTransactionScopeCompleted(previousScope);
                     // Release connections since the transaction has ended
                     ConnectionUtil.ReleaseConnections();
-                    Thread.Sleep(stepExecution.DelayConfig);
+                    //Thread.Sleep(stepExecution.DelayConfig);
                     _interruptionPolicy.CheckInterrupted(stepExecution);
                     return result;
                 }
@@ -267,8 +270,8 @@ namespace Summer.Batch.Core.Step.Tasklet
             private bool _rolledBack;
             private bool _stepExecutionUpdated;
             private StepExecution _oldVersion;
-            private bool _locked;
-            private readonly Semaphore _semaphore;
+            public bool _locked { get; set;}
+            public readonly Semaphore _semaphore;
             private readonly TaskletStep _ownerStep;
             #endregion
 
@@ -298,7 +301,7 @@ namespace Summer.Batch.Core.Step.Tasklet
                 try
                 {
                     if (transactionInformation.Status != TransactionStatus.Committed && _stepExecutionUpdated)
-                    {                        
+                    {
                         // Wah! the commit failed. We need to rescue the step
                         // execution data.
                         Logger.Info("Commit failed while step execution data was already updated. Reverting to old version.");
@@ -317,6 +320,55 @@ namespace Summer.Batch.Core.Step.Tasklet
                         _stepExecution.SetTerminateOnly();
                     }
                 }
+                finally
+                {
+                    // Only release the lock if we acquired it, and release as late
+                    // as possible
+                    if (_locked)
+                    {
+                        _semaphore.Release();
+                    }
+                    _locked = false;
+                }
+            }
+
+            /// <summary>
+            /// see ITransactionSynchronization#AfterCompletion()
+            /// </summary>
+            public void AfterCompletion()
+            {
+                var transactionStatus = TransactionStatus.Active;
+
+                try
+                {
+                    ThreadLocal<ISet<IEnlistmentNotification>> Resources = TransactionScopeManager.GetResources();
+                    foreach (var resource in Resources.Value)
+                    {
+                        //((TransactionAwareFileStream)resource).Complete();
+                        TransactionAwareFileStream stream = resource as TransactionAwareFileStream;
+                        transactionStatus = stream.currentTransaction;
+                    }
+
+                    if (transactionStatus != TransactionStatus.Committed && _stepExecutionUpdated)
+                    {                        
+                        // Wah! the commit failed. We need to rescue the step
+                        // execution data.
+                        Logger.Info("Commit failed while step execution data was already updated. Reverting to old version.");
+                        Copy(_oldVersion, _stepExecution);
+                        if (transactionStatus == TransactionStatus.Aborted)
+                        {
+                            Rollback(_stepExecution);
+                        }
+                    }
+
+                    if (transactionStatus == TransactionStatus.InDoubt)
+                    {
+                        Logger.Error("Rolling back with transaction in unknown state");
+                        Rollback(_stepExecution);
+                        _stepExecution.UpgradeStatus(BatchStatus.Unknown);
+                        _stepExecution.SetTerminateOnly();
+                    }
+                   }
                 finally
                 {
                     // Only release the lock if we acquired it, and release as late

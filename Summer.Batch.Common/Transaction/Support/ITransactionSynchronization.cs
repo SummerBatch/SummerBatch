@@ -26,5 +26,6 @@ namespace Summer.Batch.Common.Transaction.Support
         /// </summary>
         /// <param name="transaction">the completed transaction</param>
         void AfterCompletion(System.Transactions.Transaction transaction);
+        void AfterCompletion();
     }
 }

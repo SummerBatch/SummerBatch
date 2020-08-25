@@ -16,6 +16,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Transactions;
 using NLog;
@@ -39,10 +40,15 @@ namespace Summer.Batch.Common.Transaction
         private readonly static ThreadLocal<ISet<IEnlistmentNotification>> Resources =
             new ThreadLocal<ISet<IEnlistmentNotification>>(() => new HashSet<IEnlistmentNotification>());
 
-        // Handle transaction completion event;
+
+        public static ThreadLocal<ISet<IEnlistmentNotification>> GetResources()
+        {
+            return Resources;
+        }
+        //Handle transaction completion event;
         // - Log rollbacked transactions
         // - delegates to known listeners so that they can handle the situation gracefully
-        private static TransactionCompletedEventHandler GetTransactionCompleted(TransactionScope scope)
+        public static TransactionCompletedEventHandler GetTransactionCompleted(TransactionScope scope)
         {
             return (sender, args) =>
             {
@@ -57,6 +63,23 @@ namespace Summer.Batch.Common.Transaction
                 }
                 Synchronizations.Remove(scope);
             };
+        }
+
+        //Handle transaction completion event;
+        // - Log rollbacked transactions
+        // - delegates to known listeners so that they can handle the situation gracefully
+        public static void GetTransactionScopeCompleted(TransactionScope scope)
+        {
+            //LogTransactionIfAborted(args);
+            IList<ITransactionSynchronization> scopeSynchronizations;
+            if (Synchronizations.TryGetValue(scope, out scopeSynchronizations))
+            {
+                foreach (var synchronization in scopeSynchronizations)
+                {
+                    synchronization.AfterCompletion();
+                }
+            }
+            Synchronizations.Remove(scope);
         }
 
 
@@ -99,7 +122,9 @@ namespace Summer.Batch.Common.Transaction
                 Timeout = timeout ?? TransactionManager.MaximumTimeout
             };
             var scope = new TransactionScope(scopeOption, options);
-            System.Transactions.Transaction.Current.TransactionCompleted += GetTransactionCompleted(scope);
+            //System.Transactions.Transaction.Current.TransactionCompleted += GetTransactionCompleted(scope);
+            
+
             foreach (var resource in Resources.Value)
             {
                 System.Transactions.Transaction.Current.EnlistVolatile(resource, EnlistmentOptions.None);
