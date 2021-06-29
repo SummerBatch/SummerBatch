@@ -13,8 +13,14 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Extensions.Configuration;
 
 namespace Summer.Batch.Common.Util
 {
@@ -23,6 +29,7 @@ namespace Summer.Batch.Common.Util
     /// </summary>
     public static class SerializationUtils
     {
+        private static readonly string assemblyName = "Deserialization:assemblyName";
         /// <summary>
         /// Serializes an object to a byte array.
         /// </summary>
@@ -49,7 +56,78 @@ namespace Summer.Batch.Common.Util
             using (var stream = new MemoryStream(bytes))
             {
                 var serializer = new BinaryFormatter();
-                return (T) serializer.Deserialize(stream);
+                serializer.Binder = new DeserializationBinder(GetBinderList());
+                return (T)serializer.Deserialize(stream);
+            }
+        }
+
+        private static List<string> GetBinderList()
+        {
+            List<string> assemblyList = new List<string>();
+            IConfiguration Configuration = GetConfigurationJson();
+            if (Configuration == null)
+            {
+                return assemblyList;
+            }
+            else
+            {
+                var list = Configuration.GetSection(assemblyName);
+
+                if (list != null)
+                {
+                    foreach (var section in list.GetChildren())
+                    {
+                        assemblyList.Add(section.Value);
+                    }
+                }
+            }
+
+            return assemblyList;
+
+        }
+
+
+        public static IConfiguration GetConfigurationJson()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(System.AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json",
+                optional: true,
+                reloadOnChange: true);
+
+            return builder.Build();
+        }
+
+        public sealed class DeserializationBinder : SerializationBinder
+        {
+
+            public DeserializationBinder(List<string> list)
+            {
+
+                CustomDeserializeList = list;
+            }
+
+            public List<string> CustomDeserializeList { set; get; }
+
+            private static readonly List<string> SummerBatchCore = new List<string>() { "Summer.Batch.Common", "Summer.Batch.Core", "Summer.Batch.Data", "Summer.Batch.Extra", "Summer.Batch.Infrastructure", "mscorlib", "System" };
+            public override Type BindToType(string assemblyName, string typeName)
+            {
+                Type typeToDeserialize = null;
+                Assembly currentAssembly = Assembly.Load(assemblyName);
+
+                //Get List of Class Name
+                string Name = currentAssembly.GetName().Name;
+                if (SummerBatchCore.Contains(Name) || (CustomDeserializeList.Count != 0 && CustomDeserializeList.Any(name => Name.StartsWith(name))))
+                {
+                    //The following line of code returns the type.
+                    typeToDeserialize = Type.GetType(String.Format("{0}, {1}", typeName, Name));
+                }
+                else
+                {
+                    throw new SerializationException("Failed to deserialize. Please create appsettings.json and add assembly name into assembly section of Deserialization.");
+                }
+
+                return typeToDeserialize;
             }
         }
     }
