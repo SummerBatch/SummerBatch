@@ -65,6 +65,30 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// </summary>
         public IResource[] Resources { get; set; }
 
+        private string _filePattern;
+
+        /// <summary>
+        /// Define the collection of resources using a file pattern
+        /// </summary>
+        public string FilePattern
+        {
+            get { return _filePattern; }
+            set
+            {
+                _filePattern = value;
+
+                var resourceLoader = new ResourceLoader();
+
+                var resources = (List<IResource>)resourceLoader.GetResources(_filePattern);
+
+                if (resources.Count > 0)
+                {
+                    Resources = resources.ToArray();
+                }
+            }
+        }
+
+
         /// <summary>
         /// Save state.
         /// </summary>
@@ -93,7 +117,7 @@ namespace Summer.Batch.Infrastructure.Item.File
         /// </summary>
         public MultiResourceItemReader()
         {
-            Name = typeof (MultiResourceItemReader<T>).Name;
+            Name = typeof(MultiResourceItemReader<T>).Name;
             Comparer = new DefaultComparer();
             SaveState = true;
         }
